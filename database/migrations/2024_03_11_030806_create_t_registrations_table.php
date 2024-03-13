@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nim');
             $table->string('name');
             $table->string('email');
-            $table->string('no_telepon');
+            $table->string('phone_num');
             $table->string('departement');
             $table->string('program_study');
             $table->unsignedBigInteger('created_by')->index()->nullable();

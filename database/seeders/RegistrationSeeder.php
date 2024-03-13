@@ -18,7 +18,7 @@ class RegistrationSeeder extends Seeder
             'name' => 'Muhammad Rayhan Gibran',
             'nim' => '2141762099',
             'email' => '2141762099@gmail.com',
-            'no_telepon' => '082132679938',
+            'phone_num' => '082132679938',
             'departement' => 'Teknologi Informasi',
             'program_study' => 'D4 Sistem Informasi Bisnis',
             'created_at' => now(),
