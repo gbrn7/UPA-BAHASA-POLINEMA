@@ -18,7 +18,13 @@ return new class extends Migration
             $table->string('password');
             $table->timestamps();        
             $table->softDeletes();
+            $table->unsignedBigInteger('created_by')->index()->nullable();
+            $table->unsignedBigInteger('updated_by')->index()->nullable();
+            $table->unsignedBigInteger('deleted_by')->index()->nullable();
 
+            $table->foreign(('created_by'))->references('user_id')->on('d_user');
+            $table->foreign(('updated_by'))->references('user_id')->on('d_user');
+            $table->foreign(('deleted_by'))->references('user_id')->on('d_user');
         });
     }
 

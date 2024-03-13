@@ -17,11 +17,11 @@ class RegistrationsModel extends Model
         'nim',
         'name',
         'email',
-        'activity_id',
-        'activity_id',
-        'activity_id',
-        'activity_id',
-        'activity_id',
-        'activity_id',
+        'phone_num',
+        'departement',
+        'program_study',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ]);
 }
