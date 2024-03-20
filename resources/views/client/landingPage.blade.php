@@ -296,7 +296,7 @@
           <p class="title">Link Terkait</p>
           <div class="desc">
             <div class="icon-wrap d-flex mt-2">
-              <a href="">Admin</a>
+              <a href={{route('admin.signIn')}}>Admin</a>
             </div>
           </div>
         </div>

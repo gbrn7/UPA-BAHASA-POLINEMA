@@ -1,6 +1,6 @@
 <div class="sidebar" id="side_nav">
   <div class="header-box px-2 pt-3 pb-2 d-flex justify-content-center">
-    <h1 class="header-text rounded rounded-3 p-2 border border-1">
+    <h1 class="header-text rounded rounded-3 p-3 border border-1">
       <div class="wrapper">
         <img src={{asset('assets/images/POLINEMA.png')}} class="header-logo">
         <br>

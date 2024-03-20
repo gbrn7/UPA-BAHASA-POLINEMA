@@ -16,14 +16,11 @@
       <div class="dropdown">
         <a class="nav-link d-flex gap-2 pt-3 pt-md-0 align-items-center justify-content-end dropdown-toggle" href="#"
           role="button" aria-current="page" data-bs-toggle="dropdown" aria-expanded="false">
-          <p class="my-0">Admin UPA</p>
+          <p class="my-0">{{auth()->user()->name}}</p>
           <img src={{asset('assets/images/default.png')}} class="img-fluid img-avatar ">
         </a>
         <ul class="dropdown-menu dropdown-menu-end px-2">
-          <li class="rounded-2 dropdown-list my-profile"><a class="dropdown-item rounded-2" href="#"><i
-                class="ri-user-3-line me-2"></i>Profil Saya</a>
-          </li>
-          <li class="rounded-2 dropdown-list"> <a href="#" class="dropdown-item rounded-2"><i
+          <li class="rounded-2 dropdown-list"> <a href={{route('admin.logout')}} class="dropdown-item rounded-2"><i
                 class="ri-logout-circle-line me-2"></i>Sign
               Out</a>
           </li>

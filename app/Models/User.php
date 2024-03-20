@@ -14,6 +14,8 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     protected $table = 'd_user';
+    protected $primaryKey = 'user_id';
+
 
     /**
      * The attributes that are mass assignable.

@@ -9,7 +9,7 @@
   <title>UPA POLINEMA | Sign-In</title>
 
   {{-- Icon --}}
-  <link rel="icon" href="{{asset('Assets/Img/apps-line.png')}}" type="image/x-icon">
+  <link rel="shortcut icon" href={{asset('assets/images/POLINEMA.png')}} type="image/x-icon" />
 
   <!-- Bootrsrap Css -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -22,7 +22,7 @@
 
 <body>
   {{-- Sweet alert --}}
-  {{-- @include('sweetalert::alert') --}}
+  @include('sweetalert::alert')
   <section class="login d-flex justify-content-center justify-content-lg-between">
     <div class="login-left w-50 h-100 d-none d-lg-block">
       <div class="row justify-content-center align-items-center h-100">

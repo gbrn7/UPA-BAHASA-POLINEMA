@@ -23,7 +23,7 @@
 
 <body>
   <section class="form vh-100">
-    <div class="container h-100 d-flex flex-column justify-content-center align-items-center">
+    <div class="container h-100 d-flex p-3 flex-column justify-content-start align-items-center">
       <a class="navbar-brand d-flex" href={{route('client')}}>
         <div class="img-wrapper">
           <img src={{asset('assets/images/POLINEMA.png')}} class="img-logo img-fluid" />
@@ -36,30 +36,67 @@
       <div class="col-12 col-lg-10 mt-4">
         <form action="#">
           <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Nama Lengkap</label>
+            <input type="Text" class="form-control" placeholder="Masukkan nama anda" />
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">NIK (Nomor Induk Kependudukan)</label>
+            <input type="Text" class="form-control" placeholder="Masukkan NIM anda" />
+          </div>
+          <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">NIM</label>
             <input type="Text" class="form-control" placeholder="Masukkan NIM anda" />
           </div>
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Nama</label>
-            <input type="Text" class="form-control" placeholder="Masukkan nama anda" />
+            <label for="exampleFormControlInput1" class="form-label">Jurusan</label>
+            <select class="form-select" aria-label="Default select example">
+              <option selected>Open this select menu</option>
+              <option value="1">Teknik Elektro</option>
+              <option value="1">Teknik Mesin</option>
+              <option value="1">Teknologi Informasi</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Jurusan</label>
+            <select class="form-select" aria-label="Default select example">
+              <option selected>Open this select menu</option>
+              <option value="1">D4 Sistem Informasi Bisnis</option>
+              <option value="1">D4 Teknik Informatik</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Semester</label>
+            <select class="form-select" aria-label="Default select example">
+              <option selected>Open this select menu</option>
+              <option value="4">4</option>
+              <option value="6">6</option>
+              <option value="8">8</option>
+            </select>
           </div>
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Email</label>
             <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Masukkan email anda" />
           </div>
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">No Telepon</label>
+            <label for="exampleFormControlInput1" class="form-label">No WA</label>
             <input type="number" class="form-control" id="exampleFormControlInput1"
               placeholder="Masukkan no telepon anda" />
           </div>
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Jurusan</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="masukkan jurusan anda" />
+            <label for="formFile" class="form-label">KTP</label>
+            <input class="form-control" type="file" id="formFile">
           </div>
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Program Studi</label>
-            <input type="text" class="form-control" id="exampleFormControlInput1"
-              placeholder="Masukkan program studi anda" />
+            <label for="formFile" class="form-label">KTM</label>
+            <input class="form-control" type="file" id="formFile">
+          </div>
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Surat Pernyataan Nominasi IISMA (dari KPS)</label>
+            <input class="form-control" type="file" id="formFile">
+          </div>
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Pas Foto</label>
+            <input class="form-control" type="file" id="formFile">
           </div>
 
           <div class="mb-3">

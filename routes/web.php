@@ -22,6 +22,12 @@ Route::get('/form-pendaftaran', [ClientController::class, 'formView'])->name('cl
 
 Route::group(['prefix' => 'admin'], function(){
   Route::get('/sign-in', [AuthController::class, 'index'])->name('admin.signIn');
+  Route::post('/sign-in', [AuthController::class, 'authenticate'])->name('admin.signIn.auth');
+
+  Route::group([ 'middleware' => ['auth']], function(){
+    Route::get('/', [AdminController::class, 'index'])->name('admin.home');
+  });
   
-  Route::get('/', [AdminController::class, 'index'])->name('admin.home');
+
+  Route::get('logout', [AuthController::class, 'logout'])->name('admin.logout');
 });
