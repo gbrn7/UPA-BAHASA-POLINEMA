@@ -10,7 +10,7 @@ class ActivityModel extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'r_activity';
+    protected $table = 'r_event';
 
     protected $fillable = ([
         'register_start',

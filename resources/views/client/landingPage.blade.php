@@ -94,9 +94,13 @@
                 <p class="mb-1">Pendaftaran : 4 Maret - 29 Maret 2024</p>
                 <p>Pelaksanaan Tes : 10 April 2024</p>
               </div>
-              <div class="kuota">
+              <div class="quota">
                 <p class="mb-2"><strong>Kuota : </strong></p>
                 <p class="mb-1">1000 Orang</p>
+              </div>
+              <div class="quota">
+                <p class="mb-2"><strong>Sisa Kuota : </strong></p>
+                <p class="mb-1">820 Orang</p>
               </div>
               <a class="btn btn-primary fw-medium mt-3" href={{route('client.form')}}>Daftar Sekarang</a>
             </div>
@@ -303,7 +307,7 @@
   <!-- Footer End -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src={{asset('assets/js/script.js')}}></script>
+  <script src={{asset('assets/js/clientScript.js')}}></script>
 </body>
 
 </html>

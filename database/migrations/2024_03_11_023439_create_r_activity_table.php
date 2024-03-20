@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('r_activity', function (Blueprint $table) {
-            $table->id('activity_id');
+        Schema::create('r_events', function (Blueprint $table) {
+            $table->id('event_id');
             $table->date('register_start');
             $table->date('register_end');
             $table->date('execution');
             $table->integer('quota');
+            $table->integer('remaining_quota');
             $table->boolean('status');
             $table->unsignedBigInteger('created_by')->index();
             $table->unsignedBigInteger('updated_by')->index()->nullable();

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('t_registrations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('activity_id')->index();
+            $table->unsignedBigInteger('event_id')->index();
             $table->string('nim');
             $table->string('name');
             $table->string('email');
@@ -26,10 +26,10 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign(('activity_id'))->references('activity_id')->on('r_activity');
-            $table->foreign(('created_by'))->references('activity_id')->on('t_registrations');
-            $table->foreign(('updated_by'))->references('activity_id')->on('t_registrations');
-            $table->foreign(('deleted_by'))->references('activity_id')->on('t_registrations');
+            $table->foreign(('event_id'))->references('event_id')->on('r_events');
+            $table->foreign(('created_by'))->references('event_id')->on('t_registrations');
+            $table->foreign(('updated_by'))->references('event_id')->on('t_registrations');
+            $table->foreign(('deleted_by'))->references('event_id')->on('t_registrations');
         });
     }
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +21,7 @@ Route::get('/', [ClientController::class, 'index'])->name('client');
 Route::get('/form-pendaftaran', [ClientController::class, 'formView'])->name('client.form');
 
 Route::group(['prefix' => 'admin'], function(){
-  Route::get('/', [AdminController::class, 'index'])->name('admin');
+  Route::get('/sign-in', [AuthController::class, 'index'])->name('admin.signIn');
+  
+  Route::get('/', [AdminController::class, 'index'])->name('admin.home');
 });

@@ -14,7 +14,7 @@ class RegistrationSeeder extends Seeder
     public function run(): void
     {
         DB::table('t_registrations')->insert([
-            'activity_id' => 1,
+            'event_id' => 1,
             'name' => 'Muhammad Rayhan Gibran',
             'nim' => '2141762099',
             'email' => '2141762099@gmail.com',

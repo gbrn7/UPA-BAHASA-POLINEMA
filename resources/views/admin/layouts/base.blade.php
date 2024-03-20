@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="csrf-token" content="{{csrf_token()}}" />
-  <title>Gentle Baby | Client</title>
+  <title>UPA Bahasa | Admin</title>
   {{-- Icon --}}
   <link rel="icon" href="{{asset('Assets/Img/apps-line.png')}}" type="image/x-icon">
 
@@ -14,7 +14,7 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
 
   {{-- Style css --}}
-  <link rel="stylesheet" href="{{asset('Assets/Css/style.css')}}" />
+  <link rel="stylesheet" href="{{asset('assets/style/adminStyle.css')}}" />
   @yield('extraStyle')
 
   {{-- Font Awesome --}}
@@ -51,15 +51,15 @@
   @include('sweetalert::alert')
 
   {{-- Pre Load Start --}}
-  @include('layouts.preloader')
+  @include('admin.layouts.preloader')
   {{-- Pre Load End --}}
 
   <div class="wrapper">
     {{-- Content Start --}}
     <div class="main-container d-flex">
-      @include('layouts.sidebar')
+      @include('admin.layouts.sidebar')
       <div class="content">
-        @include('layouts.navbar')
+        @include('admin.layouts.navbar')
         <div class="content-right px-4 pt-4 ">
           @yield('content')
         </div>
@@ -68,7 +68,7 @@
     {{-- Content End --}}
 
     <!-- Footer Start -->
-    @include('layouts.footer')
+    @include('admin.layouts.footer')
     <!-- Footer End -->
 
   </div>
@@ -106,7 +106,7 @@
 <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 
 {{-- Javascrips --}}
-<script src="{{asset('Assets/Js/script.js')}}"></script>
+<script src="{{asset('assets/js/adminScript.js')}}"></script>
 @stack('js')
 
 
