@@ -57,7 +57,7 @@
             </select>
           </div>
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Jurusan</label>
+            <label for="exampleFormControlInput1" class="form-label">Program Studi</label>
             <select class="form-select" aria-label="Default select example">
               <option selected>Open this select menu</option>
               <option value="1">D4 Sistem Informasi Bisnis</option>

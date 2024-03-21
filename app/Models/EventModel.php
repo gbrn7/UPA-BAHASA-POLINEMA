@@ -11,6 +11,7 @@ class ActivityModel extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'r_events';
+    protected $primaryKey = 'event_id';
 
     protected $fillable = ([
         'register_start',

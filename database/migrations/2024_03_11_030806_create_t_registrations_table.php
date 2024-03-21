@@ -12,14 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('t_registrations', function (Blueprint $table) {
-            $table->id();
+            $table->id('registration_id');
             $table->unsignedBigInteger('event_id')->index();
-            $table->string('nim');
             $table->string('name');
-            $table->string('email');
-            $table->string('phone_num');
+            $table->string('nim');
+            $table->string('nik');
             $table->string('departement');
             $table->string('program_study');
+            $table->string('semester');
+            $table->string('email');
+            $table->string('phone_num');
+            $table->string('ktp_img');
+            $table->string('ktm_img');
+            $table->string('surat_pernyataan_iisma');
+            $table->string('pasFoto');
             $table->unsignedBigInteger('created_by')->index()->nullable();
             $table->unsignedBigInteger('updated_by')->index()->nullable();
             $table->unsignedBigInteger('deleted_by')->index()->nullable();

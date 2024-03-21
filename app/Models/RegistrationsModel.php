@@ -11,6 +11,7 @@ class RegistrationsModel extends Model
     use HasFactory, SoftDeletes;
     
     protected $table = 't_registrations';
+    protected $primaryKey = 'registration_id';
 
     protected $fillable = ([
         'activity_id',
