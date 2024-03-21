@@ -27,7 +27,7 @@
 
   <section class="form vh-100">
     <div class="container h-100 d-flex p-3 flex-column justify-content-start align-items-center">
-      <a class="navbar-brand d-flex" href={{route('client')}}>
+      <a class="navbar-brand d-flex pt-3" href={{route('client')}}>
         <div class="img-wrapper">
           <img src={{asset('assets/images/POLINEMA.png')}} class="img-logo img-fluid" />
         </div>

@@ -44,6 +44,16 @@ class ClientController extends Controller
             return redirect()->route('client');
         }
 
+        $dateNow = Carbon::now();
+        $registerEnd = Carbon::parse($activeEvent->register_end);
+
+        if($dateNow->greaterThan($registerEnd)){
+
+            $activeEvent->update(['status' => false]);
+
+            return redirect()->route('client');   
+        }
+
         $departements = DepartementModel::all();
         $prodys = ProdyModel::all();
         
