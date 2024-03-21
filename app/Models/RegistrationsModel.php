@@ -14,13 +14,19 @@ class RegistrationsModel extends Model
     protected $primaryKey = 'registration_id';
 
     protected $fillable = ([
-        'activity_id',
-        'nim',
+        'event_id',
         'name',
-        'email',
-        'phone_num',
+        'nim',
+        'nik',
         'departement',
         'program_study',
+        'semester',
+        'email',
+        'phone_num',
+        'ktp_img',
+        'ktm_img',
+        'surat_pernyataan_iisma',
+        'pasFoto_img',
         'created_by',
         'updated_by',
         'deleted_by',

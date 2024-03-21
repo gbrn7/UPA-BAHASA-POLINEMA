@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DepartementModel;
 use App\Models\EventModel;
+use App\Models\ProdyModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -41,7 +43,14 @@ class ClientController extends Controller
         if (!isset($activeEvent)) {
             return redirect()->route('client');
         }
+
+        $departements = DepartementModel::all();
+        $prodys = ProdyModel::all();
         
-        return view('client.form');
+        return view('client.form', 
+        [
+        'departements' => $departements, 
+        'prodys' => $prodys
+        ]);
     }
 }

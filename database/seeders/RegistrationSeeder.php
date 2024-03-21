@@ -26,7 +26,7 @@ class RegistrationSeeder extends Seeder
             'ktp_img' => 'ktp_2_gibran.png',
             'ktm_img' => 'ktm_2_gibran.png',
             'surat_pernyataan_iisma' => 'iisma_2_gibran.png',
-            'pasFoto' => 'pasFoto_2_gibran.png',
+            'pasFoto_img' => 'pasFoto_2_gibran.png',
             'created_at' => now(),
             'updated_at' => now(),
         ]); 

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('ktp_img');
             $table->string('ktm_img');
             $table->string('surat_pernyataan_iisma');
-            $table->string('pasFoto');
+            $table->string('pasFoto_img');
             $table->unsignedBigInteger('created_by')->index()->nullable();
             $table->unsignedBigInteger('updated_by')->index()->nullable();
             $table->unsignedBigInteger('deleted_by')->index()->nullable();

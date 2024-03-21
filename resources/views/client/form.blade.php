@@ -22,6 +22,9 @@
 </head>
 
 <body>
+  {{-- Sweet alert --}}
+  @include('sweetalert::alert')
+
   <section class="form vh-100">
     <div class="container h-100 d-flex p-3 flex-column justify-content-start align-items-center">
       <a class="navbar-brand d-flex" href={{route('client')}}>
@@ -37,69 +40,78 @@
         <form action="#">
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Nama Lengkap</label>
-            <input type="Text" class="form-control" placeholder="Masukkan nama anda" />
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">NIK (Nomor Induk Kependudukan)</label>
-            <input type="Text" class="form-control" placeholder="Masukkan NIM anda" />
+            <input required type="Text" name="name" value="{{old('name')}}" class="form-control"
+              placeholder="Masukkan nama anda" />
           </div>
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">NIM</label>
-            <input type="Text" class="form-control" placeholder="Masukkan NIM anda" />
+            <input required name="nim" type="Text" class="form-control" placeholder="Masukkan NIM anda"
+              value="{{old('nik')}}" />
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">NIK (Nomor Induk Kependudukan)</label>
+            <input required name="nik" type="Text" class="form-control" placeholder="Masukkan NIK anda"
+              value="{{old('nik')}}" />
           </div>
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Jurusan</label>
-            <select class="form-select" aria-label="Default select example">
-              <option selected>Open this select menu</option>
-              <option value="1">Teknik Elektro</option>
-              <option value="1">Teknik Mesin</option>
-              <option value="1">Teknologi Informasi</option>
+            <select name="departement" required class="form-select" aria-label="Default select example">
+              <option selected value="">Open this select menu</option>
+              @foreach ($departements as $departement)
+              <option value="{{$departement->name}} {{old('departement' === $departement->name) ? 'selected' : ''}}">
+                {{$departement->name}}</option>
+              @endforeach
             </select>
           </div>
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Program Studi</label>
-            <select class="form-select" aria-label="Default select example">
-              <option selected>Open this select menu</option>
-              <option value="1">D4 Sistem Informasi Bisnis</option>
-              <option value="1">D4 Teknik Informatik</option>
+            <select name="program_study" required class="form-select" aria-label="Default select example">
+              <option selected value="">Open this select menu</option>
+              @foreach ($prodys as $prody)
+              <option value="{{$prody->name}}" {{old('program_study'===$prody->name) ? 'selected' :
+                ''}}>{{$prody->name}}</option>
+              @endforeach
             </select>
           </div>
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Semester</label>
-            <select class="form-select" aria-label="Default select example">
-              <option selected>Open this select menu</option>
-              <option value="4">4</option>
-              <option value="6">6</option>
-              <option value="8">8</option>
+            <select required name="semester" class="form-select" aria-label="Default select example">
+              <option selected value="">Open this select menu</option>
+              <option value="4" {{old('semester'==='4' ) ? 'selected' : '' }}>4</option>
+              <option value="6" {{old('semester'==='6' ) ? 'selected' : '' }}>6</option>
+              <option value="8" {{old('semester'==='8' ) ? 'selected' : '' }}>8</option>
             </select>
           </div>
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Email</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Masukkan email anda" />
+            <input required type="email" class="form-control" id="exampleFormControlInput1"
+              placeholder="Masukkan email anda" name="email" value="{{old('email')}}" />
           </div>
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">No WA</label>
-            <input type="number" class="form-control" id="exampleFormControlInput1"
-              placeholder="Masukkan no telepon anda" />
+            <input required type="number" class="form-control" id="exampleFormControlInput1"
+              placeholder="Masukkan no telepon anda" name="phone_num" value="{{old('phone_num')}}" />
           </div>
           <div class="mb-3">
             <label for="formFile" class="form-label">KTP</label>
-            <input class="form-control" type="file" id="formFile">
+            <input required class="form-control" type="file" id="formFile" name="ktp_img" value="{{old('ktp_img')}}">
           </div>
           <div class="mb-3">
             <label for="formFile" class="form-label">KTM</label>
-            <input class="form-control" type="file" id="formFile">
+            <input required class="form-control" type="file" id="formFile" name="ktm_img" value="{{old('ktm_img')}}">
           </div>
           <div class="mb-3">
             <label for="formFile" class="form-label">Surat Pernyataan Nominasi IISMA (dari KPS)</label>
-            <input class="form-control" type="file" id="formFile">
+            <input required class="form-control" type="file" id="formFile" name="surat_pernyataan_iisma"
+              value="{{old('surat_penyataan_iisma')}}">
           </div>
           <div class="mb-3">
             <label for="formFile" class="form-label">Pas Foto</label>
-            <input class="form-control" type="file" id="formFile">
+            <input required class="form-control" type="file" id="formFile" name="pasFoto_img"
+              value="{{old('pasFoto_img')}}">
           </div>
 
-          <div class="mb-3">
+          <div class=" mb-3">
             <button type="submit" class="btn btn-primary w-100 fw-medium">
               Submit
             </button>
