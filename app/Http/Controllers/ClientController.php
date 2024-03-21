@@ -11,7 +11,9 @@ class ClientController extends Controller
     public function index(){
 
 
-        $activeEvent = EventModel::where('status', true)->first();
+        $activeEvent = EventModel::where('status', true)
+                        ->where('remaining_quota','!=', 0)
+                        ->first();
 
         if (!isset($activeEvent)) {
             return view('client.landingPage');
@@ -32,7 +34,9 @@ class ClientController extends Controller
     }
 
     public function formView(){
-        $activeEvent = EventModel::where('status', true)->first();
+        $activeEvent = EventModel::where('status', true)
+                        ->where('remaining_quota','!=', 0)
+                        ->first();
 
         if (!isset($activeEvent)) {
             return redirect()->route('client');
