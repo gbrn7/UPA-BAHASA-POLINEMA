@@ -39,9 +39,10 @@
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="#home">Home</a>
-
+          <a class="nav-link" aria-current="page" href="#home">Home</a>
+          @isset($activeEvent)
           <a class="nav-link" href="#announcement">Announcement</a>
+          @endisset
           <a class="nav-link" href="#program">Our Program</a>
           <a class="nav-link" href="#gallery">Our Gallery</a>
         </div>
@@ -73,6 +74,7 @@
     </div>
   </section>
 
+  @isset($activeEvent)
   <!-- Announcement -->
   <section class="announcement mt-5" id="announcement">
     <div class="container">
@@ -91,16 +93,18 @@
             <div class="info p-3 rounded-2 text-center">
               <div class="schedule-wrapper">
                 <p class="mb-2"><strong>Jadwal Kegiatan : </strong></p>
-                <p class="mb-1">Pendaftaran : 4 Maret - 29 Maret 2024</p>
-                <p>Pelaksanaan Tes : 10 April 2024</p>
+                <p class="mb-1">Pendaftaran : {{date("d M Y", strtotime($activeEvent->register_start)) }} - {{date("d M
+                  Y", strtotime($activeEvent->register_end)) }}
+                </p>
+                <p>Pelaksanaan Tes : {{date("d M Y", strtotime($activeEvent->execution)) }}</p>
               </div>
               <div class="quota">
                 <p class="mb-2"><strong>Kuota : </strong></p>
-                <p class="mb-1">1000 Orang</p>
+                <p class="mb-1">{{$activeEvent->quota}} Orang</p>
               </div>
               <div class="quota">
                 <p class="mb-2"><strong>Sisa Kuota : </strong></p>
-                <p class="mb-1">820 Orang</p>
+                <p class="mb-1">{{$activeEvent->remaining_quota}} Orang</p>
               </div>
               <a class="btn btn-primary fw-medium mt-3" href={{route('client.form')}}>Daftar Sekarang</a>
             </div>
@@ -109,6 +113,7 @@
       </div>
     </div>
   </section>
+  @endisset
 
   <!-- Our Program -->
   <section class="program mt-5" id="program">

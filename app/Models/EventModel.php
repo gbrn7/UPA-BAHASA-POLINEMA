@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ActivityModel extends Model
+class EventModel extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -18,6 +18,7 @@ class ActivityModel extends Model
         'register_end',
         'execution',
         'quota',
+        'remaining_quota',
         'status',
         'created_by',
         'updated_by',
