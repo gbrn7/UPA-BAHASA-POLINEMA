@@ -14,7 +14,6 @@ class ClientController extends Controller
 
 
         $activeEvent = EventModel::where('status', true)
-                        ->where('remaining_quota','!=', 0)
                         ->first();
 
         if (!isset($activeEvent)) {
@@ -24,7 +23,7 @@ class ClientController extends Controller
         $dateNow = Carbon::now();
         $registerEnd = Carbon::parse($activeEvent->register_end);
 
-        if($dateNow->greaterThan($registerEnd)){
+        if($dateNow->greaterThan($registerEnd) || $activeEvent->remaining_quota <= 0){
 
             $activeEvent->update(['status' => false]);
 
@@ -37,7 +36,6 @@ class ClientController extends Controller
 
     public function formView(){
         $activeEvent = EventModel::where('status', true)
-                        ->where('remaining_quota','!=', 0)
                         ->first();
 
         if (!isset($activeEvent)) {
@@ -47,7 +45,7 @@ class ClientController extends Controller
         $dateNow = Carbon::now();
         $registerEnd = Carbon::parse($activeEvent->register_end);
 
-        if($dateNow->greaterThan($registerEnd)){
+        if($dateNow->greaterThan($registerEnd) || $activeEvent->remaining_quota <= 0){
 
             $activeEvent->update(['status' => false]);
 
