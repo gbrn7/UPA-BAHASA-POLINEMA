@@ -85,7 +85,7 @@
       <div class="body-section mt-2 row justify-content-center">
         <div class="col-lg-10 col-12 rounded rounded-2">
           <p class="text-center">
-            Polteknik Negeri Malang membuka Tes Kompetensi Bahasa Inggris. Tes
+            Polteknik Negeri Malang membuka Tes Kompetensi Bahasa Inggris TOIEC. Tes
             ini bertujuan untuk mengukur kemampuan bahasa Inggris para
             mahasiswa dan memberikan sertifikat sebagai bukti kompetensi
           </p>

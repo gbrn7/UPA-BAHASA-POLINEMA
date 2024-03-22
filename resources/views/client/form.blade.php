@@ -37,7 +37,8 @@
         </div>
       </a>
       <div class="col-12 col-lg-10 mt-4">
-        <form action="#">
+        <form action={{route('admin.form.registration')}} method="POST" enctype="multipart/form-data">
+          @csrf
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Nama Lengkap</label>
             <input required type="Text" name="name" value="{{old('name')}}" class="form-control"
@@ -56,9 +57,9 @@
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Jurusan</label>
             <select name="departement" required class="form-select" aria-label="Default select example">
-              <option selected value="">Open this select menu</option>
+              <option value="">Open this select menu</option>
               @foreach ($departements as $departement)
-              <option value="{{$departement->name}} {{old('departement' === $departement->name) ? 'selected' : ''}}">
+              <option value="{{$departement->name}}" {{old('departement')===$departement->name ? 'selected' : ''}}>
                 {{$departement->name}}</option>
               @endforeach
             </select>
@@ -66,9 +67,9 @@
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Program Studi</label>
             <select name="program_study" required class="form-select" aria-label="Default select example">
-              <option selected value="">Open this select menu</option>
+              <option value="">Open this select menu</option>
               @foreach ($prodys as $prody)
-              <option value="{{$prody->name}}" {{old('program_study'===$prody->name) ? 'selected' :
+              <option value="{{$prody->name}}" {{old('program_study')===$prody->name ? 'selected' :
                 ''}}>{{$prody->name}}</option>
               @endforeach
             </select>
@@ -76,10 +77,10 @@
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Semester</label>
             <select required name="semester" class="form-select" aria-label="Default select example">
-              <option selected value="">Open this select menu</option>
-              <option value="4" {{old('semester'==='4' ) ? 'selected' : '' }}>4</option>
-              <option value="6" {{old('semester'==='6' ) ? 'selected' : '' }}>6</option>
-              <option value="8" {{old('semester'==='8' ) ? 'selected' : '' }}>8</option>
+              <option value="">Open this select menu</option>
+              <option value="4" {{old('semester')==='4' ? ' selected' : '' }}>4</option>
+              <option value="6" {{old('semester')==='6' ? ' selected' : '' }}>6</option>
+              <option value="8" {{old('semester')==='8' ? ' selected' : '' }}>8</option>
             </select>
           </div>
           <div class="mb-3">

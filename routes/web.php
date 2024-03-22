@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ClientController::class, 'index'])->name('client');
 Route::get('/form-pendaftaran', [ClientController::class, 'formView'])->name('client.form');
+Route::post('/form-pendaftaran', [ClientController::class, 'saveRegistration'])->name('admin.form.registration');
 
 Route::group(['prefix' => 'admin'], function(){
   Route::get('/sign-in', [AuthController::class, 'index'])->name('admin.signIn');
