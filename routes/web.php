@@ -35,6 +35,7 @@ Route::group(['prefix' => 'admin'], function(){
       Route::post('/store', [EventController::class, 'storeEvent'])->name('admin.data.store');
       Route::get('/edit/{eventId}', [EventController::class, 'editEvent'])->name('admin.data.editEvent');
       Route::post('/edit/{eventId}', [EventController::class, 'updateEvent'])->name('admin.data.updateEvent');
+      Route::delete('/delete', [EventController::class, 'deleteEvent'])->name('admin.data.deleteEvent');
     });
 
   });

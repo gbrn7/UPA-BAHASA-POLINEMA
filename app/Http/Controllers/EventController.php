@@ -5,15 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\EventModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Ramsey\Uuid\Type\Integer;
 
 class EventController extends Controller
 {
     public function index()
     {
         $events = EventModel::all();
-
-        // dd($events);
 
         $activeEvent = $events->where('status', true)->first();
 
@@ -120,6 +117,21 @@ class EventController extends Controller
             'updated_by' => auth()->user()->user_id
         ]);
 
-        return redirect()->route('admin.data.event')->with('toast_success', 'Event Berhasil DiEdit');
+        return redirect()->route('admin.data.event')->with('toast_success', 'Event Berhasil Diedit');
+    }
+
+    public function deleteEvent(Request $request)
+    {
+
+        $request->validate([
+            'eventId' => 'required',
+        ]);
+
+        $event = EventModel::find($request->eventId);
+
+        $event->delete();
+
+        return redirect()->route('admin.data.event')->with('toast_success', 'Event Berhasil Dihapus');
+
     }
 }

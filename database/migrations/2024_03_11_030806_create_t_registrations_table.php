@@ -32,7 +32,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign(('event_id'))->references('event_id')->on('r_events');
+            $table->foreign(('event_id'))->references('event_id')->on('r_events')->cascadeOnUpdate()->cascadeOnUpdate();
             $table->foreign(('created_by'))->references('event_id')->on('t_registrations');
             $table->foreign(('updated_by'))->references('event_id')->on('t_registrations');
             $table->foreign(('deleted_by'))->references('event_id')->on('t_registrations');

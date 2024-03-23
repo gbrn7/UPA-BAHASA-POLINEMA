@@ -65,7 +65,7 @@
                   text-white"><i class="ri-edit-2-line"></i></a>
                 <a href=# class="delete btn btn-action btn-danger
                   text-white" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
-                  data-bs-title="Hapus Event" data-name="{{$event->name}}" data-id="{{$event->id}}">
+                  data-bs-title="Hapus Event" data-id="{{$event->event_id}}">
                   <i class="ri-delete-bin-line"></i>
                 </a>
                 <a href=# data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
@@ -87,16 +87,16 @@
   <div class="modal-dialog ">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="myModalLabel">Hapus Produk</h5>
+        <h5 class="modal-title" id="myModalLabel">Hapus Event</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h4 class="text-center">Apakah anda yakin mengapus Produk <span class="produk-name"></span>?</h4>
+        <h4 class="text-center">Apakah anda yakin mengapus event ini?</h4>
       </div>
-      <form action=# method="post">
+      <form action={{route('admin.data.deleteEvent')}} method="post">
         @method('delete')
         @csrf
-        <input type="hidden" name="id" id="delete-id">
+        <input type="hidden" name="eventId" id="eventId">
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
           <button type="submit" id="deletecriteria" class="btn btn-danger">Hapus</button>
@@ -112,10 +112,9 @@
       $(document).on('click', '.delete', function(event){
           event.preventDefault();
           var id = $(this).data('id');
-          var name = $(this).data('name');
           $('#deletemodal').modal('show');
-          $('.produk-name').html(name);
-          $('#delete-id').val(id);
+          console.log(id);
+          $('#eventId').val(id);
       });  
 
   });    
