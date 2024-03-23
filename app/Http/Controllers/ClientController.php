@@ -28,7 +28,7 @@ class ClientController extends Controller
         $dateNow = Carbon::now();
         $registerEnd = Carbon::parse($activeEvent->register_end);
 
-        if($dateNow->greaterThan($registerEnd) && $activeEvent->remaining_quota <= 0){
+        if($dateNow->greaterThan($registerEnd) || $activeEvent->remaining_quota <= 0){
 
             $activeEvent->update(['status' => false]);
 
@@ -51,7 +51,7 @@ class ClientController extends Controller
         $dateNow = Carbon::now();
         $registerEnd = Carbon::parse($activeEvent->register_end);
 
-        if($dateNow->greaterThan($registerEnd) && $activeEvent->remaining_quota <= 0){
+        if($dateNow->greaterThan($registerEnd) || $activeEvent->remaining_quota <= 0){
 
             $activeEvent->update(['status' => false]);
 

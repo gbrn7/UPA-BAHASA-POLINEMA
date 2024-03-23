@@ -8,8 +8,9 @@ use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
     public function index(){
-        // dd(auth()->user()->name);
         return view('admin.home');
     }
+
+    
 
 }

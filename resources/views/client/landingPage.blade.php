@@ -60,10 +60,10 @@
             <span class="mt-1">POLITEKNIK NEGERI MALANG</span>
           </h4>
           <div class="desc-content">
-            UPT Bahasa merupakan salah satu unit kerja di Politeknik Negeri
+            UPA Bahasa merupakan salah satu unit kerja di Politeknik Negeri
             Malang, dan, dengan demikian, juga bertanggung jawab untuk
             mendukung visi, misi dan tujuan Politeknik Negeri Malang. Berbagai
-            kegiatan yang dilakukan UPT Bahasa selama ini adalah
+            kegiatan yang dilakukan UPA Bahasa selama ini adalah
             kegiatan-kegaitan yang sebagian besar berkaitan dengan kebahasaan.
           </div>
         </div>
@@ -174,10 +174,10 @@
                 </p>
               </div>
               <div class="content-desc text-center">
-                UPT Bahasa memiliki tiga seminar tahunan, yaitu Seminar
+                UPA Bahasa memiliki tiga seminar tahunan, yaitu Seminar
                 Nasional Industri Bahasa (SNIB) dan Seminar Nasional Bahasa
                 dan Sastra (Senabasa), sedangkan untuk seminar tingkat
-                internasional, UPT Bahasa menyelenggarakan kegiatan
+                internasional, UPA Bahasa menyelenggarakan kegiatan
                 International Virtual Conference on Language and Literature
                 (IVICOL).
               </div>
@@ -194,10 +194,9 @@
                 <p class="mb-2 text-center">Dharmasiswa</p>
               </div>
               <div class="content-desc text-center">
-                Kegiatan ini merupakan kegiatan tahunan yang dlakukan oleh UPT
+                Kegiatan ini merupakan kegiatan tahunan yang dlakukan oleh UPA
                 Bahasa dengan tujuan mengenalkan dan memberikan pengalaman
-                berbahasa Indonesia kepada mahasiswa asing. Program ini tidak
-                berhenti menerima mahasiswa asing dalam masa pandemi.
+                berbahasa Indonesia kepada mahasiswa asing.
               </div>
             </div>
           </div>
@@ -216,7 +215,7 @@
               <div class="content-desc text-center">
                 Benchmarking dilakukan untuk mempelajari program dan kinerja
                 dari institusi lain guna pengembangan program dan kinerja dari
-                UPT Bahasa.
+                UPA Bahasa.
               </div>
             </div>
           </div>

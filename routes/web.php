@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,7 +27,16 @@ Route::group(['prefix' => 'admin'], function(){
   Route::post('/sign-in', [AuthController::class, 'authenticate'])->name('admin.signIn.auth');
 
   Route::group([ 'middleware' => ['auth']], function(){
-    Route::get('/', [AdminController::class, 'index'])->name('admin.home');
+    Route::get('/home', [AdminController::class, 'index'])->name('admin.home');
+
+    Route::group(['prefix' => 'data-event'], function(){
+      Route::get('/', [EventController::class, 'index'])->name('admin.data.event');
+      Route::get('/create', [EventController::class, 'createEvent'])->name('admin.data.createEvent');
+      Route::post('/store', [EventController::class, 'storeEvent'])->name('admin.data.store');
+      Route::get('/edit/{eventId}', [EventController::class, 'editEvent'])->name('admin.data.editEvent');
+      Route::post('/edit/{eventId}', [EventController::class, 'updateEvent'])->name('admin.data.updateEvent');
+    });
+
   });
   
 

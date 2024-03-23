@@ -15,7 +15,7 @@ class EventsSeeder extends Seeder
     public function run(): void
     {
         DB::table('r_events')->insert([
-            'register_start' => Carbon::parse('2024-04-1')->startOfDay(),
+            'register_start' => Carbon::parse('2024-04-01')->startOfDay(),
             'register_end' => Carbon::parse('2024-04-12')->endOfDay(), 
             'execution' => Carbon::parse('2024-04-30'), 
             'quota' => 120, 

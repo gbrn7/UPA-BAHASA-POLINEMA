@@ -16,7 +16,7 @@ class EventModel extends Model
     protected $fillable = ([
         'register_start',
         'register_end',
-        'execution',
+        'execution', 
         'quota',
         'remaining_quota',
         'status',
