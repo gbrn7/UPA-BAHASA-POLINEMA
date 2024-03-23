@@ -34,12 +34,12 @@
       @csrf
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Rentang Pendaftaran</label>
-        <input required type="text" name="registration_range" id="datepicker" class="form-control"
+        <input required type="text" autocomplete="off" name="registration_range" id="datepicker" class="form-control"
           placeholder="Masukkan rentang tanggal pendaftaran" />
       </div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Tanggal Pelaksanaan</label>
-        <input required type="text" name="execution" id="datepicker" class="form-control"
+        <input required type="text" name="execution" autocomplete="off" id="datepicker" class="form-control"
           placeholder="Masukkan tanggal pelaksanaan" />
       </div>
       <div class="mb-3">
@@ -66,15 +66,38 @@
 <script>
   $('input[name="registration_range"]').daterangepicker({
     locale: {
-              format: 'DD-MM-YYYY'
-            }
+              format: 'DD-MM-YYYY',
+              cancelLabel: 'Clear'
+            },
+    autoUpdateInput: false,
   });
+
+  $('input[name="registration_range"]').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('DD-MM-YYYY') + ' - ' + picker.endDate.format('DD-MM-YYYY'));
+  });
+
+  $('input[name="registration_range"]').on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
+  });
+
+
   $('input[name="execution"]').daterangepicker({
     singleDatePicker: true,  
+    autoUpdateInput: false,
     locale: {
-              format: 'DD-MM-YYYY'
+              format: 'DD-MM-YYYY',
+              cancelLabel: 'Clear'
             }
     });
+
+    $('input[name="execution"]').on('apply.daterangepicker', function(ev, picker) {
+      $(this).val(picker.startDate.format('DD-MM-YYYY'));
+  });
+
+  $('input[name="execution"]').on('cancel.daterangepicker', function(ev, picker) {
+      $(this).val('');
+  });
+
 </script>
 
 
