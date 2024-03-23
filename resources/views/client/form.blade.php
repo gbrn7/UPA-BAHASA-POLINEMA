@@ -25,8 +25,12 @@
   {{-- Sweet alert --}}
   @include('sweetalert::alert')
 
-  <section class="form vh-100">
-    <div class="container h-100 d-flex p-3 flex-column justify-content-start align-items-center">
+  <div class="loader-wrapper d-none h-100 w-100 position-fixed d-flex justify-content-center align-items-center">
+    <div class="loader"></div>
+  </div>
+
+  <section class="form mb-3">
+    <div class="container  h-100 d-flex p-3 flex-column justify-content-start align-items-center">
       <a class="navbar-brand d-flex pt-3" href={{route('client')}}>
         <div class="img-wrapper">
           <img src={{asset('assets/images/POLINEMA.png')}} class="img-logo img-fluid" />
@@ -37,7 +41,7 @@
         </div>
       </a>
       <div class="col-12 col-lg-10 mt-4">
-        <form action={{route('admin.form.registration')}} method="POST" enctype="multipart/form-data">
+        <form action={{route('admin.form.registration')}} class="form" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Nama Lengkap</label>
@@ -113,7 +117,7 @@
           </div>
 
           <div class=" mb-3">
-            <button type="submit" class="btn btn-primary w-100 fw-medium">
+            <button type="submit" class="btn btn-primary submit-btn w-100 fw-medium">
               Submit
             </button>
           </div>
@@ -124,7 +128,15 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src={{asset('assets/js/script.js')}}></script>
+
+  <script>
+    const form = document.querySelector(".form");
+    form.addEventListener('submit', function () {
+      document.querySelector("html").style.cursor = "wait";
+      document.querySelector(".loader-wrapper").classList.remove('d-none');
+    });
+  </script>
+
 </body>
 
 </html>

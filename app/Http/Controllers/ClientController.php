@@ -123,6 +123,10 @@ class ClientController extends Controller
 
         if (isset($checkEmail)) return back()->withInput()->withErrors('Pendaftaran anda sudah terdaftar pada test TOEIC batch ini');
 
+        DB::beginTransaction();
+        $activeEvent->update([
+            'remaining_quota' => ($activeEvent->remaining_quota - 1),
+        ]); 
         //Ktp rename file
         $ktp = $request->ktp_img;
         $imageName = $activeEvent->event_id.'_'.Str::random(3).'.'.$ktp->getClientOriginalExtension();
@@ -147,11 +151,7 @@ class ClientController extends Controller
         $pasFoto->storeAs('public/pasFoto', $imageName);
         $newRegistration['pasFoto_img'] = $imageName;
 
-        DB::beginTransaction();
         $newRegistration = RegistrationsModel::create($newRegistration);
-        $activeEvent->update([
-            'remaining_quota' => ($activeEvent->remaining_quota - 1),
-        ]); 
         DB::commit();
 
         return back()->withSuccess('Pendaftaran test bahasa inggris TOEIC '.$newRegistration->name.' berhasil');
