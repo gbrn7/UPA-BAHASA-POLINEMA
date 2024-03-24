@@ -400,4 +400,49 @@ class EventController extends Controller
         return redirect()->route('admin.data.detail.registers', $request->eventId)->with('toast_success', 'Pendaftar Berhasil Dihapus');
 
     }
+
+    public function detailRegister($eventId, $registerId)
+    {
+        $register = RegistrationsModel::find($registerId);
+
+
+        return view('admin.data-event.detail-registers.detail-data-register', [
+            'register' => $register,
+            'event_id' => $eventId,
+        ]);
+    }
+
+    public function downloadKTP($fileName)
+    {
+        $path = public_path("storage/ktp/". $fileName);
+
+        return response()->download($path);
+    }
+
+    
+    public function downloadKTM($fileName)
+    {
+        $path = public_path("storage/ktm/". $fileName);
+
+        return response()->download($path);
+    }
+
+    public function downloadSuratPernyataan($fileName, $viewPdf )
+    {
+
+        $path = public_path("storage/surat_pernyataan_iisma/". $fileName);
+        if($viewPdf){
+            return response()->file($path);
+        }
+
+        return response()->download($path);
+
+    }
+
+    public function downloadPasFoto($fileName)
+    {
+        $path = public_path("storage/pasFoto/". $fileName);
+
+        return response()->download($path);
+    }
 }

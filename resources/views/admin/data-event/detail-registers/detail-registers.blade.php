@@ -76,7 +76,8 @@
                   data-id="{{$detailRegister->registration_id}}" data-register-name="{{$detailRegister->name}}">
                   <i class="ri-delete-bin-line"></i>
                 </div>
-                <a href={{route('admin.data.detail.registers', $detailRegister->registration_id)}}
+                <a href={{route('admin.data.registers.dataRegister', [$event->event_id,
+                  $detailRegister->registration_id])}}
                   data-bs-toggle="tooltip"
                   data-bs-custom-class="custom-tooltip"
                   data-bs-title="Detail Data" class="btn detail btn-action

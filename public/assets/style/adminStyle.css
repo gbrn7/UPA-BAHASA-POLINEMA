@@ -50,6 +50,10 @@ body.dark .content .row .card-3 {
   background-size: cover;
 }
 
+img.register-data-img{
+  object-fit: cover;
+}
+
 .header-logo{
   width: 50px;
 }

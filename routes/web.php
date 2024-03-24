@@ -37,7 +37,11 @@ Route::group(['prefix' => 'admin'], function(){
         Route::get('/{eventId}/edit-register/{registerId}', [EventController::class, 'editRegister'])->name('admin.data.registers.editRegister');
         Route::put('/{eventId}/edit-register/{registerId}', [EventController::class, 'updateRegister'])->name('admin.data.updateRegister');
         Route::delete('/delete-register', [EventController::class, 'deleteRegister'])->name('admin.data.deleteRegister');
-
+        Route::get('/{eventId}/data-register/{registerId}', [EventController::class, 'detailRegister'])->name('admin.data.registers.dataRegister');
+        Route::get('/donwload-ktp/{filename}', [EventController::class, 'downloadKTP'])->name('admin.data.registers.downloadKTP');
+        Route::get('/donwload-ktm/{filename}', [EventController::class, 'downloadKTM'])->name('admin.data.registers.downloadKTM');
+        Route::get('/donwload-surat-pernyataan-nominasi-iisma/{filename}/{viewPdf}', [EventController::class, 'downloadSuratPernyataan'])->name('admin.data.registers.downloadSuratPernyataan');
+        Route::get('/donwload-pasFoto/{filename}', [EventController::class, 'downloadPasFoto'])->name('admin.data.registers.downloadPasFoto');
       });
 
       Route::get('/', [EventController::class, 'index'])->name('admin.data.event');
