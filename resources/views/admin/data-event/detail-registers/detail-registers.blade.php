@@ -64,8 +64,8 @@
             <td>{{$detailRegister->email}}</td>
             <td class="">
               <div class="btn-wrapper d-flex gap-2 flex-wrap">
-                <a href={{route('admin.data.registers.editRegister',
-                  [$event->event_id,$detailRegister->registration_id])}}
+                <a href={{route('admin.data.registers.editRegister', [$event->event_id,
+                  $detailRegister->registration_id])}}
                   data-bs-toggle="tooltip"
                   data-bs-custom-class="custom-tooltip"
                   data-bs-title="Edit Data" class="btn edit btn-action
@@ -73,7 +73,7 @@
                   text-white"><i class="ri-edit-2-line"></i></a>
                 <div class="delete cursor-pointer btn btn-action btn-danger
                   text-white" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Data"
-                  data-id="{{$detailRegister->registration_id}}">
+                  data-id="{{$detailRegister->registration_id}}" data-register-name="{{$detailRegister->name}}">
                   <i class="ri-delete-bin-line"></i>
                 </div>
                 <a href={{route('admin.data.detail.registers', $detailRegister->registration_id)}}
@@ -101,12 +101,13 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h4 class="text-center">Apakah anda yakin mengapus event ini?</h4>
+        <h4 class="text-center">Apakah anda yakin mengapus data pendaftaran <span id="register-name"></span> ini?</h4>
       </div>
-      <form action={{route('admin.data.deleteEvent')}} method="post">
+      <form action={{route('admin.data.deleteRegister')}} method="post">
         @method('delete')
         @csrf
-        <input type="hidden" name="eventId" id="eventId">
+        <input type="hidden" name="eventId" id="eventId" value="{{$event->event_id}}">
+        <input type="hidden" name="registerId" id="registerId">
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
           <button type="submit" id="deletecriteria" class="btn btn-danger">Hapus</button>
@@ -122,9 +123,10 @@
       $(document).on('click', '.delete', function(event){
           event.preventDefault();
           var id = $(this).data('id');
+          var name = $(this).data('register-name');
           $('#deletemodal').modal('show');
-          console.log(id);
-          $('#eventId').val(id);
+          $('#registerId').val(id);
+          $('#register-name').html(name);
       });  
 
   });    

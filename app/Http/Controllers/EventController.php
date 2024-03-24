@@ -382,4 +382,22 @@ class EventController extends Controller
         }
 
     }
+
+    public function deleteRegister(Request $request)
+    {
+
+        $request->validate([
+            'registerId' => 'required',
+            'eventId' => 'required',
+        ]);
+
+        $register = RegistrationsModel::find($request->registerId);
+
+        $register->delete([
+            'deleted_by' => auth()->user()->user_id
+        ]);
+
+        return redirect()->route('admin.data.detail.registers', $request->eventId)->with('toast_success', 'Pendaftar Berhasil Dihapus');
+
+    }
 }

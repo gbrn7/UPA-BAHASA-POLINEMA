@@ -114,7 +114,6 @@
           event.preventDefault();
           var id = $(this).data('id');
           $('#deletemodal').modal('show');
-          console.log(id);
           $('#eventId').val(id);
       });  
 

@@ -30,6 +30,16 @@ Route::group(['prefix' => 'admin'], function(){
     Route::get('/home', [AdminController::class, 'index'])->name('admin.home');
 
     Route::group(['prefix' => 'data-event'], function(){
+      Route::group(['prefix' => 'detail-registers'], function() {
+        Route::get('/{eventId}', [EventController::class, 'detailRegisters'])->name('admin.data.detail.registers');
+        Route::get('/{eventId}/create-register', [EventController::class, 'createRegister'])->name('admin.data.detail.registers.createRegister');
+        Route::post('/{eventId}/create-register', [EventController::class, 'saveRegister'])->name('admin.data.detail.registers.saveRegister');
+        Route::get('/{eventId}/edit-register/{registerId}', [EventController::class, 'editRegister'])->name('admin.data.registers.editRegister');
+        Route::put('/{eventId}/edit-register/{registerId}', [EventController::class, 'updateRegister'])->name('admin.data.updateRegister');
+        Route::delete('/delete-register', [EventController::class, 'deleteRegister'])->name('admin.data.deleteRegister');
+
+      });
+
       Route::get('/', [EventController::class, 'index'])->name('admin.data.event');
       Route::get('/create', [EventController::class, 'createEvent'])->name('admin.data.createEvent');
       Route::post('/store', [EventController::class, 'storeEvent'])->name('admin.data.storeEvent');
@@ -37,14 +47,7 @@ Route::group(['prefix' => 'admin'], function(){
       Route::put('/edit/{eventId}', [EventController::class, 'updateEvent'])->name('admin.data.updateEvent');
       Route::delete('/delete', [EventController::class, 'deleteEvent'])->name('admin.data.deleteEvent');
 
-      Route::group(['prefix' => 'detail-registers'], function() {
-        Route::get('/{eventId}', [EventController::class, 'detailRegisters'])->name('admin.data.detail.registers');
-        Route::get('/{eventId}/create-register', [EventController::class, 'createRegister'])->name('admin.data.detail.registers.createRegister');
-        Route::post('/{eventId}/create-register', [EventController::class, 'saveRegister'])->name('admin.data.detail.registers.saveRegister');
-        Route::get('/{eventId}/edit-register/{registerId}', [EventController::class, 'editRegister'])->name('admin.data.registers.editRegister');
-        Route::put('/{eventId}/edit-register/{registerId}', [EventController::class, 'updateRegister'])->name('admin.data.updateRegister');
 
-      });
     });
 
   });
