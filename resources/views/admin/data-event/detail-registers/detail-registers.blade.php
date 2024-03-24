@@ -2,7 +2,11 @@
 
 @section('content')
 <div class="title-box  d-flex gap-2 align-items-baseline"><i class="ri-calendar-event-line fs-2"></i>
-  <p class="fs-3 m-0">Data Event TOIEC</p>
+  <p class="fs-3 m-0">Detail Pendaftar <span class="fs-5 fw-light">(Event {{date("d-m-Y",
+      strtotime($event->register_start))
+      }} -
+      {{date("d-m-Y",
+      strtotime($event->register_end)) }})</span></p>
 </div>
 <div class="breadcrumbs-box mt-2 rounded rounded-2 bg-white p-2">
   <nav
@@ -10,7 +14,9 @@
     aria-label="breadcrumb">
     <ol class="breadcrumb mb-0">
       <li class="breadcrumb-item d-flex gap-2 align-items-center"><i class="ri-apps-line"></i>UPA Bahasa</li>
-      <li class="breadcrumb-item active" aria-current="page">Data Event</li>
+      <li class="breadcrumb-item" aria-current="page"><a href={{route('admin.data.event')}}
+          class="text-decoration-none">Data Event</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Detail Pendaftar</li>
     </ol>
   </nav>
 </div>
@@ -28,8 +34,8 @@
         </ul>
       </div>
       @endif
-      <a href={{route('admin.data.createEvent')}}>
-        <div id="add" class="btn btn-success"><i class="ri-add-box-line me-2"></i>Tambah Event</div>
+      <a href={{route('admin.data.detail.registers.createRegister', $event->event_id)}}>
+        <div id="add" class="btn btn-success"><i class="ri-add-box-line me-2"></i>Tambah Pendaftar</div>
       </a>
     </div>
     <div class="table-wrapper mt-2 mb-2">
@@ -37,40 +43,43 @@
         <thead>
           <tr>
             <th class="text-secondary">No</th>
-            <th class="text-secondary">Awal Pendaftaran</th>
-            <th class="text-secondary">Akhir Pendaftaran</th>
-            <th class="text-secondary">Pelaksanaan</th>
-            <th class="text-secondary">Kuota</th>
-            <th class="text-secondary">Sisa Kuota</th>
-            <th class="text-secondary">Status</th>
+            <th class="text-secondary">Nama</th>
+            <th class="text-secondary">NIM</th>
+            <th class="text-secondary">Jurusan</th>
+            <th class="text-secondary">Prodi</th>
+            <th class="text-secondary">No. HP</th>
+            <th class="text-secondary">Email</th>
             <th class="text-secondary">Aksi</th>
           </tr>
         </thead>
         <tbody id="tableBody">
-          @foreach ($events as $event)
+          @foreach ($detailRegisters as $detailRegister)
           <tr>
             <td>{{$loop->iteration }}</td>
-            <td>{{date("d-m-Y", strtotime($event->register_start)) }}</td>
-            <td>{{date("d-m-Y", strtotime($event->register_end)) }}</td>
-            <td>{{date("d-m-Y", strtotime($event->execution)) }}</td>
-            <td>{{$event->quota }}</td>
-            <td>{{$event->remaining_quota }}</td>
-            <td class="text-capitalize">{{$event->status === 1 ? 'Aktif' : 'Non-Aktif'}}</td>
+            <td>{{$detailRegister->name}}</td>
+            <td>{{$detailRegister->nim}}</td>
+            <td>{{$detailRegister->departement}}</td>
+            <td>{{$detailRegister->program_study}}</td>
+            <td>{{$detailRegister->phone_num}}</td>
+            <td>{{$detailRegister->email}}</td>
             <td class="">
               <div class="btn-wrapper d-flex gap-2 flex-wrap">
-                <a href={{route('admin.data.editEvent', $event->event_id)}} data-bs-toggle="tooltip"
+                <a href={{route('admin.data.registers.editRegister',
+                  [$event->event_id,$detailRegister->registration_id])}}
+                  data-bs-toggle="tooltip"
                   data-bs-custom-class="custom-tooltip"
-                  data-bs-title="Edit Event" class="btn edit btn-action
+                  data-bs-title="Edit Data" class="btn edit btn-action
                   btn-warning
                   text-white"><i class="ri-edit-2-line"></i></a>
                 <div class="delete cursor-pointer btn btn-action btn-danger
-                  text-white" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
-                  data-bs-title="Hapus Event" data-id="{{$event->event_id}}">
+                  text-white" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Data"
+                  data-id="{{$detailRegister->registration_id}}">
                   <i class="ri-delete-bin-line"></i>
                 </div>
-                <a href={{route('admin.data.detail.registers', $event->event_id)}} data-bs-toggle="tooltip"
+                <a href={{route('admin.data.detail.registers', $detailRegister->registration_id)}}
+                  data-bs-toggle="tooltip"
                   data-bs-custom-class="custom-tooltip"
-                  data-bs-title="Detail Pendaftar" class="btn detail btn-action
+                  data-bs-title="Detail Data" class="btn detail btn-action
                   btn-primary
                   text-white"><i class="ri-list-check"></i></a>
               </div>

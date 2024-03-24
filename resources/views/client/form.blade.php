@@ -41,7 +41,7 @@
         </div>
       </a>
       <div class="col-12 col-lg-10 mt-4">
-        <form action={{route('admin.form.registration')}} class="form" method="POST" enctype="multipart/form-data">
+        <form action={{route('client.form.registration')}} class="form" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Nama Lengkap</label>
@@ -98,11 +98,11 @@
               placeholder="Masukkan no telepon anda" name="phone_num" value="{{old('phone_num')}}" />
           </div>
           <div class="mb-3">
-            <label for="formFile" class="form-label">KTP</label>
+            <label for="formFile" class="form-label">Foto KTP</label>
             <input required class="form-control" type="file" id="formFile" name="ktp_img" value="{{old('ktp_img')}}">
           </div>
           <div class="mb-3">
-            <label for="formFile" class="form-label">KTM</label>
+            <label for="formFile" class="form-label">Foto KTM</label>
             <input required class="form-control" type="file" id="formFile" name="ktm_img" value="{{old('ktm_img')}}">
           </div>
           <div class="mb-3">

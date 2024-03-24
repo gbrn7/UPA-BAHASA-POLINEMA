@@ -31,4 +31,10 @@ class RegistrationsModel extends Model
         'updated_by',
         'deleted_by',
     ]);
+
+    public function Event()
+    {
+        return $this->belongsTo(EventModel::class, 'event_id', 'event_id');
+    }
+
 }

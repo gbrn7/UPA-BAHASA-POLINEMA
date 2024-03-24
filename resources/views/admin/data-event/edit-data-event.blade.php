@@ -32,6 +32,7 @@
 
     <form action={{route('admin.data.updateEvent', $event->event_id)}} class="form" method="POST">
       @csrf
+      @method('PUT')
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">ID Event</label>
         <input required type="text" name="event_id" class="form-control" disabled value={{$event->event_id}} />

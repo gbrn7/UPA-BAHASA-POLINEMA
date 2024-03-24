@@ -30,21 +30,21 @@
       @endif
     </div>
 
-    <form action={{route('admin.data.store')}} class="form" method="POST">
+    <form action={{route('admin.data.storeEvent')}} class="form" method="POST">
       @csrf
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Rentang Pendaftaran</label>
-        <input required type="text" autocomplete="off" name="registration_range" id="datepicker" class="form-control"
-          placeholder="Masukkan rentang tanggal pendaftaran" />
+        <input required type="text" autocomplete="off" name="registration_range" value="{{old('registration_range')}}"
+          id="datepicker" class="form-control" placeholder="Masukkan rentang tanggal pendaftaran" />
       </div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Tanggal Pelaksanaan</label>
-        <input required type="text" name="execution" autocomplete="off" id="datepicker" class="form-control"
-          placeholder="Masukkan tanggal pelaksanaan" />
+        <input required type="text" name="execution" value={{old('execution')}} autocomplete="off" id="datepicker"
+          class="form-control" placeholder="Masukkan tanggal pelaksanaan" />
       </div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Kuota</label>
-        <input required type="number" min="0" name="quota" class="form-control"
+        <input required type="number" min="0" name="quota" value="{{old('quota')}}" class="form-control"
           placeholder="Masukkan kuota pendaftar" />
       </div>
       <div class="mb-3">

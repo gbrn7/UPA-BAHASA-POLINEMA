@@ -123,38 +123,43 @@ class ClientController extends Controller
 
         if (isset($checkEmail)) return back()->withInput()->withErrors('Pendaftaran anda sudah terdaftar pada test TOEIC batch ini');
 
-        DB::beginTransaction();
-        $activeEvent->update([
-            'remaining_quota' => ($activeEvent->remaining_quota - 1),
-        ]); 
-        //Ktp rename file
-        $ktp = $request->ktp_img;
-        $imageName = $activeEvent->event_id.'_'.Str::random(3).'.'.$ktp->getClientOriginalExtension();
-        $ktp->storeAs('public/ktp', $imageName);
-        $newRegistration['ktp_img'] = $imageName;
+        try{
+            DB::beginTransaction();
+            $activeEvent->update([
+                'remaining_quota' => ($activeEvent->remaining_quota - 1),
+            ]); 
+            //Ktp rename file
+            $ktp = $request->ktp_img;
+            $imageName = $activeEvent->event_id.'_'.Str::random(3).'.'.$ktp->getClientOriginalExtension();
+            $ktp->storeAs('public/ktp', $imageName);
+            $newRegistration['ktp_img'] = $imageName;
+    
+            //Ktm rename file
+            $ktm = $request->ktm_img;
+            $imageName = $activeEvent->event_id.'_'.Str::random(3).'.'.$ktm->getClientOriginalExtension();
+            $ktm->storeAs('public/ktm', $imageName);
+            $newRegistration['ktm_img'] = $imageName;
+    
+            //Surat Pernyataan IISMA rename file
+            $srtPrytnis = $request->surat_pernyataan_iisma;
+            $imageName = $activeEvent->event_id.'_'.Str::random(3).'.'.$srtPrytnis->getClientOriginalExtension();
+            $srtPrytnis->storeAs('public/surat_pernyataan_iisma', $imageName);
+            $newRegistration['surat_pernyataan_iisma'] = $imageName;
+    
+            //Pas Foto rename file
+            $pasFoto = $request->pasFoto_img;
+            $imageName = $activeEvent->event_id.'_'.Str::random(3).'.'.$pasFoto->getClientOriginalExtension();
+            $pasFoto->storeAs('public/pasFoto', $imageName);
+            $newRegistration['pasFoto_img'] = $imageName;
+    
+            $newRegistration = RegistrationsModel::create($newRegistration);
+            DB::commit();
+    
+            return back()->withSuccess('Pendaftaran test bahasa inggris TOEIC '.$newRegistration->name.' berhasil');
+        }catch (\Throwable $th){
+            return back()->withInput()->withErrors('Internal Server Error');
+        }
 
-        //Ktm rename file
-        $ktm = $request->ktm_img;
-        $imageName = $activeEvent->event_id.'_'.Str::random(3).'.'.$ktm->getClientOriginalExtension();
-        $ktm->storeAs('public/ktm', $imageName);
-        $newRegistration['ktm_img'] = $imageName;
-
-        //Surat Pernyataan IISMA rename file
-        $srtPrytnis = $request->surat_pernyataan_iisma;
-        $imageName = $activeEvent->event_id.'_'.Str::random(3).'.'.$srtPrytnis->getClientOriginalExtension();
-        $srtPrytnis->storeAs('public/surat_pernyataan_iisma', $imageName);
-        $newRegistration['surat_pernyataan_iisma'] = $imageName;
-
-        //Pas Foto IISMA rename file
-        $pasFoto = $request->pasFoto_img;
-        $imageName = $activeEvent->event_id.'_'.Str::random(3).'.'.$pasFoto->getClientOriginalExtension();
-        $pasFoto->storeAs('public/pasFoto', $imageName);
-        $newRegistration['pasFoto_img'] = $imageName;
-
-        $newRegistration = RegistrationsModel::create($newRegistration);
-        DB::commit();
-
-        return back()->withSuccess('Pendaftaran test bahasa inggris TOEIC '.$newRegistration->name.' berhasil');
 
     }
 }
