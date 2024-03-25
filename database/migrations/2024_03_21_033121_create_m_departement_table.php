@@ -14,7 +14,15 @@ return new class extends Migration
         Schema::create('m_departement', function (Blueprint $table) {
             $table->id('departement_id');
             $table->string('name');
+            $table->unsignedBigInteger('created_by')->index();
+            $table->unsignedBigInteger('updated_by')->index()->nullable();
+            $table->unsignedBigInteger('deleted_by')->index()->nullable();
+            $table->softDeletes();
             $table->timestamps();
+
+            $table->foreign(('created_by'))->references('user_id')->on('d_user');
+            $table->foreign(('updated_by'))->references('user_id')->on('d_user');
+            $table->foreign(('deleted_by'))->references('user_id')->on('d_user');
         });
     }
 

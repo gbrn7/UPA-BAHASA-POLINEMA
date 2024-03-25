@@ -14,9 +14,22 @@ class ProdySedder extends Seeder
     public function run(): void
     {
         DB::table('m_prody')->insert([
-            ['name' => 'D4 Teknik Informatika'],
-            ['name' => 'D4 Teknik Kelistrikan'],
-            ['name' => 'D4 Sistem Informasi Bisnis'],
+            [
+                'name' => 'D4 Teknik Informatika',
+                'departement_id' => '3',
+                'created_by' => 1,
+                'updated_by' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'name' => 'D4 Sistem Informasi Bisnis',
+                'departement_id' => '3',
+                'created_by' => 1,
+                'updated_by' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
         ]);    
     }
 }

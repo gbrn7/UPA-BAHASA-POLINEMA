@@ -15,13 +15,14 @@
           class="text-decoration-none p-3 rounded rounded-2 d-flex align-items-baseline"><i
             class="ri-dashboard-line me-2"></i>Beranda</a>
       </li>
-      <li class="rounded {{Request::segment(2) === 'data-event' ? 'active' : ''}} rounded-2">
+      <li class="rounded {{Request::segment(2) === 'data-events' ? 'active' : ''}} rounded-2">
         <a href={{route('admin.data.event')}}
           class="text-decoration-none p-3 rounded rounded-2 d-flex align-items-baseline"><i
             class="ri-calendar-event-line me-2"></i>Data Event TOIEC</a>
       </li>
-      <li class="rounded {{Request::segment(2) === 'data-product' ? 'active' : ''}} rounded-2">
-        <a href="#" class="text-decoration-none p-3 rounded rounded-2 d-flex align-items-baseline"><i
+      <li class="rounded {{Request::segment(2) === 'data-departements' ? 'active' : ''}} rounded-2">
+        <a href={{route('admin.data.departements')}}
+          class="text-decoration-none p-3 rounded rounded-2 d-flex align-items-baseline"><i
             class="ri-building-2-line me-2"></i>Data Jurusan</a>
       </li>
       <li class="rounded {{Request::segment(2) === 'data-product' ? 'active' : ''}} rounded-2">

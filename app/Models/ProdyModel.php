@@ -12,6 +12,10 @@ class ProdyModel extends Model
     protected $primaryKey = 'prody_id';
 
     protected $fillable = ([
-        'name'
+        'name',
+        'departement_id',
+        'created_by',
+        'updated_by',
+        'deleted_by',   
     ]);
 }
