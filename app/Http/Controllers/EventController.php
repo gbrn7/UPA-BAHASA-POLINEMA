@@ -176,7 +176,7 @@ class EventController extends Controller
             'name' => 'required|string|max:255',
             'nim' => 'required|string|max:255',
             'nik' => 'required|string|max:255',
-            'departement' => 'required|string|max:255',
+            'departement' => 'required',
             'program_study' => 'required|string|max:255',
             'semester' => 'required',
             'email' => 'required|email',
@@ -218,6 +218,13 @@ class EventController extends Controller
 
         $newRegistration = $request->except('_token');
         $newRegistration['event_id'] = $event->event_id;
+
+        $departement  = DepartementModel::find($request->departement);
+        if (!isset($departement)) return back()->withInput()->withErrors('Jurusan tidak ditemukan');
+        $newRegistration['departement'] = $departement->name;
+
+        $newRegistration['created_by'] = auth()->user()->user_id;
+        $newRegistration['updated_by'] = auth()->user()->user_id;
 
         $checkEmail = RegistrationsModel::where('event_id', $event->event_id)
                                          ->where('email', $newRegistration['email'] )
@@ -262,8 +269,9 @@ class EventController extends Controller
     public function editRegister($eventId, $registerId)
     {
         $departements = DepartementModel::all();
-        $prodys = ProdyModel::all();
         $register = RegistrationsModel::find($registerId);
+        $selectedDept = $departements->where('name',$register->departement)->first();
+        $prodys = ProdyModel::where('departement_id', $selectedDept->departement_id)->get();
 
         if (!isset($register)) return back()->with('toast_warning', 'Pendaftar tidak ditemukan');
 
@@ -281,7 +289,7 @@ class EventController extends Controller
             'name' => 'required|string|max:255',
             'nim' => 'required|string|max:255',
             'nik' => 'required|string|max:255',
-            'departement' => 'required|string|max:255',
+            'departement' => 'required',
             'program_study' => 'required|string|max:255',
             'semester' => 'required',
             'email' => 'required|email',
@@ -324,6 +332,12 @@ class EventController extends Controller
         $newRegistration = $request->except('_token');
         $newRegistration['event_id'] = $event->event_id;
 
+        $departement  = DepartementModel::find($request->departement);
+        if (!isset($departement)) return back()->withInput()->withErrors('Jurusan tidak ditemukan');
+        $newRegistration['departement'] = $departement->name;
+
+        $newRegistration['updated_by'] = auth()->user()->user_id;
+
         $checkEmail = RegistrationsModel::where('event_id', $event->event_id)
                                          ->where('registration_id', '<>', $registerId)
                                          ->where('email', $newRegistration['email'] )
@@ -339,6 +353,7 @@ class EventController extends Controller
                 $fileName = $event->event_id.'_'.Str::random(3).'.'.$ktp->getClientOriginalExtension();
                 $ktp->storeAs('public/ktp', $fileName);
                 $newRegistration['ktp_img'] = $fileName;
+
                 //delete old ktp
                 Storage::delete('public/ktp/'.$registration->ktp_img);
             }   
@@ -391,13 +406,26 @@ class EventController extends Controller
             'eventId' => 'required',
         ]);
 
-        $register = RegistrationsModel::find($request->registerId);
+        try {
+            DB::beginTransaction();
 
-        $register->delete([
-            'deleted_by' => auth()->user()->user_id
-        ]);
-
-        return redirect()->route('admin.data.detail.registers', $request->eventId)->with('toast_success', 'Pendaftar Berhasil Dihapus');
+            $register = RegistrationsModel::find($request->registerId);
+            $register->delete([
+                'deleted_by' => auth()->user()->user_id
+            ]);
+    
+            $event = EventModel::find($register->event_id);
+            $event->update([
+                'remaining_quota' => ($event->remaining_quota + 1),
+            ]); 
+    
+            DB::commit();
+    
+            return redirect()->route('admin.data.detail.registers', $request->eventId)->with('toast_success', 'Pendaftar Berhasil Dihapus');
+        } catch (\Throwable $th) {
+            
+            return redirect()->route('admin.data.detail.registers', $request->eventId)->with('toast_error', 'Gagal menghapus data pendaftaran');
+        }
 
     }
 

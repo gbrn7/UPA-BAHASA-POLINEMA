@@ -59,12 +59,10 @@ class ClientController extends Controller
         }
 
         $departements = DepartementModel::all();
-        $prodys = ProdyModel::all();
         
         return view('client.form', 
         [
         'departements' => $departements, 
-        'prodys' => $prodys
         ]);
     }
 

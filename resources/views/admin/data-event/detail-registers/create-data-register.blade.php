@@ -53,10 +53,11 @@
       </div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Jurusan</label>
-        <select name="departement" required class="form-select" aria-label="Default select example">
-          <option value="">Open this select menu</option>
+        <select name="departement" required id="jurusan-select" class="form-select" aria-label="Default select example">
+          <option value="">Pilih Jurusan</option>
           @foreach ($departements as $departement)
-          <option value="{{$departement->name}}" {{old('departement')===$departement->name ? 'selected' : ''}}>
+          <option value="{{$departement->departement_id}}" {{old('departement')===$departement->name ? 'selected' :
+            ''}}>
             {{$departement->name}}</option>
           @endforeach
         </select>
@@ -64,17 +65,13 @@
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Program Studi</label>
         <select name="program_study" required class="form-select" aria-label="Default select example">
-          <option value="">Open this select menu</option>
-          @foreach ($prodys as $prody)
-          <option value="{{$prody->name}}" {{old('program_study')===$prody->name ? 'selected' :
-            ''}}>{{$prody->name}}</option>
-          @endforeach
+          <option value="">Pilih jurusan terlebih dahulu</option>
         </select>
       </div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Semester</label>
         <select required name="semester" class="form-select" aria-label="Default select example">
-          <option value="">Open this select menu</option>
+          <option value="">Pilih Semester</option>
           <option value="4" {{old('semester')==='4' ? ' selected' : '' }}>4</option>
           <option value="6" {{old('semester')==='6' ? ' selected' : '' }}>6</option>
           <option value="8" {{old('semester')==='8' ? ' selected' : '' }}>8</option>
@@ -117,6 +114,39 @@
   </div>
 </div>
 
+<script>
+  const form = document.querySelector(".form");
+    form.addEventListener('submit', function () {
+      document.querySelector("html").style.cursor = "wait";
+      document.querySelector(".loading-wrapper").classList.remove('d-none');
+    });
 
+  $('#jurusan-select').change(function (e) { 
+      e.preventDefault();
+      DepartementId = this.value;
+
+
+      $.ajax({
+        type: "Get",
+        url: "{{route('client.getProgramStudy')}}",
+        data: {
+          "_token": "{{csrf_token()}}",
+          "departement_id" : DepartementId
+        },
+        success: function (res, status) {
+          if(res.data.length > 0){
+            $('select[name="program_study"]').empty();
+            res.data.forEach(e => {
+              $('select[name="program_study"]').append(`<option value="${e.name}">${e.name}</option>`);
+            })
+          }else{
+            $('select[name="program_study"]').empty().append(`<option value="">Program studi tidak ditemukan</option>`);
+          }
+        }
+
+      });
+      
+    });
+</script>
 
 @endsection

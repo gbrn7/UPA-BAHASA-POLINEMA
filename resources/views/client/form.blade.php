@@ -74,11 +74,7 @@
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Program Studi</label>
             <select name="program_study" required class="form-select" aria-label="Default select example">
-              <option value="">Pilih Jurusan Terlebih</option>
-              @foreach ($prodys as $prody)
-              <option value="{{$prody->name}}" {{old('program_study')===$prody->name ? 'selected' :
-                ''}}>{{$prody->name}}</option>
-              @endforeach
+              <option value="">Pilih jurusan anda terlebih dahulu</option>
             </select>
           </div>
           <div class="mb-3">

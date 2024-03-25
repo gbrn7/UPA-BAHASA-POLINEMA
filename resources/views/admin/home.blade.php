@@ -31,7 +31,7 @@
           </div>
         </div>
       </a>
-      <a href='#' class="card-dashboard text-decoration-none">
+      <a href={{route('admin.data.departements')}} class="card-dashboard text-decoration-none">
         <div class="card h-100">
           <div class="card-body  row justify-content-between align-items-center">
             <div class="card-body-content col-9">
@@ -41,20 +41,6 @@
             </div>
             <div class="col-2 col-sm-3 d-flex justify-content-center img-menu">
               <i class="fs-1 ri-building-2-line "></i>
-            </div>
-          </div>
-        </div>
-      </a>
-      <a href='#' class="card-dashboard text-decoration-none">
-        <div class="card h-100">
-          <div class="card-body  row justify-content-between align-items-center">
-            <div class="card-body-content col-9">
-              <h3 class="card-title">Data Program Studi</h3>
-              <p class="card-text text-secondary fw-normal">Fitur ini digunakan untuk mengolah data program studi
-                seperti menambah, memperbarui, atau menghapus data program studi.</p>
-            </div>
-            <div class="col-2 col-sm-3 d-flex justify-content-center img-menu">
-              <i class="fs-1 ri-book-marked-line  "></i>
             </div>
           </div>
         </div>
