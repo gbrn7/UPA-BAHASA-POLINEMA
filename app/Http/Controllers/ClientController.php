@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RegistrationMail;
 use App\Models\DepartementModel;
 use App\Models\EventModel;
 use App\Models\ProdyModel;
@@ -9,6 +10,7 @@ use App\Models\RegistrationsModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -156,14 +158,28 @@ class ClientController extends Controller
             $newRegistration['pasFoto_img'] = $imageName;
     
             $newRegistration = RegistrationsModel::create($newRegistration);
+            
+            $this->sendNotif([
+                'name' => $newRegistration->name,
+                'email' => $newRegistration->email,
+                'nim' => $newRegistration->nim,
+                'execution' => $activeEvent->execution,
+            ]);
+
             DB::commit();
     
-            return back()->withSuccess('Pendaftaran test bahasa inggris TOEIC '.$newRegistration->name.' berhasil');
+            return back()->withSuccess('Pendaftaran test bahasa inggris TOEIC '.$newRegistration->name.' berhasil, silahkan cek email anda');
         }catch (\Throwable $th){
+            dd($th);
             return back()->withInput()->withErrors('Internal Server Error');
         }
 
 
+    }
+
+    public function sendNotif($data)
+    {
+        Mail::to($data['email'])->send(new RegistrationMail($data));
     }
 
     public function getProgramStudy(Request $request)
