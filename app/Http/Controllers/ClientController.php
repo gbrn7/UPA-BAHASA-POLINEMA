@@ -74,7 +74,7 @@ class ClientController extends Controller
             'name' => 'required|string|max:255',
             'nim' => 'required|string|max:255',
             'nik' => 'required|string|max:255',
-            'departement' => 'required|string|max:255',
+            'departement' => 'required',
             'program_study' => 'required|string|max:255',
             'semester' => 'required',
             'email' => 'required|email',
@@ -117,6 +117,10 @@ class ClientController extends Controller
         $newRegistration = $request->except('_token');
         $newRegistration['event_id'] = $activeEvent->event_id;
 
+        $departement  = DepartementModel::find($request->departement);
+        if (!isset($departement)) return back()->withInput()->withErrors('Jurusan tidak ditemukan');
+        $newRegistration['departement'] = $departement->name;
+
         $checkEmail = RegistrationsModel::where('event_id', $activeEvent->event_id)
                                          ->where('email', $newRegistration['email'] )
                                          ->first();
@@ -125,6 +129,7 @@ class ClientController extends Controller
 
         try{
             DB::beginTransaction();
+
             $activeEvent->update([
                 'remaining_quota' => ($activeEvent->remaining_quota - 1),
             ]); 
@@ -161,5 +166,14 @@ class ClientController extends Controller
         }
 
 
+    }
+
+    public function getProgramStudy(Request $request)
+    {
+        $departementId = $request->departement_id;
+
+        $prody  = ProdyModel::where('departement_id', $departementId)->get();
+
+        return response()->json(['data' => $prody]);
     }
 }

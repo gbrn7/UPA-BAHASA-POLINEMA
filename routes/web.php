@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [ClientController::class, 'index'])->name('client');
 Route::get('/form-register', [ClientController::class, 'formView'])->name('client.form');
+Route::get('/get-program-study', [ClientController::class, 'getProgramStudy'])->name('client.getProgramStudy');
 Route::post('/form-register', [ClientController::class, 'saveRegistration'])->name('client.form.registration');
 
 Route::group(['prefix' => 'admin'], function(){

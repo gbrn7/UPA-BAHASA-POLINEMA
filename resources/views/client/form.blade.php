@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css"
     integrity="sha512-OQDNdI5rpnZ0BRhhJc+btbbtnxaj+LdQFeh0V9/igiEPDiWE2fG+ZsXl0JEH+bjXKPJ3zcXqNyP4/F/NegVdZg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 
 <body>
@@ -60,10 +61,12 @@
           </div>
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Jurusan</label>
-            <select name="departement" required class="form-select" aria-label="Default select example">
-              <option value="">Open this select menu</option>
+            <select name="departement" required id="jurusan-select" class="form-select"
+              aria-label="Default select example">
+              <option value="">Pilih Jurusan anda</option>
               @foreach ($departements as $departement)
-              <option value="{{$departement->name}}" {{old('departement')===$departement->name ? 'selected' : ''}}>
+              <option value="{{$departement->departement_id}}" {{old('departement')===$departement->name ? 'selected' :
+                ''}}>
                 {{$departement->name}}</option>
               @endforeach
             </select>
@@ -71,7 +74,7 @@
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Program Studi</label>
             <select name="program_study" required class="form-select" aria-label="Default select example">
-              <option value="">Open this select menu</option>
+              <option value="">Pilih Jurusan Terlebih</option>
               @foreach ($prodys as $prody)
               <option value="{{$prody->name}}" {{old('program_study')===$prody->name ? 'selected' :
                 ''}}>{{$prody->name}}</option>
@@ -81,7 +84,7 @@
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Semester</label>
             <select required name="semester" class="form-select" aria-label="Default select example">
-              <option value="">Open this select menu</option>
+              <option value="">Pilih Semester anda</option>
               <option value="4" {{old('semester')==='4' ? ' selected' : '' }}>4</option>
               <option value="6" {{old('semester')==='6' ? ' selected' : '' }}>6</option>
               <option value="8" {{old('semester')==='8' ? ' selected' : '' }}>8</option>
@@ -128,6 +131,10 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  {{-- jquery --}}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   <script>
     const form = document.querySelector(".form");
@@ -135,6 +142,47 @@
       document.querySelector("html").style.cursor = "wait";
       document.querySelector(".loader-wrapper").classList.remove('d-none');
     });
+
+    function startLoading()
+    {
+      document.querySelector(".loader-wrapper").classList.remove('d-none');
+      document.querySelector("html").style.cursor = "wait";
+    }
+
+    function endLoading()
+    {
+      document.querySelector(".loader-wrapper").classList.add('d-none');
+      document.querySelector("html").style.cursor = "default";
+    }
+
+    $('#jurusan-select').change(function (e) { 
+      e.preventDefault();
+      DepartementId = this.value;
+
+      startLoading();
+
+      $.ajax({
+        type: "Get",
+        url: "{{route('client.getProgramStudy')}}",
+        data: {
+          "_token": "{{csrf_token()}}",
+          "departement_id" : DepartementId
+        },
+        success: function (res, status) {
+          if(res.data.length > 0){
+            $('select[name="program_study"]').empty();
+            res.data.forEach(e => {
+              $('select[name="program_study"]').append(`<option value="${e.name}">${e.name}</option>`);
+            })
+          }else{
+            $('select[name="program_study"]').empty().append(`<option value="">Program studi tidak ditemukan</option>`);
+          }
+        }
+
+      });
+      endLoading();
+    });
+
   </script>
 
 </body>
