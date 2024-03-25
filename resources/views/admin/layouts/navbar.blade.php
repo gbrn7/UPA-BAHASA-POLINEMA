@@ -20,6 +20,9 @@
           <img src={{asset('assets/images/default.png')}} class="img-fluid img-avatar ">
         </a>
         <ul class="dropdown-menu dropdown-menu-end px-2">
+          <li class="rounded-2 dropdown-list"> <a href={{route('admin.editProfile')}} class="dropdown-item rounded-2"><i
+                class="ri-profile-line me-2"></i>Edit Profil</a>
+          </li>
           <li class="rounded-2 dropdown-list"> <a href={{route('admin.logout')}} class="dropdown-item rounded-2"><i
                 class="ri-logout-circle-line me-2"></i>Sign
               Out</a>

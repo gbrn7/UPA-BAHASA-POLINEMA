@@ -27,9 +27,14 @@ Route::post('/form-register', [ClientController::class, 'saveRegistration'])->na
 Route::group(['prefix' => 'admin'], function(){
   Route::get('/sign-in', [AuthController::class, 'index'])->name('admin.signIn');
   Route::post('/sign-in', [AuthController::class, 'authenticate'])->name('admin.signIn.auth');
+  
+
 
   Route::group([ 'middleware' => ['auth']], function(){
     Route::get('/home', [AdminController::class, 'index'])->name('admin.home');
+
+    Route::get('/edit-profile', [AdminController::class, 'editProfile'])->name('admin.editProfile');
+    Route::put('/edit-profile', [AdminController::class, 'updateProfile'])->name('admin.updateProfile');
 
     Route::group(['prefix' => 'data-events'], function(){
       Route::group(['prefix' => 'detail-registers'], function() {

@@ -131,6 +131,9 @@
       e.preventDefault();
       DepartementId = this.value;
 
+      document.querySelector("html").style.cursor = "wait";
+      document.querySelector(".loading-wrapper").classList.remove('d-none');
+
       $.ajax({
         type: "Get",
         url: "{{route('client.getProgramStudy')}}",
@@ -150,6 +153,9 @@
         }
 
       });
+
+      document.querySelector("html").style.cursor = "default";
+      document.querySelector(".loading-wrapper").classList.add('d-none');
     });
 </script>
 @endsection
