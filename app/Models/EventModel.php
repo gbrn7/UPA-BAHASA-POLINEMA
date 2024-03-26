@@ -20,6 +20,7 @@ class EventModel extends Model
         'quota',
         'remaining_quota',
         'status',
+        'wa_group_link',
         'created_by',
         'updated_by',
         'deleted_by',

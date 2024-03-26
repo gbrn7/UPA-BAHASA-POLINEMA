@@ -4,7 +4,15 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <title>Simple Transactional Email</title>
+  <title>UPA BAHASA MAIL</title>
+  {{-- Bootrsrap Css --}}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+
+  <!-- Remix icon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css"
+    integrity="sha512-OQDNdI5rpnZ0BRhhJc+btbbtnxaj+LdQFeh0V9/igiEPDiWE2fG+ZsXl0JEH+bjXKPJ3zcXqNyP4/F/NegVdZg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style media="all" type="text/css">
     /* -------------------------------------
     GLOBAL RESETS
@@ -324,17 +332,35 @@
             <!-- START MAIN CONTENT AREA -->
             <tr>
               <td class="wrapper">
-                <p>Kepada {{$data['name']}}</p>
-                <p>
-                  Kami ingin memberitahu bahwa pendaftaran tes TOEIC pada UPA BAHASA POLINEMA atas nama
-                  {{$data['name']}}
-                  dengan NIM
-                  {{$data['nim']}}, telah berhasil, Pelaksanaan TOEIC akan dilaksanakan pada tanggal
-                  {{date("d M Y",
-                  strtotime($data['execution'])) }}.
-                  Terima kasih.
-                </p>
-                <p>UPA BAHASA POLINEMA</p>
+                <p style="color: black">Kepada {{$data['name']}}</p>
+                <div class="wrapper">
+                  <p class="m-0" style="color: black">
+                    Kami ingin memberitahu bahwa pendaftaran tes TOEIC pada
+                    UPA BAHASA POLINEMA atas nama {{$data['name']}} dengan NIM
+                    {{$data['nim']}}, telah berhasil, Pelaksanaan TOEIC akan
+                    dilaksanakan pada tanggal {{date("d M Y",
+                    strtotime($data['execution'])) }}. Terima kasih.
+                  </p>
+
+                  @isset($data['wa_group_link'])
+                  <div class="btn-wrapper" style="
+                    text-align: center;
+                    margin-top: 12px;
+                    margin-bottom: 8px;
+                  ">
+                    <a href="{{$data['wa_group_link']}}" class="btn btn-success mt-2 text-decoration-none" style="
+                      padding: 12px;
+                      background-color: #25d366;
+                      border-radius: 12px;
+                      color: white;
+                      text-decoration: none;
+                    " ,>
+                      Join Group WhatsApp
+                    </a>
+                  </div>
+                  @endisset
+                </div>
+                <p style="color: black">UPA BAHASA POLINEMA</p>
               </td>
             </tr>
 

@@ -39,13 +39,18 @@
       </div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Tanggal Pelaksanaan</label>
-        <input required type="text" name="execution" value={{old('execution')}} autocomplete="off" id="datepicker"
+        <input required type="text" name="execution" value="{{old('execution')}}" autocomplete="off" id="datepicker"
           class="form-control" placeholder="Masukkan tanggal pelaksanaan" />
       </div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Kuota</label>
         <input required type="number" min="0" name="quota" value="{{old('quota')}}" class="form-control"
           placeholder="Masukkan kuota pendaftar" />
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Link Grup WhatsAppp</label>
+        <input type="Text" name="wa_group_link" value="{{old('wa_group_link')}}" class="form-control"
+          placeholder="Masukkan link grup WhatsAppp" />
       </div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Status</label>

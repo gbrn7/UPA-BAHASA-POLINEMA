@@ -164,13 +164,13 @@ class ClientController extends Controller
                 'email' => $newRegistration->email,
                 'nim' => $newRegistration->nim,
                 'execution' => $activeEvent->execution,
+                'wa_group_link' => isset($activeEvent->wa_group_link) ? $activeEvent->wa_group_link : null,
             ]);
 
             DB::commit();
     
-            return back()->withSuccess('Pendaftaran test bahasa inggris TOEIC '.$newRegistration->name.' berhasil, silahkan cek email anda');
+            return back()->withSuccess('Pendaftaran test bahasa inggris TOEIC '.$newRegistration->name.' berhasil, silahkan cek email anda '.(isset($activeEvent->wa_group_link)? 'untuk mengikuti grup WhatsApp pendaftar': '' ));
         }catch (\Throwable $th){
-            dd($th);
             return back()->withInput()->withErrors('Internal Server Error');
         }
 

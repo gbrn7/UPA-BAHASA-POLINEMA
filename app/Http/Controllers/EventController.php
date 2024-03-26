@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RegistrationMail;
 use App\Models\DepartementModel;
 use App\Models\EventModel;
 use App\Models\ProdyModel;
@@ -9,6 +10,7 @@ use App\Models\RegistrationsModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -55,6 +57,7 @@ class EventController extends Controller
             'execution' => 'required',
             'quota' => 'required',
             'status' => 'required',
+            'wa_group_link' => 'nullable',
         ]);
 
         $registerStart = Carbon::parse(explode(' - ',$request->registration_range)[0])->startOfDay();
@@ -67,14 +70,16 @@ class EventController extends Controller
             'execution' => $execution,
             'quota' => $request->quota,
             'remaining_quota' => $request->quota,
+            'wa_group_link' => isset($request->wa_group_link) ? $request->wa_group_link :null,
             'status' => $request->status,
             'created_by' => auth()->user()->user_id,
             'updated_by' => auth()->user()->user_id
         ]);
 
         return redirect()->route('admin.data.event')->with('toast_success', 'Event Berhasil Ditambahkan');
-
     }   
+
+    
 
     public function editEvent($eventId)
     {   
@@ -99,10 +104,13 @@ class EventController extends Controller
             'execution' => 'required',
             'quota' => 'required',
             'status' => 'required|boolean',
+            'wa_group_link' => 'nullable',
         ]);
 
         if($request->status == 1 ){
-            $activeEvent = EventModel::where('status', true)->first();
+            $activeEvent = EventModel::where('status', true)
+                        ->where('event_id', '<>', $eventId)
+                        ->first();
 
             if (isset($activeEvent) ) return back()->with('toast_warning', 'Terdapat Event yang masih aktif, untuk mengaktifkan event pastikan semua event Non-Aktif');
             
@@ -120,6 +128,7 @@ class EventController extends Controller
             'execution' => $execution,
             'quota' => $request->quota,
             'remaining_quota' => $request->quota,
+            'wa_group_link' => isset($request->wa_group_link) ? $request->wa_group_link :null,
             'status' => $request->status,
             'created_by' => auth()->user()->user_id,
             'updated_by' => auth()->user()->user_id
@@ -232,38 +241,57 @@ class EventController extends Controller
 
         if (isset($checkEmail)) return back()->with('toast_warning', 'Email sudah didaftarkan')->withInput();
 
-        DB::beginTransaction();
-        $event->update([
-            'remaining_quota' => ($event->remaining_quota - 1),
-        ]); 
-        //Ktp rename file
-        $ktp = $request->ktp_img;
-        $imageName = $event->event_id.'_'.Str::random(3).'.'.$ktp->getClientOriginalExtension();
-        $ktp->storeAs('public/ktp', $imageName);
-        $newRegistration['ktp_img'] = $imageName;
+        try{
+            DB::beginTransaction();
+            $event->update([
+                'remaining_quota' => ($event->remaining_quota - 1),
+            ]); 
+            //Ktp rename file
+            $ktp = $request->ktp_img;
+            $imageName = $event->event_id.'_'.Str::random(3).'.'.$ktp->getClientOriginalExtension();
+            $ktp->storeAs('public/ktp', $imageName);
+            $newRegistration['ktp_img'] = $imageName;
+    
+            //Ktm rename file
+            $ktm = $request->ktm_img;
+            $imageName = $event->event_id.'_'.Str::random(3).'.'.$ktm->getClientOriginalExtension();
+            $ktm->storeAs('public/ktm', $imageName);
+            $newRegistration['ktm_img'] = $imageName;
+    
+            //Surat Pernyataan IISMA rename file
+            $srtPrytnis = $request->surat_pernyataan_iisma;
+            $imageName = $event->event_id.'_'.Str::random(3).'.'.$srtPrytnis->getClientOriginalExtension();
+            $srtPrytnis->storeAs('public/surat_pernyataan_iisma', $imageName);
+            $newRegistration['surat_pernyataan_iisma'] = $imageName;
+    
+            //Pas Foto IISMA rename file
+            $pasFoto = $request->pasFoto_img;
+            $imageName = $event->event_id.'_'.Str::random(3).'.'.$pasFoto->getClientOriginalExtension();
+            $pasFoto->storeAs('public/pasFoto', $imageName);
+            $newRegistration['pasFoto_img'] = $imageName;
+    
+            $newRegistration = RegistrationsModel::create($newRegistration);
 
-        //Ktm rename file
-        $ktm = $request->ktm_img;
-        $imageName = $event->event_id.'_'.Str::random(3).'.'.$ktm->getClientOriginalExtension();
-        $ktm->storeAs('public/ktm', $imageName);
-        $newRegistration['ktm_img'] = $imageName;
+            if($event->status == 1){
+                $this->sendNotif([
+                    'name' => $newRegistration->name,
+                    'email' => $newRegistration->email,
+                    'nim' => $newRegistration->nim,
+                    'execution' => $event->execution,
+                    'wa_group_link' => isset($event->wa_group_link) ? $event->wa_group_link : null,
+                ]);
+            }
+            DB::commit();
+    
+            return redirect()->route('admin.data.detail.registers', $eventId)->with('toast_success', 'Pendaftaran test bahasa inggris TOEIC '.$newRegistration->name.' berhasil');
+        }catch (\Throwable $th){
+            return back()->withInput()->withErrors('Internal Server Error');
+        }
+    }
 
-        //Surat Pernyataan IISMA rename file
-        $srtPrytnis = $request->surat_pernyataan_iisma;
-        $imageName = $event->event_id.'_'.Str::random(3).'.'.$srtPrytnis->getClientOriginalExtension();
-        $srtPrytnis->storeAs('public/surat_pernyataan_iisma', $imageName);
-        $newRegistration['surat_pernyataan_iisma'] = $imageName;
-
-        //Pas Foto IISMA rename file
-        $pasFoto = $request->pasFoto_img;
-        $imageName = $event->event_id.'_'.Str::random(3).'.'.$pasFoto->getClientOriginalExtension();
-        $pasFoto->storeAs('public/pasFoto', $imageName);
-        $newRegistration['pasFoto_img'] = $imageName;
-
-        $newRegistration = RegistrationsModel::create($newRegistration);
-        DB::commit();
-
-        return redirect()->route('admin.data.detail.registers', $eventId)->with('toast_success', 'Pendaftaran test bahasa inggris TOEIC '.$newRegistration->name.' berhasil');
+    public function sendNotif($data)
+    {
+        Mail::to($data['email'])->send(new RegistrationMail($data));
     }
 
     public function editRegister($eventId, $registerId)

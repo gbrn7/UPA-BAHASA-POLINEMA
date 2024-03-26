@@ -20,6 +20,7 @@ class EventsSeeder extends Seeder
             'execution' => Carbon::parse('2024-04-30'), 
             'quota' => 120, 
             'remaining_quota' => 100, 
+            'wa_group_link' => 'https://chat.whatsapp.com/LcO3slKxMsmC62XdXPMm5n',
             'status' => 1,
             'created_at' => now(),
             'updated_at' => now(),

@@ -53,6 +53,11 @@
         placeholder="Masukkan kuota pendaftar" />
       </div>
       <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Link Grup WhatsAppp</label>
+        <input type="Text" name="wa_group_link" value="{{$event->wa_group_link}}" class="form-control"
+          placeholder="Masukkan link grup WhatsAppp" />
+      </div>
+      <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Status</label>
         <select required name="status" class="form-select" aria-label="Default select example">
           <option value="1" {{$event->status === 1 ? ' selected' : '' }}>Aktif</option>

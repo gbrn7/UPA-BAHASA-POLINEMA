@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('quota');
             $table->integer('remaining_quota');
             $table->boolean('status');
+            $table->string('wa_group_link')->nullable();
             $table->unsignedBigInteger('created_by')->index();
             $table->unsignedBigInteger('updated_by')->index()->nullable();
             $table->unsignedBigInteger('deleted_by')->index()->nullable();
