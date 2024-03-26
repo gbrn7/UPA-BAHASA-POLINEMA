@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('r_events', function (Blueprint $table) {
             $table->id('event_id');
-            $table->timestamp('register_start');
-            $table->timestamp('register_end');
+            $table->timestamp('register_start')->nullable();
+            $table->timestamp('register_end')->nullable();
             $table->date('execution');
             $table->integer('quota');
             $table->integer('remaining_quota');
