@@ -127,7 +127,7 @@ class EventController extends Controller
             'register_end' => $registerEnd,
             'execution' => $execution,
             'quota' => $request->quota,
-            'remaining_quota' => $request->quota,
+            'remaining_quota' => ($request->quota) - (($oldEvent->quota) - ($oldEvent->remaining_quota)),
             'wa_group_link' => isset($request->wa_group_link) ? $request->wa_group_link :null,
             'status' => $request->status,
             'created_by' => auth()->user()->user_id,

@@ -10,8 +10,7 @@
     aria-label="breadcrumb">
     <ol class="breadcrumb mb-0">
       <li class="breadcrumb-item d-flex gap-2 align-items-center"><i class="ri-apps-line"></i>UPA Bahasa</li>
-      <li class="breadcrumb-item"><a href={{route('admin.data.event')}} class="text-decoration-none">Edit Profil</a>
-      </li>
+      <li class="breadcrumb-item active">Edit Profil</li>
     </ol>
   </nav>
 </div>
@@ -30,22 +29,23 @@
       @endif
     </div>
 
-    <form action={{route('admin.updateProfile')}} class="form" method="POST">
+    <form action={{route('admin.updateProfile')}} class="form" method="POST" autocomplete="off">
       @csrf
       @method('PUT')
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Nama</label>
         <input type="text" autocomplete="off" name="name" value="{{auth()->user()->name}}" id="datepicker"
-          class="form-control" placeholder="Masukkan nama baru anda" />
+          autocomplete="off" class="form-control" placeholder="Masukkan nama baru anda" />
       </div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Email</label>
-        <input type="text" name="email" value="{{auth()->user()->email}}" class="form-control"
+        <input type="text" name="email" value="{{auth()->user()->email}}" class="form-control" autocomplete="off"
           placeholder="Masukkan email baru anda" />
       </div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">No. WhatsApp admin</label>
-        <input name="phone_num" type="text" class="form-control" placeholder="Masukkan No WhatsApp admin" />
+        <input name="phone_num" type="text" class="form-control" placeholder="Masukkan No WhatsApp admin"
+          autocomplete="off" />
       </div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Password Lama</label>

@@ -41,6 +41,7 @@
             <th class="text-secondary">Akhir Pendaftaran</th>
             <th class="text-secondary">Pelaksanaan</th>
             <th class="text-secondary">Kuota</th>
+            <th class="text-secondary">Jumlah Pendaftar</th>
             <th class="text-secondary">Sisa Kuota</th>
             <th class="text-secondary">Status</th>
             <th class="text-secondary">Aksi</th>
@@ -54,8 +55,9 @@
             <td>{{date("d-m-Y", strtotime($event->register_end)) }}</td>
             <td>{{date("d-m-Y", strtotime($event->execution)) }}</td>
             <td>{{$event->quota }}</td>
+            <td>{{(($event->quota) - ($event->remaining_quota))}}</td>
             <td>{{$event->remaining_quota }}</td>
-            <td class="text-capitalize">{{$event->status === 1 ? 'Aktif' : 'Non-Aktif'}}</td>
+            <td class="text-capitalize">{{$event->status == 1 ? 'Aktif' : 'Non-Aktif'}}</td>
             <td class="">
               <div class="btn-wrapper d-flex gap-2 flex-wrap">
                 <a href={{route('admin.data.editEvent', $event->event_id)}} data-bs-toggle="tooltip"
