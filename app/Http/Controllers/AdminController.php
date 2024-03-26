@@ -24,6 +24,7 @@ class AdminController extends Controller
         $validation = [
             'name' => 'nullable|string|max:255',
             'email' => 'nullable|email|unique:d_user,email,'.auth()->user()->user_id.',user_id',
+            'phone_num' => 'nullable|string',
             'old_password' => 'nullable|string|min:6',
             'new_password' => 'nullable|string|min:6',
             'confirm_new_password' => 'nullable|string|min:6',
@@ -47,6 +48,10 @@ class AdminController extends Controller
         }
 
         $newProfile = $request->except('_token');
+        if(substr($newProfile['phone_num'], 0) == 0){
+            $newProfile['phone_num'] = str_replace('08', '628', $newProfile['phone_num']);
+          }
+            
         $user = User::find(auth()->user()->user_id);
 
         if(isset($newProfile['old_password']) && isset($newProfile['new_password']) && isset($newProfile['confirm_new_password'])){

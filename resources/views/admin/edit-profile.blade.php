@@ -44,6 +44,10 @@
           placeholder="Masukkan email baru anda" />
       </div>
       <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">No. WhatsApp admin</label>
+        <input name="phone_num" type="text" class="form-control" placeholder="Masukkan No WhatsApp admin" />
+      </div>
+      <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Password Lama</label>
         <input name="old_password" type="password" class="form-control" placeholder="Masukkan password lama anda" />
       </div>

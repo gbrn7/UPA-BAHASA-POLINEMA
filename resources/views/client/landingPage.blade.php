@@ -39,12 +39,16 @@
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link" aria-current="page" href="#home">Home</a>
+          <a class="nav-link d-flex align-items-center" aria-current="page" href="#home">Home</a>
           @isset($activeEvent)
-          <a class="nav-link" href="#announcement">Announcement</a>
+          <a class="nav-link d-flex align-items-center" href="#announcement">Announcement</a>
           @endisset
-          <a class="nav-link" href="#program">Our Program</a>
-          <a class="nav-link" href="#gallery">Our Gallery</a>
+          <a class="nav-link d-flex align-items-center" href="#program">Our Program</a>
+          <a class="nav-link d-flex align-items-center" href="#gallery">Our Gallery</a>
+          @isset($adminPhoneNum)
+          <a class="nav-link d-flex align-items-center" target="blank" href="https://wa.me/62{{$adminPhoneNum}}"><i
+              class="ri-whatsapp-fill text-success fs-4"></i></a>
+          @endisset
         </div>
       </div>
     </div>

@@ -7,6 +7,7 @@ use App\Models\DepartementModel;
 use App\Models\EventModel;
 use App\Models\ProdyModel;
 use App\Models\RegistrationsModel;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,6 +24,8 @@ class ClientController extends Controller
         $activeEvent = EventModel::where('status', true)
                         ->first();
 
+        $admin = User::first();
+
         if (!isset($activeEvent)) {
             return view('client.landingPage');
         }
@@ -38,7 +41,7 @@ class ClientController extends Controller
             
         }
 
-        return view('client.landingPage', ['activeEvent' => $activeEvent]);
+        return view('client.landingPage', ['activeEvent' => $activeEvent, 'adminPhoneNum' => $admin->phone_num]);
     }
 
     public function formView()
