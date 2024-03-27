@@ -345,7 +345,7 @@
                   @isset($data['wa_group_link'])
                   <div class="btn-wrapper" style="
                     text-align: center;
-                    margin-top: 12px;
+                    margin-top: 16px;
                     margin-bottom: 8px;
                   ">
                     <a href="{{$data['wa_group_link']}}" class="btn btn-success mt-2 text-decoration-none" style="

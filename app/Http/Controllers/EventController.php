@@ -272,20 +272,27 @@ class EventController extends Controller
     
             $newRegistration = RegistrationsModel::create($newRegistration);
 
-            if($event->status == 1){
-                $this->sendNotif([
-                    'name' => $newRegistration->name,
-                    'email' => $newRegistration->email,
-                    'nim' => $newRegistration->nim,
-                    'execution' => $event->execution,
-                    'wa_group_link' => isset($event->wa_group_link) ? $event->wa_group_link : null,
-                ]);
-            }
             DB::commit();
-    
+
+            if($event->status == 1){
+                try {
+                    $this->sendNotif([
+                        'name' => $newRegistration->name,
+                        'email' => $newRegistration->email,
+                        'nim' => $newRegistration->nim,
+                        'execution' => $event->execution,
+                        'wa_group_link' => isset($event->wa_group_link) ? $event->wa_group_link : null,
+                    ]);
+                    
+                } catch (\Throwable $th) {
+                    return redirect()->route('admin.data.detail.registers', $eventId)->with('toast_success', 'Pendaftaran test bahasa inggris TOEIC '.$newRegistration->name.' berhasil');
+                }
+
+            }
+
             return redirect()->route('admin.data.detail.registers', $eventId)->with('toast_success', 'Pendaftaran test bahasa inggris TOEIC '.$newRegistration->name.' berhasil');
         }catch (\Throwable $th){
-            return back()->withInput()->withErrors('Internal Server Error');
+            return back()->withInput()->with('toast_error','Internal Server Error');
         }
     }
 

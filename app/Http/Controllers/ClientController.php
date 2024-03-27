@@ -161,18 +161,23 @@ class ClientController extends Controller
             $newRegistration['pasFoto_img'] = $imageName;
     
             $newRegistration = RegistrationsModel::create($newRegistration);
-            
-            $this->sendNotif([
-                'name' => $newRegistration->name,
-                'email' => $newRegistration->email,
-                'nim' => $newRegistration->nim,
-                'execution' => $activeEvent->execution,
-                'wa_group_link' => isset($activeEvent->wa_group_link) ? $activeEvent->wa_group_link : null,
-            ]);
-
+           
             DB::commit();
-    
-            return back()->withSuccess('Pendaftaran test bahasa inggris TOEIC '.$newRegistration->name.' berhasil, silahkan cek email anda '.(isset($activeEvent->wa_group_link)? 'untuk mengikuti grup WhatsApp pendaftar': '' ));
+
+            try {
+                $this->sendNotif([
+                    'name' => $newRegistration->name,
+                    'email' => $newRegistration->email,
+                    'nim' => $newRegistration->nim,
+                    'execution' => $activeEvent->execution,
+                    'wa_group_link' => isset($activeEvent->wa_group_link) ? $activeEvent->wa_group_link : null,
+                ]);
+                return back()->withSuccess('Pendaftaran test bahasa inggris TOEIC '.$newRegistration->name.' berhasil, silahkan cek email anda '.(isset($activeEvent->wa_group_link)? 'untuk mengikuti grup WhatsApp pendaftar': '' ));
+            
+            } catch (\Throwable $th) {
+                return back()->withSuccess('Pendaftaran test bahasa inggris TOEIC '.$newRegistration->name.' berhasil');
+            }
+            
         }catch (\Throwable $th){
             return back()->withInput()->withErrors('Internal Server Error');
         }

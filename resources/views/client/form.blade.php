@@ -43,11 +43,12 @@
           </div>
         </a>
       </div>
-      <form action={{route('client.form.registration')}} class="form" method="POST" enctype="multipart/form-data">
-        <div class="col-12 text-center">
-          <h3 class="mt-2 fw-semibold">Form Pendaftaran TOEIC</h3>
+      <form action={{route('client.form.registration')}} class="form w-100 mt-2" method="POST"
+        enctype="multipart/form-data">
+        <div class="col-12 ">
+          <h5 class="mt-2 fw-semibold">Form Pendaftaran TOEIC</h5>
         </div>
-        <div class="col-12 mt-4 d-lg-flex gap-2 justify-content-between">
+        <div class="col-12 mt-3 d-lg-flex gap-2 justify-content-between">
           @csrf
           <div class="col-12 col-lg-6">
             <div class="mb-3">
