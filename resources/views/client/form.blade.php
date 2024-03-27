@@ -32,96 +32,102 @@
 
   <section class="form mb-3">
     <div class="container  h-100 d-flex p-3 flex-column justify-content-start align-items-center">
-      <a class="navbar-brand d-flex pt-3" href={{route('client')}}>
-        <div class="img-wrapper">
-          <img src={{asset('assets/images/POLINEMA.png')}} class="img-logo img-fluid" />
-        </div>
-        <div class="title-wrapper d-flex flex-column justify-content-center ms-2">
-          <p class="mb-1 fw-medium">UPA BAHASA</p>
-          <p class="mb-0 fw-medium">POLITEKNIK NEGERI MALANG</p>
-        </div>
-      </a>
-      <div class="col-12 col-lg-10 mt-4">
-        <form action={{route('client.form.registration')}} class="form" method="POST" enctype="multipart/form-data">
-          @csrf
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Nama Lengkap</label>
-            <input required type="Text" name="name" value="{{old('name')}}" class="form-control"
-              placeholder="Masukkan nama anda" />
+      <div class="header-wrapper pb-3 border-bottom w-100 d-flex justify-content-center">
+        <a class="navbar-brand d-flex pt-3" href={{route('client')}}>
+          <div class="img-wrapper">
+            <img src={{asset('assets/images/POLINEMA.png')}} class="img-logo img-fluid" />
           </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">NIM</label>
-            <input required name="nim" type="Text" class="form-control" placeholder="Masukkan NIM anda"
-              value="{{old('nik')}}" />
+          <div class="title-wrapper d-flex flex-column justify-content-center ms-2">
+            <p class="mb-1 fw-medium">UPA BAHASA</p>
+            <p class="mb-0 fw-medium">POLITEKNIK NEGERI MALANG</p>
           </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">NIK (Nomor Induk Kependudukan)</label>
-            <input required name="nik" type="Text" class="form-control" placeholder="Masukkan NIK anda"
-              value="{{old('nik')}}" />
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Jurusan</label>
-            <select name="departement" required id="jurusan-select" class="form-select"
-              aria-label="Default select example">
-              <option value="">Pilih Jurusan anda</option>
-              @foreach ($departements as $departement)
-              <option value="{{$departement->departement_id}}" {{old('departement')===$departement->name ? 'selected' :
-                ''}}>
-                {{$departement->name}}</option>
-              @endforeach
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Program Studi</label>
-            <select name="program_study" required class="form-select" aria-label="Default select example">
-              <option value="">Pilih jurusan anda terlebih dahulu</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Semester</label>
-            <select required name="semester" class="form-select" aria-label="Default select example">
-              <option value="">Pilih Semester anda</option>
-              <option value="4" {{old('semester')==='4' ? ' selected' : '' }}>4</option>
-              <option value="6" {{old('semester')==='6' ? ' selected' : '' }}>6</option>
-              <option value="8" {{old('semester')==='8' ? ' selected' : '' }}>8</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Email</label>
-            <input required type="email" class="form-control" id="exampleFormControlInput1"
-              placeholder="Masukkan email anda" name="email" value="{{old('email')}}" />
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">No WA</label>
-            <input required type="number" class="form-control" id="exampleFormControlInput1"
-              placeholder="Masukkan no telepon anda" name="phone_num" value="{{old('phone_num')}}" />
-          </div>
-          <div class="mb-3">
-            <label for="formFile" class="form-label">Foto KTP</label>
-            <input required class="form-control" type="file" id="formFile" name="ktp_img" value="{{old('ktp_img')}}">
-          </div>
-          <div class="mb-3">
-            <label for="formFile" class="form-label">Foto KTM</label>
-            <input required class="form-control" type="file" id="formFile" name="ktm_img" value="{{old('ktm_img')}}">
-          </div>
-          <div class="mb-3">
-            <label for="formFile" class="form-label">Surat Pernyataan Nominasi IISMA (dari KPS)</label>
-            <input required class="form-control" type="file" id="formFile" name="surat_pernyataan_iisma"
-              value="{{old('surat_penyataan_iisma')}}">
-          </div>
-          <div class="mb-3">
-            <label for="formFile" class="form-label">Pas Foto</label>
-            <input required class="form-control" type="file" id="formFile" name="pasFoto_img"
-              value="{{old('pasFoto_img')}}">
-          </div>
-
-          <div class=" mb-3">
-            <button type="submit" class="btn btn-primary submit-btn w-100 fw-medium">
-              Submit
-            </button>
-          </div>
-        </form>
+        </a>
       </div>
+      <form action={{route('client.form.registration')}} class="form" method="POST" enctype="multipart/form-data">
+        <div class="col-12 mt-4 d-lg-flex gap-2 justify-content-between">
+          @csrf
+          <div class="col-12 col-lg-6">
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Nama Lengkap</label>
+              <input required type="Text" name="name" value="{{old('name')}}" class="form-control"
+                placeholder="Masukkan nama anda" />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">NIM</label>
+              <input required name="nim" type="Text" class="form-control" placeholder="Masukkan NIM anda"
+                value="{{old('nik')}}" />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">NIK (Nomor Induk Kependudukan)</label>
+              <input required name="nik" type="Text" class="form-control" placeholder="Masukkan NIK anda"
+                value="{{old('nik')}}" />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Jurusan</label>
+              <select name="departement" required id="jurusan-select" class="form-select"
+                aria-label="Default select example">
+                <option value="">Pilih Jurusan anda</option>
+                @foreach ($departements as $departement)
+                <option value="{{$departement->departement_id}}" {{old('departement')===$departement->name ? 'selected'
+                  :
+                  ''}}>
+                  {{$departement->name}}</option>
+                @endforeach
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Program Studi</label>
+              <select name="program_study" required class="form-select" aria-label="Default select example">
+                <option value="">Pilih jurusan anda terlebih dahulu</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Semester</label>
+              <select required name="semester" class="form-select" aria-label="Default select example">
+                <option value="">Pilih Semester anda</option>
+                <option value="4" {{old('semester')==='4' ? ' selected' : '' }}>4</option>
+                <option value="6" {{old('semester')==='6' ? ' selected' : '' }}>6</option>
+                <option value="8" {{old('semester')==='8' ? ' selected' : '' }}>8</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6">
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Email</label>
+              <input required type="email" class="form-control" id="exampleFormControlInput1"
+                placeholder="Masukkan email anda" name="email" value="{{old('email')}}" />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">No WA</label>
+              <input required type="number" class="form-control" id="exampleFormControlInput1"
+                placeholder="Masukkan no telepon anda" name="phone_num" value="{{old('phone_num')}}" />
+            </div>
+            <div class="mb-3">
+              <label for="formFile" class="form-label">Foto KTP</label>
+              <input required class="form-control" type="file" id="formFile" name="ktp_img" value="{{old('ktp_img')}}">
+            </div>
+            <div class="mb-3">
+              <label for="formFile" class="form-label">Foto KTM</label>
+              <input required class="form-control" type="file" id="formFile" name="ktm_img" value="{{old('ktm_img')}}">
+            </div>
+            <div class="mb-3">
+              <label for="formFile" class="form-label">Surat Pernyataan Nominasi IISMA (dari KPS)</label>
+              <input required class="form-control" type="file" id="formFile" name="surat_pernyataan_iisma"
+                value="{{old('surat_penyataan_iisma')}}">
+            </div>
+            <div class="mb-3">
+              <label for="formFile" class="form-label">Pas Foto</label>
+              <input required class="form-control" type="file" id="formFile" name="pasFoto_img"
+                value="{{old('pasFoto_img')}}">
+            </div>
+          </div>
+        </div>
+        <div class=" mb-3 text-center">
+          <button type="submit" class="btn btn-primary submit-btn w-100 fw-medium">
+            Submit
+          </button>
+        </div>
+      </form>
     </div>
   </section>
 
