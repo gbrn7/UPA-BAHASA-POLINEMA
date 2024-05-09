@@ -10,6 +10,7 @@ use App\Models\RegistrationsModel;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -17,9 +18,9 @@ use Illuminate\Support\Str;
 
 class ClientController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-
+        if($request->lang) App::setlocale($request->lang);
 
         $activeEvent = EventModel::where('status', true)
                         ->first();
@@ -44,8 +45,10 @@ class ClientController extends Controller
         return view('client.landingPage', ['activeEvent' => $activeEvent, 'adminPhoneNum' => $admin->phone_num]);
     }
 
-    public function formView()
+    public function formView(Request $request)
     {
+        if($request->lang) App::setlocale($request->lang);
+
         $activeEvent = EventModel::where('status', true)
                         ->first();
 

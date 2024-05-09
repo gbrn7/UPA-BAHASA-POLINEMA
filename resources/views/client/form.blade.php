@@ -45,32 +45,42 @@
       </div>
       <form action={{route('client.form.registration')}} class="form w-100 mt-2" method="POST"
         enctype="multipart/form-data">
-        <div class="col-12 ">
-          <h5 class="mt-2 fw-semibold">Form Pendaftaran TOEIC</h5>
+        <div class="col-12 d-flex justify-content-between">
+          <h5 class="mt-2 fw-semibold title">@lang('form.title.english_test')</h5>
+          <div class="dropdown">
+            <div class="dropdown-toggle nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              @lang('client.navbar.language')</div>
+            <ul class="dropdown-menu">
+              <li class="px-1"><a class="dropdown-item rounded rounded-2"
+                  href="{{route('client.form', ['lang'=> 'id'])}}">Indonesian</a></li>
+              <li class="px-1"><a class="dropdown-item rounded rounded-2"
+                  href="{{route('client.form', ['lang'=> 'en'])}}">English</a></li>
+            </ul>
+          </div>
         </div>
         <div class="col-12 mt-3 d-lg-flex gap-2 justify-content-between">
           @csrf
           <div class="col-12 col-lg-6">
             <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Nama Lengkap</label>
+              <label for="exampleFormControlInput1" class="form-label">@lang('form.name.label')</label>
               <input required type="Text" name="name" value="{{old('name')}}" class="form-control"
-                placeholder="Masukkan nama anda" />
+                placeholder=@lang('form.name.placeholder') />
             </div>
             <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">NIM</label>
-              <input required name="nim" type="Text" class="form-control" placeholder="Masukkan NIM anda"
-                value="{{old('nik')}}" />
+              <label for="exampleFormControlInput1" class="form-label">@lang('form.student_id.label')</label>
+              <input required name="nim" type="Text" class="form-control"
+                placeholder=@lang('form.student_id.placeholder') value="{{old('nik')}}" />
             </div>
             <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">NIK (Nomor Induk Kependudukan)</label>
-              <input required name="nik" type="Text" class="form-control" placeholder="Masukkan NIK anda"
-                value="{{old('nik')}}" />
+              <label for="exampleFormControlInput1" class="form-label">@lang('form.identity_id.label')</label>
+              <input required name="nik" type="Text" class="form-control"
+                placeholder=@lang('form.identity_id.placeholder') value="{{old('nik')}}" />
             </div>
             <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Jurusan</label>
+              <label for="exampleFormControlInput1" class="form-label">@lang('form.majority.label')</label>
               <select name="departement" required id="jurusan-select" class="form-select"
                 aria-label="Default select example">
-                <option value="">Pilih Jurusan anda</option>
+                <option value="">@lang('form.majority.placeholder')</option>
                 @foreach ($departements as $departement)
                 <option value="{{$departement->departement_id}}" {{old('departement')===$departement->name ? 'selected'
                   :
@@ -80,15 +90,15 @@
               </select>
             </div>
             <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Program Studi</label>
+              <label for="exampleFormControlInput1" class="form-label">@lang('form.program_study.label')</label>
               <select name="program_study" required class="form-select" aria-label="Default select example">
-                <option value="">Pilih jurusan anda terlebih dahulu</option>
+                <option value="">@lang('form.program_study.placeholder')</option>
               </select>
             </div>
             <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Semester</label>
+              <label for="exampleFormControlInput1" class="form-label">@lang('form.semester.title')</label>
               <select required name="semester" class="form-select" aria-label="Default select example">
-                <option value="">Pilih Semester anda</option>
+                <option value="">@lang('form.semester.label')</option>
                 <option value="4" {{old('semester')==='4' ? ' selected' : '' }}>4</option>
                 <option value="6" {{old('semester')==='6' ? ' selected' : '' }}>6</option>
                 <option value="8" {{old('semester')==='8' ? ' selected' : '' }}>8</option>
@@ -97,25 +107,25 @@
           </div>
           <div class="col-12 col-lg-6">
             <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">Email</label>
+              <label for="exampleFormControlInput1" class="form-label">@lang('form.email.label')</label>
               <input required type="email" class="form-control" id="exampleFormControlInput1"
-                placeholder="Masukkan email anda" name="email" value="{{old('email')}}" />
+                placeholder=@lang('form.email.placeholder') name="email" value="{{old('email')}}" />
             </div>
             <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">No WA</label>
+              <label for="exampleFormControlInput1" class="form-label">@lang('form.Wa_number.label')</label>
               <input required type="number" class="form-control" id="exampleFormControlInput1"
-                placeholder="Masukkan no telepon anda" name="phone_num" value="{{old('phone_num')}}" />
+                placeholder=@lang('form.Wa_number.placeholder') name="phone_num" value="{{old('phone_num')}}" />
             </div>
             <div class="mb-3">
-              <label for="formFile" class="form-label">Foto KTP</label>
+              <label for="formFile" class="form-label">@lang('form.identity_card_image')</label>
               <input required class="form-control" type="file" id="formFile" name="ktp_img" value="{{old('ktp_img')}}">
             </div>
             <div class="mb-3">
-              <label for="formFile" class="form-label">Foto KTM</label>
+              <label for="formFile" class="form-label">@lang('form.student_identity_image')</label>
               <input required class="form-control" type="file" id="formFile" name="ktm_img" value="{{old('ktm_img')}}">
             </div>
             <div class="mb-3">
-              <label for="formFile" class="form-label">Surat Pernyataan Nominasi IISMA (dari KPS)</label>
+              <label for="formFile" class="form-label">@lang('form.iisma_nomination_image')</label>
               <input required class="form-control" type="file" id="formFile" name="surat_pernyataan_iisma"
                 value="{{old('surat_penyataan_iisma')}}">
             </div>

@@ -24,7 +24,7 @@
 <body>
   <nav class="navbar navbar-expand-lg">
     <div class="container">
-      <a class="navbar-brand d-flex" href="#">
+      <a class="navbar-brand d-flex" href="{{route('client')}}">
         <div class="img-wrapper">
           <img src={{asset('assets/images/POLINEMA.png')}} class="img-logo img-fluid" />
         </div>
@@ -39,16 +39,28 @@
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-link d-flex align-items-center" aria-current="page" href="#home">Home</a>
+          <a class="nav-link d-flex align-items-center" aria-current="page" href="#home">@lang('client.navbar.home')</a>
           @isset($activeEvent)
-          <a class="nav-link d-flex align-items-center" href="#announcement">Announcement</a>
+          <a class="nav-link d-flex align-items-center" href="#announcement">@lang('client.navbar.announcement')</a>
           @endisset
-          <a class="nav-link d-flex align-items-center" href="#program">Our Program</a>
-          <a class="nav-link d-flex align-items-center" href="#gallery">Our Gallery</a>
+          <a class="nav-link d-flex align-items-center" href="#program">@lang('client.navbar.program')</a>
+          <a class="nav-link d-flex align-items-center" href="#gallery">@lang('client.navbar.gallery')</a>
+          <a class="nav-link d-flex align-items-center" href="#structure">@lang('client.navbar.structure')</a>
+          <a class="nav-link d-flex align-items-center" href="#sop">@lang('client.navbar.sop')</a>
           @isset($adminPhoneNum)
           <a class="nav-link d-flex align-items-center" target="blank" href="https://wa.me/62{{$adminPhoneNum}}"><i
               class="ri-whatsapp-fill text-success fs-4"></i></a>
           @endisset
+          <div class="dropdown">
+            <div class="dropdown-toggle nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              @lang('client.navbar.language')</div>
+            <ul class="dropdown-menu">
+              <li class="px-1"><a class="dropdown-item rounded rounded-2"
+                  href="{{route('client', ['lang'=> 'id'])}}">Indonesian</a></li>
+              <li class="px-1"><a class="dropdown-item rounded rounded-2"
+                  href="{{route('client', ['lang'=> 'en'])}}">English</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -59,17 +71,11 @@
     <div class="container">
       <div class="row align-items-center">
         <div class="header-section col-12 col-lg-7 text-center text-lg-start">
-          <h4 class="title-head fw-bold">
+          <h4 class="head-title fw-bold">
             UPA BAHASA <br />
-            <span class="mt-1">POLITEKNIK NEGERI MALANG</span>
+            <span class="mt-1">@lang('client.home_section.head_title')</span>
           </h4>
-          <div class="desc-content">
-            UPA Bahasa merupakan salah satu unit kerja di Politeknik Negeri
-            Malang, dan, dengan demikian, juga bertanggung jawab untuk
-            mendukung visi, misi dan tujuan Politeknik Negeri Malang. Berbagai
-            kegiatan yang dilakukan UPA Bahasa selama ini adalah
-            kegiatan-kegaitan yang sebagian besar berkaitan dengan kebahasaan.
-          </div>
+          <div class="desc-content">@lang('client.home_section.desc_content')</div>
         </div>
         <div class="col-12 col-lg-5 mt-3 mt-lg-0">
           <img src={{asset('assets/images/home-hero.png')}} alt="" class="img-fluid rounded-5" />
@@ -83,39 +89,49 @@
   <section class="announcement mt-5" id="announcement">
     <div class="container">
       <div class="header-section text-center">
-        <p class="head-title mb-2">Announcement</p>
-        <h3 class="title-content">Pengumuman</h3>
+        <p class="head-title mb-2">@lang('client.announcement_section.head_title')</p>
+        <h3 class="title-content">@lang('client.announcement_section.title_content')</h3>
       </div>
       <div class="body-section mt-2 row justify-content-center">
         <div class="col-lg-10 col-12 rounded rounded-2">
-          <p class="text-center">
-            Polteknik Negeri Malang membuka Tes Kompetensi Bahasa Inggris TOIEC. Tes
-            ini bertujuan untuk mengukur kemampuan bahasa Inggris para
-            mahasiswa dan memberikan sertifikat sebagai bukti kompetensi
-          </p>
-          <div class="info-wrapper p-3 row bg-white rounded-3">
-            <div class="info p-3 rounded-2 text-center">
+          <p class="text-center desc-content">@lang('client.announcement_section.desc_content')</p>
+          <div class="info-wrapper overflow-auto p-3 row bg-white rounded-3">
+            <div class="info p-3 overflow-auto rounded-2 text-center">
               <div class="schedule-wrapper">
-                <p class="mb-2"><strong>Jadwal Kegiatan : </strong></p>
-                <p class="mb-1">Pendaftaran : {{date("d M Y", strtotime($activeEvent->register_start)) }} - {{date("d M
-                  Y", strtotime($activeEvent->register_end)) }}
-                </p>
-                <p>Pelaksanaan Tes : {{date("d M Y", strtotime($activeEvent->execution)) }}</p>
+                <div class="table-wrapper table-content mt-2 mb-2">
+                  <table id="example" class="table mt-3 table-hover" style="width: 100%">
+                    <thead>
+                      <tr>
+                        <th class="text-secondary batch">@lang('client.announcement_section.table_content.batch')</th>
+                        <th class="text-secondary registration-date">
+                          @lang('client.announcement_section.table_content.registration_date')</th>
+                        <th class="text-secondary execution-date">
+                          @lang('client.announcement_section.table_content.execution_date')</th>
+                        <th class="text-secondary">@lang('client.announcement_section.table_content.quota')</th>
+                        <th class="text-secondary">@lang('client.announcement_section.table_content.remaining_quota')
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                      <tr>
+                        <td>1</td>
+                        <td>{{date("d M Y", strtotime($activeEvent->register_start)) }} - {{date("d M
+                          Y", strtotime($activeEvent->register_end)) }}</td>
+                        <td>{{date("d M Y", strtotime($activeEvent->execution)) }}</td>
+                        <td>{{$activeEvent->quota}}</td>
+                        <td>{{$activeEvent->remaining_quota}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <a class="btn btn-primary register_btn fw-medium mt-3"
+                  href={{route('client.form')}}>@lang('client.announcement_section.register_btn')</a>
               </div>
-              <div class="quota">
-                <p class="mb-2"><strong>Kuota : </strong></p>
-                <p class="mb-1">{{$activeEvent->quota}} Orang</p>
-              </div>
-              <div class="quota">
-                <p class="mb-2"><strong>Sisa Kuota : </strong></p>
-                <p class="mb-1">{{$activeEvent->remaining_quota}} Orang</p>
-              </div>
-              <a class="btn btn-primary fw-medium mt-3" href={{route('client.form')}}>Daftar Sekarang</a>
+
             </div>
           </div>
         </div>
       </div>
-    </div>
   </section>
   @endisset
 
@@ -123,11 +139,12 @@
   <section class="program mt-5" id="program">
     <div class="container">
       <div class="header-section text-center">
-        <p class="head-title mb-2">Our Program</p>
-        <h3 class="title-content">Program Kami</h3>
+        <p class="head-title mb-2">@lang('client.program_section.head_title')</p>
+        <h3 class="title-content">@lang('client.program_section.title_content')</h3>
       </div>
-      <div class="body-content mt-4 row row-gap-2 justify-content-center">
-        <div class="activity-wrapper py-2 rounded-3 col-12 col-sm-6 col-lg-4">
+      <div class="body-content program-section mt-4 row row-gap-2 justify-content-center">
+        <a href="#"
+          class="activity-wrapper course-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
           <div class="activity-wrap p-3 rounded-2 h-100">
             <div class="img-wrapper w-100">
               <img src={{asset('assets/images/nguyen-dang-hoang-nhu-6u1nVonp4fY-unsplash.jpg')}} alt=""
@@ -135,18 +152,16 @@
             </div>
             <div class="content-wrapper mt-2">
               <div class="content-title">
-                <p class="mb-2 text-center">English Competence Tests</p>
+                <p class="mb-2 text-center">@lang('client.program_section.program_content.course_program.content_title')
+                </p>
               </div>
               <div class="content-desc text-center">
-                Kegiatan ini merupakan kegiatan tahunan ujian Bahasa Inggris
-                untuk mahasiswa di Politeknik Negeri Malang. Tes yang
-                diberikan adalah TOEIC (Test of English for International
-                Communication) dan PECT (Polytechnic English Competence Test)
-              </div>
+                @lang('client.program_section.program_content.course_program.content_desc')</div>
             </div>
           </div>
-        </div>
-        <div class="activity-wrapper py-2 rounded-3 col-12 col-sm-6 col-lg-4">
+        </a>
+        <a href="#"
+          class="activity-wrapper translation-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
           <div class="activity-wrap p-3 rounded-2 h-100">
             <div class="img-wrapper w-100">
               <img src={{asset('assets/images/competition.jpg')}} alt="" class="img-fluid rounded-3" />
@@ -154,19 +169,16 @@
             <div class="content-wrapper mt-2">
               <div class="content-title">
                 <p class="mb-2 text-center">
-                  Lomba Bahasa Inggris tingkat mahasiswa
-                </p>
+                  @lang('client.program_section.program_content.translation_program.content_title')</p>
               </div>
               <div class="content-desc text-center">
-                Kegiatan ini untuk menjaring mahasiswa yang mempunyai
-                kompetensi Bahasa Inggris yang unggul dan dapat diikutsertakan
-                dalam lomba-lomba tingkat nasional seperti National
-                Polytechnic English Olympics (NPEO).
+                @lang('client.program_section.program_content.translation_program.content_desc')
               </div>
             </div>
           </div>
-        </div>
-        <div class="activity-wrapper py-2 rounded-3 col-12 col-sm-6 col-lg-4">
+        </a>
+        <a href="#"
+          class="activity-wrapper english-test-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
           <div class="activity-wrap p-3 rounded-2 h-100">
             <div class="img-wrapper w-100">
               <img src={{asset('assets/images/seminar.jpg')}} alt="" class="img-fluid rounded-3" />
@@ -174,38 +186,31 @@
             <div class="content-wrapper mt-2">
               <div class="content-title">
                 <p class="mb-2 text-center">
-                  Seminar Nasional dan Internastional
-                </p>
+                  @lang('client.program_section.program_content.english-test-program.content_title')</p>
               </div>
               <div class="content-desc text-center">
-                UPA Bahasa memiliki tiga seminar tahunan, yaitu Seminar
-                Nasional Industri Bahasa (SNIB) dan Seminar Nasional Bahasa
-                dan Sastra (Senabasa), sedangkan untuk seminar tingkat
-                internasional, UPA Bahasa menyelenggarakan kegiatan
-                International Virtual Conference on Language and Literature
-                (IVICOL).
-              </div>
+                @lang('client.program_section.program_content.english-test-program.content_desc')</div>
             </div>
           </div>
-        </div>
-        <div class="activity-wrapper py-2 rounded-3 col-12 col-sm-6 col-lg-4">
+        </a>
+        <a href="#"
+          class="activity-wrapper competence-development-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
           <div class="activity-wrap p-3 rounded-2 h-100">
             <div class="img-wrapper w-100">
               <img src={{asset('assets/images/dharmamahasiswa.jpg')}} alt="" class="img-fluid rounded-3" />
             </div>
             <div class="content-wrapper mt-2">
               <div class="content-title">
-                <p class="mb-2 text-center">Dharmasiswa</p>
+                <p class="mb-2 text-center">
+                  @lang('client.program_section.program_content.competence-development-program.content_title')</p>
               </div>
               <div class="content-desc text-center">
-                Kegiatan ini merupakan kegiatan tahunan yang dlakukan oleh UPA
-                Bahasa dengan tujuan mengenalkan dan memberikan pengalaman
-                berbahasa Indonesia kepada mahasiswa asing.
-              </div>
+                @lang('client.program_section.program_content.competence-development-program.content_desc')</div>
             </div>
           </div>
-        </div>
-        <div class="activity-wrapper py-2 rounded-3 col-12 col-sm-6 col-lg-4">
+        </a>
+        <a href="#"
+          class="activity-wrapper individual-consultant-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
           <div class="activity-wrap p-3 rounded-2 h-100">
             <div class="img-wrapper w-100">
               <img src={{asset('assets/images/benchmark.jpg')}} alt="" class="img-fluid rounded-3" />
@@ -213,35 +218,29 @@
             <div class="content-wrapper mt-2">
               <div class="content-title">
                 <p class="mb-2 text-center">
-                  Benchmarking dengan Politeknik dan Perguruan Tinggi Lain
-                </p>
+                  @lang('client.program_section.program_content.individual-consultant-program.content_title')</p>
               </div>
               <div class="content-desc text-center">
-                Benchmarking dilakukan untuk mempelajari program dan kinerja
-                dari institusi lain guna pengembangan program dan kinerja dari
-                UPA Bahasa.
-              </div>
+                @lang('client.program_section.program_content.individual-consultant-program.content_desc')</div>
             </div>
           </div>
-        </div>
-        <div class="activity-wrapper py-2 rounded-3 col-12 col-sm-6 col-lg-4">
+        </a>
+        <a href="#"
+          class="activity-wrapper teaching-staff-training-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
           <div class="activity-wrap p-3 rounded-2 h-100">
             <div class="img-wrapper w-100">
               <img src={{asset('assets/images/interview.jpg')}} alt="" class="img-fluid rounded-3" />
             </div>
             <div class="content-wrapper mt-2">
               <div class="content-title">
-                <p class="mb-2 text-center">Workshop Job Interview</p>
+                <p class="mb-2 text-center">
+                  @lang('client.program_section.program_content.teaching-staff-training-program.content_title')</p>
               </div>
               <div class="content-desc text-center">
-                Kegiatan ini bertujuan untuk meningkatkan kemampuan mahasiswa
-                dalam memasuki dunia kerja, baik pada saat menghadapi proses
-                rekruitmen maupun penyipan akselerasi karir setelah diterima
-                di tempat kerja.
-              </div>
+                @lang('client.program_section.program_content.teaching-staff-training-program.content_desc')</div>
             </div>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   </section>
@@ -250,8 +249,8 @@
   <section class="gallery mt-5" id="gallery">
     <div class="container">
       <div class="header-section text-center">
-        <p class="head-title mb-2">Our Gallery</p>
-        <h3 class="title-content">Galeri Kegiatan</h3>
+        <p class="head-title mb-2">@lang('client.gallery_section.head_title')</p>
+        <h3 class="title-content">@lang('client.gallery_section.title_content')</h3>
       </div>
       <div class="body-content mt-4">
         <div class="swiper mySwiper container">
@@ -286,10 +285,7 @@
             <div class="img-footer">
               <img src={{asset('assets/images/JOSS!.png')}} class="img-fluid" />
             </div>
-            <p class="desc-brand">
-              Jl. Soekarno Hatta No.9, Jatimulyo, Kec. Lowokwaru, Kota Malang,
-              Jawa Timur 65141
-            </p>
+            <p class="desc-brand">@lang('client.footer.address')</p>
             <div class="icon-wrap d-flex align-items-center mt-3">
               <i class="bx bx-phone-call me-2"></i>
               <p class="m-0">(0341) 404424</p>
@@ -301,7 +297,7 @@
           </div>
         </div>
         <div class="col-12 col-lg-3 two mt-2 mt-lg-0 ms-auto">
-          <p class="title">Link Terkait</p>
+          <p class="title">@lang('client.footer.nav.Related Links')</p>
           <div class="desc">
             <div class="icon-wrap d-flex mt-2">
               <a href={{route('admin.signIn')}}>Admin</a>
