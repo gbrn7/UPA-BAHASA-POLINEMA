@@ -71,7 +71,7 @@
     </div>
   </nav>
 
-  <section class="sop mt-3">
+  <section class="sop mt-5">
     <div class="container">
       <div class="header-section col-12 d-md-flex ">
         <div class="col-md-6 col-12 text-center btn-tab btn-first fw-medium active border border-1 border-black py-2">
@@ -79,7 +79,7 @@
         <div class="col-md-6 col-12 text-center btn-tab btn-second fw-medium border border-1 border-black py-2">
           @lang('client.sop_section.btn_second')</div>
       </div>
-      <div class="body-section col-12 mt-4 d-flex flex-column justify-content-center align-items-center">
+      <div class="body-section col-12 mt-5 d-flex flex-column justify-content-center align-items-center">
         <div class="title col-12 text-center fw-bold">Prosedur Operasi Standar Pelaksanaa Tes TOEIC
           Internasional
           Bagi

@@ -563,8 +563,8 @@ color: black;
 .content .table tbody tr td {
   font-size: 15px;
 }
-.content .table tbody tr td img {
-  max-width: 70px;
+.content .table tbody tr td .img-wrapper {
+  max-width: 500px;
 }
 .custom-tooltip{
   font-family: 'Poppins', sans-serif;
