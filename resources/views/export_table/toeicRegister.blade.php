@@ -52,6 +52,7 @@
         <th><strong>Semester</strong></th>
         <th><strong>Email</strong></th>
         <th><strong>NO. Wa</strong></th>
+        <th><strong>Tanggal Daftar</strong></th>
         <th><strong>Foto KTP</strong></th>
         <th><strong>Foto KTM</strong></th>
         <th><strong>Surat Pernyataan Nominasi IISMA</strong></th>
@@ -70,6 +71,7 @@
         <td>{{$data->semester}}</td>
         <td>{{$data->email}}</td>
         <td>{{$data->phone_num}}</td>
+        <td>{{$data->created_at->format('Y-m-d')}}</td>
         <td>
           <a href="{{route('admin.data.registers.downloadKTP', $data->ktp_img)}}">
             <p class="">{{$data->ktp_img}}</p>

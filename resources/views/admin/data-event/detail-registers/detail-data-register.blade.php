@@ -59,6 +59,10 @@
       <td>{{ $register->phone_num }}</td>
     </tr>
     <tr>
+      <th>Tanggal Daftar :</th>
+      <td>{{ $register->created_at->format('Y-m-d') }}</td>
+    </tr>
+    <tr>
       <th>Foto KTP :</th>
       <td>
         <a href="{{route('admin.data.registers.downloadKTP', $register->ktp_img)}}">
