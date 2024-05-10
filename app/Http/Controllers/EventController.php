@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ToiecDataExport;
 use App\Mail\RegistrationMail;
 use App\Models\DepartementModel;
 use App\Models\EventModel;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 use PhpParser\Node\Stmt\TryCatch;
 
 class EventController extends Controller
@@ -78,8 +80,6 @@ class EventController extends Controller
 
         return redirect()->route('admin.data.event')->with('toast_success', 'Event Berhasil Ditambahkan');
     }   
-
-    
 
     public function editEvent($eventId)
     {   
@@ -165,6 +165,11 @@ class EventController extends Controller
             'detailRegisters' => $detailRegisters,
             'event' => $event
         ]);
+    }
+
+    public function exportToeicData(string $eventId)
+    {
+        return Excel::download(new ToiecDataExport($eventId), 'Data Pendaftar TOEIC Batch-'.$eventId.'.xlsx');
     }
 
     public function createRegister($eventId)

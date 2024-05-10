@@ -40,15 +40,16 @@ Route::group(['prefix' => 'admin'], function(){
       Route::group(['prefix' => 'detail-registers'], function() {
         Route::get('/{eventId}', [EventController::class, 'detailRegisters'])->name('admin.data.detail.registers');
         Route::get('/{eventId}/create-register', [EventController::class, 'createRegister'])->name('admin.data.detail.registers.createRegister');
+        Route::get('/{eventId}/export-excel', [EventController::class, 'exportToeicData'])->name('admin.data.detail.registers.exportToeicData');
         Route::post('/{eventId}/create-register', [EventController::class, 'saveRegister'])->name('admin.data.detail.registers.saveRegister');
         Route::get('/{eventId}/edit-register/{registerId}', [EventController::class, 'editRegister'])->name('admin.data.registers.editRegister');
         Route::put('/{eventId}/edit-register/{registerId}', [EventController::class, 'updateRegister'])->name('admin.data.updateRegister');
         Route::delete('/delete-register', [EventController::class, 'deleteRegister'])->name('admin.data.deleteRegister');
         Route::get('/{eventId}/data-register/{registerId}', [EventController::class, 'detailRegister'])->name('admin.data.registers.dataRegister');
-        Route::get('/donwload-ktp/{filename}', [EventController::class, 'downloadKTP'])->name('admin.data.registers.downloadKTP');
-        Route::get('/donwload-ktm/{filename}', [EventController::class, 'downloadKTM'])->name('admin.data.registers.downloadKTM');
-        Route::get('/donwload-surat-pernyataan-nominasi-iisma/{filename}/{viewPdf}', [EventController::class, 'downloadSuratPernyataan'])->name('admin.data.registers.downloadSuratPernyataan');
-        Route::get('/donwload-pasFoto/{filename}', [EventController::class, 'downloadPasFoto'])->name('admin.data.registers.downloadPasFoto');
+        Route::get('/download-ktp/{filename}', [EventController::class, 'downloadKTP'])->name('admin.data.registers.downloadKTP');
+        Route::get('/download-ktm/{filename}', [EventController::class, 'downloadKTM'])->name('admin.data.registers.downloadKTM');
+        Route::get('/download-surat-pernyataan-nominasi-iisma/{filename}/{viewPdf}', [EventController::class, 'downloadSuratPernyataan'])->name('admin.data.registers.downloadSuratPernyataan');
+        Route::get('/download-pasFoto/{filename}', [EventController::class, 'downloadPasFoto'])->name('admin.data.registers.downloadPasFoto');
       });
 
       Route::get('/', [EventController::class, 'index'])->name('admin.data.event');

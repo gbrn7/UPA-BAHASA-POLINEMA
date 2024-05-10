@@ -22,20 +22,22 @@
 </div>
 <div class="content-box mt-3 rounded rounded-2 bg-white">
   <div class="content rounded rounded-2 border border-1 p-3">
+    {{-- Error Alert --}}
+    @if ($errors->any())
+    <div class="alert alert-danger">
+      <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{$error}}</li>
+        @endforeach
+      </ul>
+    </div>
+    @endif
     <div class="btn-wrapper mt-2">
-
-      {{-- Error Alert --}}
-      @if ($errors->any())
-      <div class="alert alert-danger">
-        <ul>
-          @foreach ($errors->all() as $error)
-          <li>{{$error}}</li>
-          @endforeach
-        </ul>
-      </div>
-      @endif
-      <a href={{route('admin.data.detail.registers.createRegister', $event->event_id)}}>
+      <a class="text-decoration-none" href={{route('admin.data.detail.registers.createRegister', $event->event_id)}}>
         <div id="add" class="btn btn-success"><i class="ri-add-box-line me-2"></i>Tambah Pendaftar</div>
+      </a>
+      <a class="text-decoration-none" href={{route('admin.data.detail.registers.exportToeicData', $event->event_id)}}>
+        <div id="add" class="btn btn-success"><i class="ri-file-excel-2-line me-2"></i>Export Excel</div>
       </a>
     </div>
     <div class="table-wrapper mt-2 mb-2">
