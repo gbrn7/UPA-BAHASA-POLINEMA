@@ -48,8 +48,8 @@
         <div class="col-12 d-flex justify-content-between">
           <h5 class="mt-2 fw-semibold title">@lang('form.title.english_test')</h5>
           <div class="dropdown">
-            <div class="dropdown-toggle nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              @lang('client.navbar.language')</div>
+            <i class="ri-earth-line nav-link dropdown-toggle d-flex gap-2 align-items-center" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false"></i>
             <ul class="dropdown-menu">
               <li class="px-1"><a class="dropdown-item rounded rounded-2"
                   href="{{route('client.form', ['lang'=> 'id'])}}">Indonesian</a></li>

@@ -8,7 +8,6 @@ return[
     "gallery" => "Our Gallery",
     "structure" => "Organization Structure",
     "sop" => "SOP",
-    "language" => "Language"
   ],
   "home_section" => [
     "head_title" => "State Polytechnic of Malang",
@@ -61,6 +60,14 @@ return[
     "head_title" => "Our Gallery",
     "title_content" => "Activity Gallery",
   ], 
+  "sop_section" => [
+    "btn_first" => "Implementation of the TOEIC Test",
+    "btn_second" => "Individual Consultation"
+  ],
+  "structure_organization_section" => [
+    "title" => "Structure Organizations",
+    "polinema" => "State Polytechnic of Malang",
+  ],
   "footer" => [
     "address" => "Soekarno Hatta Street Number.09, Jatimulyo, Lowokwaru, Malang, East Java 65141",
     "nav" => [

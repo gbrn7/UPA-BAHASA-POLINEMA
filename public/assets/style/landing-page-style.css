@@ -9,6 +9,10 @@ body{
   background-color: #F8F8F8;
 }
 
+.blue-font{
+  color: #4682A9;
+}
+
 .img-wrapper{
   width: 50px;
 }
@@ -37,6 +41,27 @@ body{
 .activity-wrap:hover{
   background-color:   #4682A9;
   color: white;
+}
+
+.sop .header-section .btn-tab.active{
+  background-color: #1D265C;
+  color: white;
+  cursor: default;
+}
+
+.sop .header-section .btn-tab{
+  cursor: pointer;
+}
+
+.sop .title {
+  font-size: 20px;
+}
+
+@media(max-width: 767px){
+
+  .sop .title {
+    font-size: 12px;
+  }
 }
 
 .title-wrapper{

@@ -45,15 +45,16 @@
           @endisset
           <a class="nav-link d-flex align-items-center" href="#program">@lang('client.navbar.program')</a>
           <a class="nav-link d-flex align-items-center" href="#gallery">@lang('client.navbar.gallery')</a>
-          <a class="nav-link d-flex align-items-center" href="#structure">@lang('client.navbar.structure')</a>
-          <a class="nav-link d-flex align-items-center" href="#sop">@lang('client.navbar.sop')</a>
+          <a class="nav-link d-flex align-items-center"
+            href="{{route('client.structureOrganization')}}">@lang('client.navbar.structure')</a>
+          <a class="nav-link d-flex align-items-center" href="{{route('client.sop')}}">@lang('client.navbar.sop')</a>
           @isset($adminPhoneNum)
           <a class="nav-link d-flex align-items-center" target="blank" href="https://wa.me/62{{$adminPhoneNum}}"><i
               class="ri-whatsapp-fill text-success fs-4"></i></a>
           @endisset
           <div class="dropdown">
-            <div class="dropdown-toggle nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              @lang('client.navbar.language')</div>
+            <i class="ri-earth-line nav-link dropdown-toggle d-flex gap-2 align-items-center" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false"></i>
             <ul class="dropdown-menu">
               <li class="px-1"><a class="dropdown-item rounded rounded-2"
                   href="{{route('client', ['lang'=> 'id'])}}">Indonesian</a></li>

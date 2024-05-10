@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [ClientController::class, 'index'])->name('client');
+Route::get('/sop', [ClientController::class, 'sop'])->name('client.sop');
+Route::get('/structure-organization', [ClientController::class, 'structureOrganization'])->name('client.structureOrganization');
 Route::get('/form-register', [ClientController::class, 'formView'])->name('client.form');
 Route::get('/get-program-study', [ClientController::class, 'getProgramStudy'])->name('client.getProgramStudy');
 Route::post('/form-register', [ClientController::class, 'saveRegistration'])->name('client.form.registration');

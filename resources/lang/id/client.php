@@ -8,7 +8,6 @@ return[
     "gallery" => "Galeri kami",
     "structure" => "Struktur Organisasi",
     "sop" => "SOP",
-    "language" => "Bahasa"
   ],
   "home_section" => [
     "head_title" => "POLITEKNIK NEGERI MALANG",
@@ -60,6 +59,14 @@ return[
   "gallery_section" => [
     "head_title" => "Galeri Kami",
     "title_content" => "Galeri Kegiatan",
+  ],
+  "sop_section" => [
+    "btn_first" => "Pelaksanaan Test TOEIC",
+    "btn_second" => "Konsultasi Individu"
+  ],
+  "structure_organization_section" => [
+    "title" => "Struktur Organisasi",
+    "polinema" => "Politeknik Negeri Malang",
   ],
   "footer" => [
     "address" => "Jl. Soekarno Hatta No.9, Jatimulyo, Kec. Lowokwaru, Kota Malang, Jawa Timur 65141",

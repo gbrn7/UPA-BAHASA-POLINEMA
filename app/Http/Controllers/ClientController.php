@@ -45,6 +45,62 @@ class ClientController extends Controller
         return view('client.landingPage', ['activeEvent' => $activeEvent, 'adminPhoneNum' => $admin->phone_num]);
     }
 
+    public function sop(Request $request)
+    {
+        if($request->lang) App::setlocale($request->lang);
+
+        $activeEvent = EventModel::where('status', true)
+        ->first();
+
+        $admin = User::first();
+
+        if (!isset($activeEvent)) {
+            return view('client.sop');
+        }
+
+        $dateNow = Carbon::now();
+        $registerEnd = Carbon::parse($activeEvent->register_end);
+
+        if($dateNow->greaterThan($registerEnd) || $activeEvent->remaining_quota <= 0){
+
+            $activeEvent->update(['status' => false]);
+
+            return view('client.sop');
+            
+        }
+
+        return view('client.sop', ['activeEvent' => $activeEvent, 'adminPhoneNum' => $admin->phone_num]);
+        
+    }
+
+    public function structureOrganization(Request $request)
+    {
+        if($request->lang) App::setlocale($request->lang);
+
+        $activeEvent = EventModel::where('status', true)
+        ->first();
+
+        $admin = User::first();
+
+        if (!isset($activeEvent)) {
+            return view('client.structure-organization');
+        }
+
+        $dateNow = Carbon::now();
+        $registerEnd = Carbon::parse($activeEvent->register_end);
+
+        if($dateNow->greaterThan($registerEnd) || $activeEvent->remaining_quota <= 0){
+
+            $activeEvent->update(['status' => false]);
+
+            return view('client.structure-organization');
+            
+        }
+
+        return view('client.structure-organization', ['activeEvent' => $activeEvent, 'adminPhoneNum' => $admin->phone_num]);
+        
+    }
+
     public function formView(Request $request)
     {
         if($request->lang) App::setlocale($request->lang);
