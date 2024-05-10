@@ -279,7 +279,7 @@
           <div class="swiper-wrapper">
             @foreach ($gallery as $image)
             <div class="swiper-slide rounded-2">
-              <img src={{asset('storage/gallery/'.$image->file_name)}} alt="" class="img-fluid rounded-2" />
+              <img src="{{asset('storage/images/'.$image->file_name)}}" alt="" class=" img-fluid rounded-2" />
             </div>
             @endforeach
           </div>

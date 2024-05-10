@@ -113,7 +113,4 @@
   @endempty
 </div>
 </div>
-
-
-
 @endsection

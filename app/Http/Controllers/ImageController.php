@@ -49,7 +49,7 @@ class ImageController extends Controller
         try {
             $image = $request->file('image');
             $imageName = Str::random(5).$image->getClientOriginalName();
-            $image->storeAs('public/gallery', $imageName);
+            $image->storeAs('public/images', $imageName);
             
             imageModel::create([
                 'file_name' => $imageName,
@@ -57,9 +57,9 @@ class ImageController extends Controller
                 'created_by' => auth()->user()->user_id,
             ]);
 
-        return redirect()->route('admin.data.image.galleryManagement')->with('toast_success', 'Berhasil menambahkan gambar galeri');
+        return redirect()->back()->with('toast_success', 'Berhasil menambahkan gambar galeri');
         } catch (\Throwable $th) {
-        return redirect()->route('admin.data.image.galleryManagement')->with('toast_error', $th->getMessage());  
+        return redirect()->back()->with('toast_error', $th->getMessage());  
         }
 
     }
@@ -95,9 +95,9 @@ class ImageController extends Controller
             {
                 $image = $request->file('image');
                 $imageName = Str::random(5).$image->getClientOriginalName();
-                $image->storeAs('public/gallery', $imageName);
+                $image->storeAs('public/images', $imageName);
 
-                Storage::delete('public/gallery/'.$oldData->file_name);
+                Storage::delete('public/images/'.$oldData->file_name);
                 
                 $oldData->update([
                     'file_name' => $imageName,
@@ -105,9 +105,9 @@ class ImageController extends Controller
                 ]);
             }
 
-        return redirect()->route('admin.data.image.galleryManagement')->with('toast_success', 'Berhasil memperbarui gambar galeri');
+        return redirect()->back()->with('toast_success', 'Berhasil memperbarui gambar galeri');
         } catch (\Throwable $th) {
-        return redirect()->route('admin.data.image.galleryManagement')->with('toast_error', $th->getMessage());  
+        return redirect()->back()->with('toast_error', $th->getMessage());  
         }
 
     }
@@ -142,5 +142,12 @@ class ImageController extends Controller
 
         }
 
+    }
+
+    public function StructureOrganizationManagement()
+    {
+        $image = imageModel::where('type', 'like', '%structure_organization%')->first();
+
+        return view('admin.data-images.structur-organizations-managements.index', ['image' => $image]);
     }
 }

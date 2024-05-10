@@ -77,10 +77,14 @@ Route::group(['prefix' => 'admin'], function(){
 
     Route::group(['prefix' => 'data-images'], function(){
       Route::get('/', [ImageController::class, 'index'])->name('admin.data.image');
+
+      Route::post('/', [ImageController::class, 'storeImage'])->name('admin.data.image.galleryManagement.create');
+      Route::put('/', [ImageController::class, 'updateImage'])->name('admin.data.image.galleryManagement.edit');
+      Route::delete('/', [ImageController::class, 'deleteImage'])->name('admin.data.image.galleryManagement.destroy');
+
       Route::get('/gallery-management', [ImageController::class, 'galleryManagement'])->name('admin.data.image.galleryManagement');
-      Route::post('/gallery-management', [ImageController::class, 'storeImage'])->name('admin.data.image.galleryManagement.create');
-      Route::put('/gallery-management', [ImageController::class, 'updateImage'])->name('admin.data.image.galleryManagement.edit');
-      Route::delete('/gallery-management', [ImageController::class, 'deleteImage'])->name('admin.data.image.galleryManagement.destroy');
+
+      Route::get('/structure-organization', [ImageController::class, 'StructureOrganizationManagement'])->name('admin.data.image.StructureOrganizationManagement');
       
     });
 

@@ -23,8 +23,7 @@ class ClientController extends Controller
     {
         if($request->lang) App::setlocale($request->lang);
 
-        $activeEvent = EventModel::where('status', true)
-                        ->first();
+        $activeEvent = EventModel::where('status', true)->first();
 
         $admin = User::first();
 
@@ -85,8 +84,10 @@ class ClientController extends Controller
 
         $admin = User::first();
 
+        $image = imageModel::where('type', 'structure_organization')->first();
+
         if (!isset($activeEvent)) {
-            return view('client.structure-organization');
+            return view('client.structure-organization', ['image' => $image]);
         }
 
         $dateNow = Carbon::now();
@@ -96,11 +97,12 @@ class ClientController extends Controller
 
             $activeEvent->update(['status' => false]);
 
-            return view('client.structure-organization');
+            return view('client.structure-organization', ['image' => $image]);
             
         }
 
-        return view('client.structure-organization', ['activeEvent' => $activeEvent, 'adminPhoneNum' => $admin->phone_num]);
+
+        return view('client.structure-organization', ['activeEvent' => $activeEvent, 'adminPhoneNum' => $admin->phone_num, 'image' => $image]);
         
     }
 
