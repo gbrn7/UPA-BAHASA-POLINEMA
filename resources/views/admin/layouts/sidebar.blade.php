@@ -25,6 +25,11 @@
           class="text-decoration-none p-3 rounded rounded-2 d-flex align-items-baseline"><i
             class="ri-building-2-line me-2"></i>Data Jurusan</a>
       </li>
+      <li class="rounded {{Request::segment(2) === 'data-images' ? 'active' : ''}} rounded-2">
+        <a href={{route('admin.data.image')}}
+          class="text-decoration-none p-3 rounded rounded-2 d-flex align-items-baseline"><i
+            class="ri-image-fill me-2"></i>Data Gambar</a>
+      </li>
     </ul>
   </div>
 </div>

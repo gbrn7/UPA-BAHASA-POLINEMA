@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -72,6 +73,15 @@ Route::group(['prefix' => 'admin'], function(){
         Route::put('/update-program-study', [DepartementController::class, 'updateProgramStudy'])->name('admin.data.departements.updateProgramStudy');
         Route::delete('/delete-program-study', [DepartementController::class, 'deleteProgramStudy'])->name('admin.data.departements.deleteProgramStudy');
       });
+    });
+
+    Route::group(['prefix' => 'data-images'], function(){
+      Route::get('/', [ImageController::class, 'index'])->name('admin.data.image');
+      Route::get('/gallery-management', [ImageController::class, 'galleryManagement'])->name('admin.data.image.galleryManagement');
+      Route::post('/gallery-management', [ImageController::class, 'storeImage'])->name('admin.data.image.galleryManagement.create');
+      Route::put('/gallery-management', [ImageController::class, 'updateImage'])->name('admin.data.image.galleryManagement.edit');
+      Route::delete('/gallery-management', [ImageController::class, 'deleteImage'])->name('admin.data.image.galleryManagement.destroy');
+      
     });
 
 

@@ -254,6 +254,7 @@
         <h3 class="title-content">@lang('client.gallery_section.title_content')</h3>
       </div>
       <div class="body-content mt-4">
+        @empty($gallery)
         <div class="swiper mySwiper container">
           <div class="swiper-wrapper">
             <div class="swiper-slide rounded-2">
@@ -273,6 +274,20 @@
           <div class="swiper-button-prev"></div>
           <div class="swiper-pagination"></div>
         </div>
+        @else
+        <div class="swiper mySwiper container">
+          <div class="swiper-wrapper">
+            @foreach ($gallery as $image)
+            <div class="swiper-slide rounded-2">
+              <img src={{asset('storage/gallery/'.$image->file_name)}} alt="" class="img-fluid rounded-2" />
+            </div>
+            @endforeach
+          </div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+        @endempty
       </div>
     </div>
   </section>

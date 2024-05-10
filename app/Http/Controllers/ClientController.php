@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\RegistrationMail;
 use App\Models\DepartementModel;
 use App\Models\EventModel;
+use App\Models\imageModel;
 use App\Models\ProdyModel;
 use App\Models\RegistrationsModel;
 use App\Models\User;
@@ -27,8 +28,10 @@ class ClientController extends Controller
 
         $admin = User::first();
 
+        $gallery = imageModel::where('type', 'gallery')->get();
+
         if (!isset($activeEvent)) {
-            return view('client.landingPage');
+            return view('client.landingPage', ['gallery' => $gallery]);
         }
 
         $dateNow = Carbon::now();
@@ -38,11 +41,11 @@ class ClientController extends Controller
 
             $activeEvent->update(['status' => false]);
 
-            return view('client.landingPage');
+            return view('client.landingPage', ['gallery' => $gallery]);
             
         }
 
-        return view('client.landingPage', ['activeEvent' => $activeEvent, 'adminPhoneNum' => $admin->phone_num]);
+        return view('client.landingPage', ['activeEvent' => $activeEvent, 'adminPhoneNum' => $admin->phone_num, 'gallery' => $gallery]);
     }
 
     public function sop(Request $request)
