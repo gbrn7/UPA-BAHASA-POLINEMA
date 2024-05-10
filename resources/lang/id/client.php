@@ -61,6 +61,8 @@ return[
     "title_content" => "Galeri Kegiatan",
   ],
   "sop_section" => [
+    "title_toeic" => "Prosedur Operasi Standar Pelaksanaan Tes TOEIC Internasional Bagi Mahasiswa Polinema",
+    "title_consult" => "Prosedur Operasi Standar Konsultasi Individu UPA Politeknik Negeri Malang Bahasa",
     "btn_first" => "Pelaksanaan Test TOEIC",
     "btn_second" => "Konsultasi Individu"
   ],

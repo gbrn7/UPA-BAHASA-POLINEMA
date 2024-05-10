@@ -61,6 +61,8 @@ return[
     "title_content" => "Activity Gallery",
   ], 
   "sop_section" => [
+    "title_toeic" => "Standard Operating Procedures for Implementing the International TOEIC Test for Polinema Students",
+    "title_consult" => "Standard Operating Procedure Individual Consultation UPA Malang State Polytechnic Language",
     "btn_first" => "Implementation of the TOEIC Test",
     "btn_second" => "Individual Consultation"
   ],

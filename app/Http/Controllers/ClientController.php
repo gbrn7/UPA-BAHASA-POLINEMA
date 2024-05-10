@@ -27,7 +27,7 @@ class ClientController extends Controller
 
         $admin = User::first();
 
-        $gallery = imageModel::where('type', 'gallery')->get();
+        $gallery = imageModel::where('type', 'gallery')->orderBy('image_id', 'desc')->get();
 
         if (!isset($activeEvent)) {
             return view('client.landingPage', ['gallery' => $gallery]);
@@ -56,8 +56,11 @@ class ClientController extends Controller
 
         $admin = User::first();
 
+        $image_toeic = imageModel::where('type', 'sop-toeic')->first();
+        $image_consult = imageModel::where('type', 'sop-consult')->first();
+
         if (!isset($activeEvent)) {
-            return view('client.sop');
+            return view('client.sop', ['image_toeic' => $image_toeic, 'image_consult' => $image_consult]);
         }
 
         $dateNow = Carbon::now();
@@ -65,13 +68,13 @@ class ClientController extends Controller
 
         if($dateNow->greaterThan($registerEnd) || $activeEvent->remaining_quota <= 0){
 
-            $activeEvent->update(['status' => false]);
+            $activeEvent->update(['status' => false, 'image_toeic' => $image_toeic, 'image_consult' => $image_consult]);
 
             return view('client.sop');
             
         }
 
-        return view('client.sop', ['activeEvent' => $activeEvent, 'adminPhoneNum' => $admin->phone_num]);
+        return view('client.sop', ['activeEvent' => $activeEvent, 'adminPhoneNum' => $admin->phone_num, 'image_toeic' => $image_toeic, 'image_consult' => $image_consult]);
         
     }
 

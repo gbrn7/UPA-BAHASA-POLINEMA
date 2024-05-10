@@ -148,6 +148,20 @@ class ImageController extends Controller
     {
         $image = imageModel::where('type', 'like', '%structure_organization%')->first();
 
-        return view('admin.data-images.structur-organizations-managements.index', ['image' => $image]);
+        return view('admin.data-images.structure-organizations-managements.index', ['image' => $image]);
+    }
+
+    public function sopToiecManagement()
+    {
+        $image = imageModel::where('type', 'like', '%sop-toeic%')->first();
+
+        return view('admin.data-images.sop-toeic-management.index', ['image' => $image]);
+    }
+
+    public function sopConsultManagement()
+    {
+        $image = imageModel::where('type', 'like', '%sop-consult%')->first();
+
+        return view('admin.data-images.sop-consult-management.index', ['image' => $image]);
     }
 }

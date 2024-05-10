@@ -1,8 +1,8 @@
 @extends('admin.layouts.base')
 
 @section('content')
-<div class="title-box  d-flex gap-2 align-items-baseline"><i class="ri-calendar-event-line fs-2"></i>
-  <p class="fs-3 m-0">Data Gambar Struktur Organisasi</p>
+<div class="title-box  d-flex gap-2 align-items-baseline"><i class="ri-image-circle-line fs-2"></i>
+  <p class="fs-3 m-0">Data Gambar Konsultasi</p>
 </div>
 <div class="breadcrumbs-box mt-2 rounded rounded-2 bg-white p-2">
   <nav
@@ -10,7 +10,7 @@
     aria-label="breadcrumb">
     <ol class="breadcrumb mb-0">
       <li class="breadcrumb-item d-flex gap-2 align-items-center"><i class="ri-apps-line"></i>UPA Bahasa</li>
-      <li class="breadcrumb-item active" aria-current="page">Data Gambar Struktur Organisasi</li>
+      <li class="breadcrumb-item active" aria-current="page">Data Gambar Konsultasi</li>
     </ol>
   </nav>
 </div>
@@ -37,7 +37,7 @@
       @endif
     </tr>
     <tr>
-      <th>Gambar Struktur Organisasi :</th>
+      <th>Gambar SOP Konsultasi :</th>
       @if (isset($image))
       <td>
         <div class="img-wrapper">
@@ -61,8 +61,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="{{route('admin.data.image.galleryManagement.create', ['type'=> 'structure_organization'])}}"
-          id="addForm" method="POST" enctype="multipart/form-data">
+        <form action="{{route('admin.data.image.create', ['type'=> 'sop-consult'])}}" id="addForm" method="POST"
+          enctype="multipart/form-data">
           @csrf
           <div class="form-group mb-3">
             <input required class="form-control" name="image" type="file" />
@@ -86,8 +86,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action={{route('admin.data.image.galleryManagement.edit')}} id="addForm" method="POST"
-          enctype="multipart/form-data">
+        <form action={{route('admin.data.image.edit')}} id="addForm" method="POST" enctype="multipart/form-data">
           @csrf
           @method('PUT')
           <input type="hidden" name="imageId" id="edit-id">
@@ -115,7 +114,7 @@
       <div class="modal-body">
         <h4 class="text-center">Apakah anda yakin mengapus Gambar <span id="imageName"></span> ini?</h4>
       </div>
-      <form action={{route('admin.data.image.galleryManagement.destroy')}} method="post">
+      <form action={{route('admin.data.image.destroy')}} method="post">
         @method('delete')
         @csrf
         <input type="hidden" name="imageId" id="imageId">

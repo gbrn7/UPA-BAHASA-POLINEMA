@@ -1,8 +1,8 @@
 @extends('admin.layouts.base')
 
 @section('content')
-<div class="title-box  d-flex gap-2 align-items-baseline"><i class="ri-gallery-line fs-2"></i>
-  <p class="fs-3 m-0">Data Gambar Galeri</p>
+<div class="title-box  d-flex gap-2 align-items-baseline"><i class="ri-image-circle-line fs-2"></i>
+  <p class="fs-3 m-0">Data Gambar SOP TOEIC</p>
 </div>
 <div class="breadcrumbs-box mt-2 rounded rounded-2 bg-white p-2">
   <nav
@@ -10,62 +10,46 @@
     aria-label="breadcrumb">
     <ol class="breadcrumb mb-0">
       <li class="breadcrumb-item d-flex gap-2 align-items-center"><i class="ri-apps-line"></i>UPA Bahasa</li>
-      <li class="breadcrumb-item" aria-current="page"><a href="{{route('admin.data.image')}}"
-          class="text-decoration-none">Data Gambar</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Data Gambar Galeri</li>
+      <li class="breadcrumb-item active" aria-current="page">Data Gambar SOP TOEIC</li>
     </ol>
   </nav>
 </div>
 <div class="content-box mt-3 rounded rounded-2 bg-white">
-  <div class="content rounded rounded-2 border border-1 p-3">
-    <div class="btn-wrapper mt-2">
-      {{-- Error Alert --}}
-      @if ($errors->any())
-      <div class="alert alert-danger">
-        <ul>
-          @foreach ($errors->all() as $error)
-          <li>{{$error}}</li>
-          @endforeach
-        </ul>
-      </div>
-      @endif
-      <div data-bs-toggle="modal" data-bs-target="#addnew" class="btn btn-success"><i
-          class="ri-add-box-line me-2"></i>Tambah Gambar</div>
-    </div>
-    <div class="table-wrapper mt-2 mb-2">
-      <table id="example" class="table mt-3 table-hover table-borderless" style="width: 100%">
-        <thead>
-          <tr>
-            <th class="text-secondary">No</th>
-            <th class="text-secondary">Nama File</th>
-            <th class="text-secondary">Gambar</th>
-            <th class="text-secondary">Aksi</th>
-          </tr>
-        </thead>
-        <tbody id="tableBody">
-          @foreach ($images as $image)
-          <tr>
-            <td>{{$loop->iteration }}</td>
-            <td>{{$image->file_name }}</td>
-            <td><img src="{{asset('storage/images/'.$image->file_name)}}" alt="images" style="max-width: 300px"></td>
-            <td class="">
-              <div class="btn-wrapper d-flex gap-2 flex-wrap">
-                <a href=# data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-title="Edit Gambar"
-                  class="btn edit btn-action btn-warning text-white" data-name="{{$image->file_name}}"
-                  data-id="{{$image->image_id}}"><i class="ri-edit-2-line"></i></a>
-                <div class="delete cursor-pointer btn btn-action btn-danger
-                  text-white" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
-                  data-bs-title="Hapus Gambar" data-name="{{$image->file_name}}" data-id="{{$image->image_id}}">
-                  <i class="ri-delete-bin-line"></i>
-                </div>
-              </div>
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
-    </div>
+  @if (isset($image))
+  <a href=# data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-title="Edit Gambar" class="btn edit btn-action
+  btn-warning text-white" data-name="{{$image->file_name}}" data-id="{{$image->image_id}}">Edit Gambar</a>
+  <div class="delete cursor-pointer btn btn-action btn-danger
+  text-white" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Gambar"
+    data-name="{{$image->file_name}}" data-id="{{$image->image_id}}">
+    Hapus Gambar
   </div>
+  @else
+  <div data-bs-toggle="modal" data-bs-target="#addnew" class="btn btn-success"><i
+      class="ri-add-box-line me-2"></i>Tambah Gambar</div>
+  @endif
+  <table class="table table-bordered table-striped table-hover table-sm mt-2">
+    <tr>
+      <th>Nama File</th>
+      @if (isset($image))
+      <td>{{ $image->file_name }}</td>
+      @else
+      <td>-</td>
+      @endif
+    </tr>
+    <tr>
+      <th>Gambar SOP TOEIC :</th>
+      @if (isset($image))
+      <td>
+        <div class="img-wrapper">
+          <img src="{{ asset('storage/images/'.$image->file_name) }}" alt="ktp" class="img-fluid register-data-img">
+        </div>
+      </td>
+      @else
+      <td>-</td>
+      @endif
+    </tr>
+
+  </table>
 </div>
 
 {{-- Create Modal --}}
@@ -77,7 +61,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="{{route('admin.data.image.create', ['type'=> 'gallery'])}}" id="addForm" method="POST"
+        <form action="{{route('admin.data.image.create', ['type'=> 'sop-toeic'])}}" id="addForm" method="POST"
           enctype="multipart/form-data">
           @csrf
           <div class="form-group mb-3">
@@ -167,5 +151,4 @@
       });
 </script>
 @endpush
-
 @endsection

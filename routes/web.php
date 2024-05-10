@@ -78,14 +78,17 @@ Route::group(['prefix' => 'admin'], function(){
     Route::group(['prefix' => 'data-images'], function(){
       Route::get('/', [ImageController::class, 'index'])->name('admin.data.image');
 
-      Route::post('/', [ImageController::class, 'storeImage'])->name('admin.data.image.galleryManagement.create');
-      Route::put('/', [ImageController::class, 'updateImage'])->name('admin.data.image.galleryManagement.edit');
-      Route::delete('/', [ImageController::class, 'deleteImage'])->name('admin.data.image.galleryManagement.destroy');
+      Route::post('/', [ImageController::class, 'storeImage'])->name('admin.data.image.create');
+      Route::put('/', [ImageController::class, 'updateImage'])->name('admin.data.image.edit');
+      Route::delete('/', [ImageController::class, 'deleteImage'])->name('admin.data.image.destroy');
 
       Route::get('/gallery-management', [ImageController::class, 'galleryManagement'])->name('admin.data.image.galleryManagement');
 
-      Route::get('/structure-organization', [ImageController::class, 'StructureOrganizationManagement'])->name('admin.data.image.StructureOrganizationManagement');
-      
+      Route::get('/structure-organization-management', [ImageController::class, 'StructureOrganizationManagement'])->name('admin.data.image.StructureOrganizationManagement');
+
+      Route::get('/sop-toeic-management', [ImageController::class, 'sopToiecManagement'])->name('admin.data.image.sopToeicManagement');
+     
+      Route::get('/consult-management', [ImageController::class, 'sopConsultManagement'])->name('admin.data.image.sopConsultManagement');
     });
 
 

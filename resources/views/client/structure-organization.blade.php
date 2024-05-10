@@ -50,7 +50,7 @@
           <a class="nav-link d-flex align-items-center"
             href="{{route('client')}}/#gallery">@lang('client.navbar.gallery')</a>
           <a class="nav-link d-flex align-items-center"
-            href="{{route('client')}}/#structure">@lang('client.navbar.structure')</a>
+            href="{{route('client.structureOrganization')}}">@lang('client.navbar.structure')</a>
           <a class="nav-link d-flex align-items-center" href="{{route('client.sop')}}">@lang('client.navbar.sop')</a>
           @isset($adminPhoneNum)
           <a class="nav-link d-flex align-items-center" target="blank" href="https://wa.me/62{{$adminPhoneNum}}"><i

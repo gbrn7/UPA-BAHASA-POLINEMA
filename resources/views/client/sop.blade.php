@@ -79,18 +79,18 @@
         <div class="col-md-6 col-12 text-center btn-tab btn-second fw-medium border border-1 border-black py-2">
           @lang('client.sop_section.btn_second')</div>
       </div>
-      <div class="body-section col-12 mt-5 d-flex flex-column justify-content-center align-items-center">
-        <div class="title col-12 text-center fw-bold">Prosedur Operasi Standar Pelaksanaa Tes TOEIC
-          Internasional
-          Bagi
-          Mahasiswa
-          Polinema
-        </div>
+      <div class="body-section col-12 mt-3 d-flex flex-column justify-content-center align-items-center">
         <div class="sop-image sop-img-first mt-4 col-lg-9 col-12">
-          <img src="{{asset('storage/sop/sop-1.png')}}" class="img-fluid">
+          <div class="title col-12 text-center fw-bold">@lang('client.sop_section.title_toeic')</div>
+          @isset($image_toeic)
+          <img src="{{asset('storage/images/'.$image_toeic->file_name)}}" class="img-fluid mt-3">
+          @endisset
         </div>
         <div class="sop-image sop-img-second d-none mt-4 col-lg-9 col-12">
-          <img src="{{asset('storage/sop/sop-2.png')}}" class="img-fluid">
+          @isset($image_consult)
+          <div class="title col-12 text-center fw-bold">@lang('client.sop_section.title_consult')</div>
+          <img src="{{asset('storage/images/'.$image_consult->file_name)}}" class="img-fluid mt-3">
+          @endisset
         </div>
       </div>
     </div>
