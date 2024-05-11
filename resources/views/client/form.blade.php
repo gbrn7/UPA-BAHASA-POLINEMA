@@ -138,7 +138,7 @@
               </select>
             </div>
             <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">@lang('form.semester.title')</label>
+              <label for="exampleFormControlInput1" class="form-label">@lang('form.semester.label')</label>
               <select required name="semester" class="form-select" aria-label="Default select example">
                 <option value="">@lang('form.semester.label')</option>
                 <option value="4" {{old('semester')==='4' ? ' selected' : '' }}>4</option>

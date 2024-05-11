@@ -6,14 +6,14 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class RegistrationSeeder extends Seeder
+class ToeicTestRegistrationSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('t_registrations')->insert([
+        DB::table('t_toeic_test_registrations')->insert([
             'event_id' => 1,
             'name' => 'Muhammad Rayhan Gibran',
             'nik' => '35071333',

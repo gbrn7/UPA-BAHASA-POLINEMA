@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('r_events', function (Blueprint $table) {
+        Schema::create('r_toeic_test_events', function (Blueprint $table) {
             $table->id('event_id');
             $table->timestamp('register_start')->nullable();
             $table->timestamp('register_end')->nullable();

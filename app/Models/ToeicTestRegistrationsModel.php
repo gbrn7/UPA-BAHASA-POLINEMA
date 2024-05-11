@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class RegistrationsModel extends Model
+class ToeicTestRegistrationsModel extends Model
 {
     use HasFactory, SoftDeletes;
     
-    protected $table = 't_registrations';
+    protected $table = 't_toeic_test_registrations';
     protected $primaryKey = 'registration_id';
 
     protected $fillable = ([
@@ -34,7 +34,7 @@ class RegistrationsModel extends Model
 
     public function Event()
     {
-        return $this->belongsTo(EventModel::class, 'event_id', 'event_id');
+        return $this->belongsTo(ToeicTestEventModel::class, 'event_id', 'event_id');
     }
 
 }

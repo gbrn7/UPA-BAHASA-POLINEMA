@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class EventModel extends Model
+class ToeicTestEventModel extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'r_events';
+    protected $table = 'r_toeic_test_events';
     protected $primaryKey = 'event_id';
 
     protected $fillable = ([

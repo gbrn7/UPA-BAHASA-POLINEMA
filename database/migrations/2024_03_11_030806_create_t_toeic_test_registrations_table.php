@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('t_registrations', function (Blueprint $table) {
+        Schema::create('t_toeic_test_registrations', function (Blueprint $table) {
             $table->id('registration_id');
             $table->unsignedBigInteger('event_id')->index();
             $table->string('name');
@@ -32,7 +32,7 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign(('event_id'))->references('event_id')->on('r_events')->cascadeOnUpdate()->cascadeOnUpdate();
+            $table->foreign(('event_id'))->references('event_id')->on('r_toeic_test_events')->cascadeOnUpdate()->cascadeOnUpdate();
             $table->foreign(('created_by'))->references('user_id')->on('d_user');
             $table->foreign(('updated_by'))->references('user_id')->on('d_user');
             $table->foreign(('deleted_by'))->references('user_id')->on('d_user');

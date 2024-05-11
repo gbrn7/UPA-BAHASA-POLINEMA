@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\RegistrationsModel;
+use App\Models\ToeicTestRegistrationsModel;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 
@@ -20,7 +20,7 @@ class ToiecDataExport implements FromView
 
     public function view():View
     {
-        $detailRegisters = RegistrationsModel::
+        $detailRegisters = ToeicTestRegistrationsModel::
         where('event_id', $this->eventId)
         ->get();
 

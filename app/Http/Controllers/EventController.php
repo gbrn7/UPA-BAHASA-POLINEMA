@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Exports\ToiecDataExport;
 use App\Mail\RegistrationMail;
 use App\Models\DepartementModel;
-use App\Models\EventModel;
 use App\Models\ProdyModel;
-use App\Models\RegistrationsModel;
+use App\Models\ToeicTestEventModel;
+use App\Models\ToeicTestRegistrationsModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,13 +16,12 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
-use PhpParser\Node\Stmt\TryCatch;
 
 class EventController extends Controller
 {
     public function index()
     {
-        $events = EventModel::all();
+        $events = ToeicTestEventModel::all();
 
         $activeEvent = $events->where('status', true)->first();
 
@@ -59,7 +58,7 @@ class EventController extends Controller
         $registerEnd = Carbon::parse(explode(' - ',$request->registration_range)[1])->endOfDay();
         $execution = Carbon::parse($request->execution);
 
-        $newEvent = EventModel::create([
+        $newEvent = ToeicTestEventModel::create([
             'register_start' => $registerStart,
             'register_end' => $registerEnd,
             'execution' => $execution,
@@ -76,7 +75,7 @@ class EventController extends Controller
 
     public function editEvent($eventId)
     {   
-        $event = EventModel::where('event_id', $eventId)->first();
+        $event = ToeicTestEventModel::where('event_id', $eventId)->first();
         $registerStart = date('d-m-Y', strtotime($event->register_start));
         $registerEnd = date('d-m-Y', strtotime($event->register_end));
         $execution = date('d-m-Y', strtotime($event->execution));
@@ -100,7 +99,7 @@ class EventController extends Controller
             'wa_group_link' => 'nullable',
         ]);
 
-        $oldEvent = EventModel::where('event_id', $eventId)->first();
+        $oldEvent = ToeicTestEventModel::where('event_id', $eventId)->first();
 
         $registerStart = Carbon::parse(explode(' - ',$request->registration_range)[0])->startOfDay();
         $registerEnd = Carbon::parse(explode(' - ',$request->registration_range)[1])->endOfDay();
@@ -128,7 +127,7 @@ class EventController extends Controller
             'eventId' => 'required',
         ]);
 
-        $event = EventModel::find($request->eventId);
+        $event = ToeicTestEventModel::find($request->eventId);
 
         $event->delete([
             'deleted_by' => auth()->user()->user_id
@@ -140,10 +139,10 @@ class EventController extends Controller
 
     public function detailRegisters($eventId)
     {
-        $detailRegisters = RegistrationsModel::where('event_id', $eventId)
+        $detailRegisters = ToeicTestRegistrationsModel::where('event_id', $eventId)
                     ->get();
 
-        $event = EventModel::find($eventId);
+        $event = ToeicTestEventModel::find($eventId);
 
         return view('admin.data-event.detail-registers.detail-registers', [
             'detailRegisters' => $detailRegisters,
@@ -208,7 +207,7 @@ class EventController extends Controller
             ->withErrors($validator->messages()->all());
         }
 
-        $event = EventModel::find($eventId);
+        $event = ToeicTestEventModel::find($eventId);
 
         if (!isset($event)) return back()->with('toast_warning', 'Event tidak ditemukan')->withInput();
 
@@ -224,7 +223,7 @@ class EventController extends Controller
         $newRegistration['created_by'] = auth()->user()->user_id;
         $newRegistration['updated_by'] = auth()->user()->user_id;
 
-        $checkEmail = RegistrationsModel::where('event_id', $event->event_id)
+        $checkEmail = ToeicTestRegistrationsModel::where('event_id', $event->event_id)
                                          ->where('email', $newRegistration['email'] )
                                          ->first();
 
@@ -259,7 +258,7 @@ class EventController extends Controller
             $pasFoto->storeAs('public/pasFoto', $imageName);
             $newRegistration['pasFoto_img'] = $imageName;
     
-            $newRegistration = RegistrationsModel::create($newRegistration);
+            $newRegistration = ToeicTestRegistrationsModel::create($newRegistration);
 
             DB::commit();
 
@@ -293,7 +292,7 @@ class EventController extends Controller
     public function editRegister($eventId, $registerId)
     {
         $departements = DepartementModel::all();
-        $register = RegistrationsModel::find($registerId);
+        $register = ToeicTestRegistrationsModel::find($registerId);
         $selectedDept = $departements->where('name',$register->departement)->first();
         $prodys = ProdyModel::where('departement_id', $selectedDept->departement_id)->get();
 
@@ -347,10 +346,10 @@ class EventController extends Controller
             ->withErrors($validator->messages()->all());
         }
 
-        $registration = RegistrationsModel::find($registerId);
+        $registration = ToeicTestRegistrationsModel::find($registerId);
         if (!isset($registration)) return back()->with('toast_warning', 'Register tidak ditemukan')->withInput();
 
-        $event = EventModel::find($eventId);
+        $event = ToeicTestEventModel::find($eventId);
         if (!isset($event)) return back()->with('toast_warning', 'Event tidak ditemukan')->withInput();
 
         $newRegistration = $request->except('_token');
@@ -362,7 +361,7 @@ class EventController extends Controller
 
         $newRegistration['updated_by'] = auth()->user()->user_id;
 
-        $checkEmail = RegistrationsModel::where('event_id', $event->event_id)
+        $checkEmail = ToeicTestRegistrationsModel::where('event_id', $event->event_id)
                                          ->where('registration_id', '<>', $registerId)
                                          ->where('email', $newRegistration['email'] )
                                          ->first();
@@ -433,12 +432,12 @@ class EventController extends Controller
         try {
             DB::beginTransaction();
 
-            $register = RegistrationsModel::find($request->registerId);
+            $register = ToeicTestRegistrationsModel::find($request->registerId);
             $register->delete([
                 'deleted_by' => auth()->user()->user_id
             ]);
     
-            $event = EventModel::find($register->event_id);
+            $event = ToeicTestEventModel::find($register->event_id);
             $event->update([
                 'remaining_quota' => ($event->remaining_quota + 1),
             ]); 
@@ -455,7 +454,7 @@ class EventController extends Controller
 
     public function detailRegister($eventId, $registerId)
     {
-        $register = RegistrationsModel::find($registerId);
+        $register = ToeicTestRegistrationsModel::find($registerId);
 
 
         return view('admin.data-event.detail-registers.detail-data-register', [

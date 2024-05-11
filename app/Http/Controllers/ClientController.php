@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Mail\RegistrationMail;
 use App\Models\DepartementModel;
-use App\Models\EventModel;
+use App\Models\ToeicTestEventModel;
 use App\Models\imageModel;
 use App\Models\ProdyModel;
-use App\Models\RegistrationsModel;
+use App\Models\ToeicTestRegistrationsModel;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -23,7 +23,7 @@ class ClientController extends Controller
     {
         if($request->lang) App::setlocale($request->lang);
 
-        $events = EventModel::where('status', true)->get();
+        $events = ToeicTestEventModel::where('status', true)->get();
 
         $admin = User::first();
 
@@ -46,14 +46,14 @@ class ClientController extends Controller
             }
         }
 
-        return view('client.landingPage', ['activeEvents' => (count($activeEvents) > 0 ? $activeEvents : null), 'adminPhoneNum' => $admin->phone_num, 'gallery' => $gallery]);
+        return view('client.landingPage', ['activeEvents' => (count($activeEvents) > 0 ? $activeEvents : null), 'adminPhoneNum' => $admin->phone_num, 'gallery' => count($gallery) > 0 ? $gallery : null]);
     }
 
     public function sop(Request $request)
     {
         if($request->lang) App::setlocale($request->lang);
 
-        $events = EventModel::where('status', true)->get();
+        $events = ToeicTestEventModel::where('status', true)->get();
 
         $admin = User::first();
 
@@ -85,7 +85,7 @@ class ClientController extends Controller
     {
         if($request->lang) App::setlocale($request->lang);
 
-        $events = EventModel::where('status', true)->get();
+        $events = ToeicTestEventModel::where('status', true)->get();
 
         $admin = User::first();
 
@@ -116,7 +116,7 @@ class ClientController extends Controller
     {
         if($request->lang) App::setlocale($request->lang);
 
-        $events = EventModel::where('status', true)->get();
+        $events = ToeicTestEventModel::where('status', true)->get();
 
         if (!isset($events)) {
             return redirect()->route('client');
@@ -189,7 +189,7 @@ class ClientController extends Controller
             ->withErrors($validator->messages()->all());
         }
 
-        $activeEvent = EventModel::find($request->event_id);
+        $activeEvent = ToeicTestEventModel::find($request->event_id);
 
         if (!isset($activeEvent)) return redirect()->route('client')->with('toast_warning', 'Event tidak ditemukan');
 
@@ -201,7 +201,7 @@ class ClientController extends Controller
         if (!isset($departement)) return back()->withInput()->withErrors('Jurusan tidak ditemukan');
         $newRegistration['departement'] = $departement->name;
 
-        $checkEmail = RegistrationsModel::where('event_id', $activeEvent->event_id)
+        $checkEmail = ToeicTestRegistrationsModel::where('event_id', $activeEvent->event_id)
                                          ->where('email', $newRegistration['email'] )
                                          ->first();
 
@@ -237,7 +237,7 @@ class ClientController extends Controller
             $pasFoto->storeAs('public/pasFoto', $imageName);
             $newRegistration['pasFoto_img'] = $imageName;
     
-            $newRegistration = RegistrationsModel::create($newRegistration);
+            $newRegistration = ToeicTestRegistrationsModel::create($newRegistration);
            
             DB::commit();
 

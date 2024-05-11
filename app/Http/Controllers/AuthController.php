@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Validator;
 class AuthController extends Controller
 {
     public function index(){
-        // dd(auth()->user());
-
         return auth()->user() ? redirect()->route('admin.home') : view('admin.siginIn');
     }
 

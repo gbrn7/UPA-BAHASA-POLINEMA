@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
-            EventsSeeder::class,
-            RegistrationSeeder::class,
+            ToeicTestEventsSeeder::class,
+            ToeicTestRegistrationSeeder::class,
             DepartementSedder::class,
             ProdySedder::class,
         ]);

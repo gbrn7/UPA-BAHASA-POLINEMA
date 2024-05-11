@@ -3,18 +3,17 @@
 namespace Database\Seeders;
 
 use Carbon\Carbon;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class EventsSeeder extends Seeder
+class ToeicTestEventsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('r_events')->insert([
+        DB::table('r_toeic_test_events')->insert([
             'register_start' => Carbon::parse('2024-04-01')->startOfDay(),
             'register_end' => Carbon::parse('2024-04-12')->endOfDay(), 
             'execution' => Carbon::parse('2024-04-30'), 
