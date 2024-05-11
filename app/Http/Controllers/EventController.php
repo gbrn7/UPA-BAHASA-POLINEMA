@@ -237,25 +237,25 @@ class EventController extends Controller
             ]); 
             //Ktp rename file
             $ktp = $request->ktp_img;
-            $imageName = $event->event_id.'_'.Str::random(3).'.'.$ktp->getClientOriginalExtension();
+            $imageName = $event->event_id.'_'.Str::random(5).'.'.$ktp->getClientOriginalExtension();
             $ktp->storeAs('public/ktp', $imageName);
             $newRegistration['ktp_img'] = $imageName;
     
             //Ktm rename file
             $ktm = $request->ktm_img;
-            $imageName = $event->event_id.'_'.Str::random(3).'.'.$ktm->getClientOriginalExtension();
+            $imageName = $event->event_id.'_'.Str::random(5).'.'.$ktm->getClientOriginalExtension();
             $ktm->storeAs('public/ktm', $imageName);
             $newRegistration['ktm_img'] = $imageName;
     
             //Surat Pernyataan IISMA rename file
             $srtPrytnis = $request->surat_pernyataan_iisma;
-            $imageName = $event->event_id.'_'.Str::random(3).'.'.$srtPrytnis->getClientOriginalExtension();
+            $imageName = $event->event_id.'_'.Str::random(5).'.'.$srtPrytnis->getClientOriginalExtension();
             $srtPrytnis->storeAs('public/surat_pernyataan_iisma', $imageName);
             $newRegistration['surat_pernyataan_iisma'] = $imageName;
     
             //Pas Foto IISMA rename file
             $pasFoto = $request->pasFoto_img;
-            $imageName = $event->event_id.'_'.Str::random(3).'.'.$pasFoto->getClientOriginalExtension();
+            $imageName = $event->event_id.'_'.Str::random(5).'.'.$pasFoto->getClientOriginalExtension();
             $pasFoto->storeAs('public/pasFoto', $imageName);
             $newRegistration['pasFoto_img'] = $imageName;
     
@@ -374,7 +374,7 @@ class EventController extends Controller
             //Ktp update file
             if(isset( $request->ktp_img)){
                 $ktp = $request->ktp_img;
-                $fileName = $event->event_id.'_'.Str::random(3).'.'.$ktp->getClientOriginalExtension();
+                $fileName = $event->event_id.'_'.Str::random(5).'.'.$ktp->getClientOriginalExtension();
                 $ktp->storeAs('public/ktp', $fileName);
                 $newRegistration['ktp_img'] = $fileName;
 
@@ -385,7 +385,7 @@ class EventController extends Controller
             //Ktm update file
             if(isset( $request->ktm_img)){
                 $ktm = $request->ktm_img;
-                $fileName = $event->event_id.'_'.Str::random(3).'.'.$ktm->getClientOriginalExtension();
+                $fileName = $event->event_id.'_'.Str::random(5).'.'.$ktm->getClientOriginalExtension();
                 $ktm->storeAs('public/ktm', $fileName);
                 $newRegistration['ktm_img'] = $fileName;
                 //delete old ktm
@@ -395,7 +395,7 @@ class EventController extends Controller
             //Surat Pernyataan IISMA update file
             if(isset( $request->surat_pernyataan_iisma)){
                 $srtPrytnis = $request->surat_pernyataan_iisma;
-                $fileName = $event->event_id.'_'.Str::random(3).'.'.$srtPrytnis->getClientOriginalExtension();
+                $fileName = $event->event_id.'_'.Str::random(5).'.'.$srtPrytnis->getClientOriginalExtension();
                 $srtPrytnis->storeAs('public/surat_pernyataan_iisma', $fileName);
                 $newRegistration['surat_pernyataan_iisma'] = $fileName;
                 //delete old Surat Pernyataan IISMA
@@ -405,7 +405,7 @@ class EventController extends Controller
             //Pas Foto update file
             if(isset( $request->pasFoto_img)){
                 $pasFoto = $request->pasFoto_img;
-                $fileName = $event->event_id.'_'.Str::random(3).'.'.$pasFoto->getClientOriginalExtension();
+                $fileName = $event->event_id.'_'.Str::random(5).'.'.$pasFoto->getClientOriginalExtension();
                 $pasFoto->storeAs('public/pasFoto', $fileName);
                 $newRegistration['pasFoto_img'] = $fileName;
                 //delete old pasFoto
