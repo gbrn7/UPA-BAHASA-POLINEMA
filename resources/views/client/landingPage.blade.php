@@ -22,6 +22,8 @@
 </head>
 
 <body>
+  {{-- Sweet alert --}}
+  @include('sweetalert::alert')
   <nav class="navbar navbar-expand-lg">
     <div class="container">
       <a class="navbar-brand d-flex" href="{{route('client')}}">
@@ -40,7 +42,7 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-link d-flex align-items-center" aria-current="page" href="#home">@lang('client.navbar.home')</a>
-          @isset($activeEvent)
+          @isset($activeEvents)
           <a class="nav-link d-flex align-items-center" href="#announcement">@lang('client.navbar.announcement')</a>
           @endisset
           <a class="nav-link d-flex align-items-center" href="#program">@lang('client.navbar.program')</a>
@@ -85,7 +87,7 @@
     </div>
   </section>
 
-  @isset($activeEvent)
+  @isset($activeEvents)
   <!-- Announcement -->
   <section class="announcement mt-5" id="announcement">
     <div class="container">
@@ -114,14 +116,16 @@
                       </tr>
                     </thead>
                     <tbody id="tableBody">
+                      @foreach ($activeEvents as $activeEvent)
                       <tr>
-                        <td>1</td>
+                        <td>{{$loop->iteration}}</td>
                         <td>{{date("d M Y", strtotime($activeEvent->register_start)) }} - {{date("d M
                           Y", strtotime($activeEvent->register_end)) }}</td>
                         <td>{{date("d M Y", strtotime($activeEvent->execution)) }}</td>
                         <td>{{$activeEvent->quota}}</td>
                         <td>{{$activeEvent->remaining_quota}}</td>
                       </tr>
+                      @endforeach
                     </tbody>
                   </table>
                 </div>

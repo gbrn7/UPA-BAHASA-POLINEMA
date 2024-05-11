@@ -58,9 +58,51 @@
             </ul>
           </div>
         </div>
-        <div class="col-12 mt-3 d-lg-flex gap-2 justify-content-between">
+        <div class="col-12 overflow-auto">
+          <div class="table-wrapper table-content mt-2 mb-2">
+            <table id="example" class="table mt-3 table-hover" style="width: 100%">
+              <thead>
+                <tr>
+                  <th class="text-secondary batch">@lang('client.announcement_section.table_content.batch')</th>
+                  <th class="text-secondary registration-date">
+                    @lang('client.announcement_section.table_content.registration_date')</th>
+                  <th class="text-secondary execution-date">
+                    @lang('client.announcement_section.table_content.execution_date')</th>
+                  <th class="text-secondary">@lang('client.announcement_section.table_content.quota')</th>
+                  <th class="text-secondary">@lang('client.announcement_section.table_content.remaining_quota')
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="tableBody">
+                @foreach ($activeEvents as $activeEvent)
+                <tr>
+                  <td>{{$loop->iteration}}</td>
+                  <td>{{date("d M Y", strtotime($activeEvent->register_start)) }} - {{date("d M
+                    Y", strtotime($activeEvent->register_end)) }}</td>
+                  <td>{{date("d M Y", strtotime($activeEvent->execution)) }}</td>
+                  <td>{{$activeEvent->quota}}</td>
+                  <td>{{$activeEvent->remaining_quota}}</td>
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-12 mt-4 d-lg-flex gap-2 justify-content-between">
           @csrf
           <div class="col-12 col-lg-6">
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">@lang('form.batch.label')</label>
+              <select name="event_id" required id="batch-select" class="form-select"
+                aria-label="Default select example">
+                <option value="">@lang('form.batch.placeholder')</option>
+                @foreach ($activeEvents as $activeEvent)
+                <option value="{{$activeEvent->event_id}}" {{old('event_id')===$activeEvent->event_id ? 'selected'
+                  :
+                  ''}}>Batch-{{$activeEvent->event_id}}</option>
+                @endforeach
+              </select>
+            </div>
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">@lang('form.name.label')</label>
               <input required type="Text" name="name" value="{{old('name')}}" class="form-control"

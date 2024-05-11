@@ -5,6 +5,10 @@ return [
   "title" => [
     'english_test' => "TOEIC Registration Form"
   ],
+  "batch" => [
+    "label" => "Batch",
+    "placeholder" => "Enter the batch",
+  ],
   "name" => [
     "label" => "Full Name",
     "placeholder" => "Enter your full name",

@@ -56,7 +56,7 @@
             <td>{{date("d-m-Y", strtotime($event->execution)) }}</td>
             <td>{{$event->quota }}</td>
             <td>{{(($event->quota) - ($event->remaining_quota))}}</td>
-            <td>{{$event->remaining_quota }}</td>
+            <td>{{$event->remaining_quota <= 0 ? 0 : $event->remaining_quota}}</td>
             <td class="text-capitalize">{{$event->status == 1 ? 'Aktif' : 'Non-Aktif'}}</td>
             <td class="">
               <div class="btn-wrapper d-flex gap-2 flex-wrap">

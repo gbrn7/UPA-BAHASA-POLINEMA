@@ -23,58 +23,61 @@ class ClientController extends Controller
     {
         if($request->lang) App::setlocale($request->lang);
 
-        $activeEvent = EventModel::where('status', true)->first();
+        $events = EventModel::where('status', true)->get();
 
         $admin = User::first();
 
         $gallery = imageModel::where('type', 'gallery')->orderBy('image_id', 'desc')->get();
 
-        if (!isset($activeEvent)) {
+        if (!isset($events)) {
             return view('client.landingPage', ['gallery' => $gallery]);
         }
+
+        $activeEvents = collect();
 
         $dateNow = Carbon::now();
-        $registerEnd = Carbon::parse($activeEvent->register_end);
+        foreach ($events as $key => $activeEvent) {
+            $registerEnd = Carbon::parse($activeEvent->register_end);
 
-        if($dateNow->greaterThan($registerEnd) || $activeEvent->remaining_quota <= 0){
-
-            $activeEvent->update(['status' => false]);
-
-            return view('client.landingPage', ['gallery' => $gallery]);
-            
+            if($dateNow->greaterThan($registerEnd) || $activeEvent->remaining_quota <= 0){    
+                $activeEvent->update(['status' => false]);
+            }else{
+                $activeEvents->push($activeEvent);
+            }
         }
 
-        return view('client.landingPage', ['activeEvent' => $activeEvent, 'adminPhoneNum' => $admin->phone_num, 'gallery' => $gallery]);
+        return view('client.landingPage', ['activeEvents' => (count($activeEvents) > 0 ? $activeEvents : null), 'adminPhoneNum' => $admin->phone_num, 'gallery' => $gallery]);
     }
 
     public function sop(Request $request)
     {
         if($request->lang) App::setlocale($request->lang);
 
-        $activeEvent = EventModel::where('status', true)
-        ->first();
+        $events = EventModel::where('status', true)->get();
 
         $admin = User::first();
 
         $image_toeic = imageModel::where('type', 'sop-toeic')->first();
         $image_consult = imageModel::where('type', 'sop-consult')->first();
 
-        if (!isset($activeEvent)) {
+        if (!isset($events)) {
             return view('client.sop', ['image_toeic' => $image_toeic, 'image_consult' => $image_consult]);
         }
 
+        $activeEvents = collect();
+
         $dateNow = Carbon::now();
-        $registerEnd = Carbon::parse($activeEvent->register_end);
+        foreach ($events as $key => $activeEvent) {
+            $registerEnd = Carbon::parse($activeEvent->register_end);
 
-        if($dateNow->greaterThan($registerEnd) || $activeEvent->remaining_quota <= 0){
-
-            $activeEvent->update(['status' => false, 'image_toeic' => $image_toeic, 'image_consult' => $image_consult]);
-
-            return view('client.sop');
-            
+            if($dateNow->greaterThan($registerEnd) || $activeEvent->remaining_quota <= 0){    
+                $activeEvent->update(['status' => false]);
+            }else{
+                $activeEvents->push($activeEvent);
+            }
         }
 
-        return view('client.sop', ['activeEvent' => $activeEvent, 'adminPhoneNum' => $admin->phone_num, 'image_toeic' => $image_toeic, 'image_consult' => $image_consult]);
+        return view('client.sop', ['activeEvent' => (count($activeEvents) > 0 ? $activeEvents : null), 'adminPhoneNum' => $admin->phone_num, 'image_toeic' => $image_toeic, 'image_consult' => $image_consult]);
         
     }
 
@@ -82,30 +85,30 @@ class ClientController extends Controller
     {
         if($request->lang) App::setlocale($request->lang);
 
-        $activeEvent = EventModel::where('status', true)
-        ->first();
+        $events = EventModel::where('status', true)->get();
 
         $admin = User::first();
 
         $image = imageModel::where('type', 'structure_organization')->first();
 
-        if (!isset($activeEvent)) {
+        if (!isset($events)) {
             return view('client.structure-organization', ['image' => $image]);
         }
+
+        $activeEvents = collect();
 
         $dateNow = Carbon::now();
-        $registerEnd = Carbon::parse($activeEvent->register_end);
+        foreach ($events as $key => $activeEvent) {
+            $registerEnd = Carbon::parse($activeEvent->register_end);
 
-        if($dateNow->greaterThan($registerEnd) || $activeEvent->remaining_quota <= 0){
-
-            $activeEvent->update(['status' => false]);
-
-            return view('client.structure-organization', ['image' => $image]);
-            
+            if($dateNow->greaterThan($registerEnd) || $activeEvent->remaining_quota <= 0){    
+                $activeEvent->update(['status' => false]);
+            }else{
+                $activeEvents->push($activeEvent);
+            }
         }
 
-
-        return view('client.structure-organization', ['activeEvent' => $activeEvent, 'adminPhoneNum' => $admin->phone_num, 'image' => $image]);
+        return view('client.structure-organization', ['activeEvent' => (count($activeEvents) > 0 ? $activeEvents : null), 'adminPhoneNum' => $admin->phone_num, 'image' => $image]);
         
     }
 
@@ -113,27 +116,34 @@ class ClientController extends Controller
     {
         if($request->lang) App::setlocale($request->lang);
 
-        $activeEvent = EventModel::where('status', true)
-                        ->first();
+        $events = EventModel::where('status', true)->get();
 
-        if (!isset($activeEvent)) {
+        if (!isset($events)) {
             return redirect()->route('client');
         }
 
+        $activeEvents = collect();
+
         $dateNow = Carbon::now();
-        $registerEnd = Carbon::parse($activeEvent->register_end);
 
-        if($dateNow->greaterThan($registerEnd) || $activeEvent->remaining_quota <= 0){
+        foreach ($events as $key => $activeEvent) {
+            $registerEnd = Carbon::parse($activeEvent->register_end);
 
-            $activeEvent->update(['status' => false]);
-
-            return redirect()->route('client');   
+            if($dateNow->greaterThan($registerEnd) || $activeEvent->remaining_quota <= 0){    
+                $activeEvent->update(['status' => false]);
+            }else{
+                $activeEvents->push($activeEvent);
+            }
         }
 
         $departements = DepartementModel::all();
+
+        if(count($activeEvents) <= 0) return redirect()->route('client')->with('toast_warning', 'Event tes TOEIC tidak ditemukan');
+
         
         return view('client.form', 
         [
+        'activeEvents' =>  $activeEvents,
         'departements' => $departements, 
         ]);
     }
@@ -141,6 +151,7 @@ class ClientController extends Controller
     public function saveRegistration(Request $request)
     {
         $validation = [
+            'event_id' => 'required',
             'name' => 'required|string|max:255',
             'nim' => 'required|string|max:255',
             'nik' => 'required|string|max:255',
@@ -178,14 +189,13 @@ class ClientController extends Controller
             ->withErrors($validator->messages()->all());
         }
 
-        $activeEvent = EventModel::where('status', true)
-                        ->where('remaining_quota', '>', 0)
-                        ->first();
+        $activeEvent = EventModel::find($request->event_id);
 
-        if (!isset($activeEvent)) return view('client.landingPage');
+        if (!isset($activeEvent)) return redirect()->route('client')->with('toast_warning', 'Event tidak ditemukan');
+
+        if ($activeEvent->quota <= 0) return redirect()->route('client')->with('toast_warning', 'Kuota telah habis');
         
         $newRegistration = $request->except('_token');
-        $newRegistration['event_id'] = $activeEvent->event_id;
 
         $departement  = DepartementModel::find($request->departement);
         if (!isset($departement)) return back()->withInput()->withErrors('Jurusan tidak ditemukan');

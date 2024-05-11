@@ -42,14 +42,7 @@ class EventController extends Controller
 
     public function createEvent()
     {
-        $activeEvent = EventModel::where('status', true)->first();
-
-        if (!isset($activeEvent)) {
-            return view('admin.data-event.create-data-event');
-        }
-
-        return back()->with('toast_warning', 'Terdapat Event yang masih aktif, untuk menambahkan event pastikan semua event Non-Aktif');
-
+        return view('admin.data-event.create-data-event');
     }
 
     public function storeEvent(Request $request)
@@ -106,15 +99,6 @@ class EventController extends Controller
             'status' => 'required|boolean',
             'wa_group_link' => 'nullable',
         ]);
-
-        if($request->status == 1 ){
-            $activeEvent = EventModel::where('status', true)
-                        ->where('event_id', '<>', $eventId)
-                        ->first();
-
-            if (isset($activeEvent) ) return back()->with('toast_warning', 'Terdapat Event yang masih aktif, untuk mengaktifkan event pastikan semua event Non-Aktif');
-            
-        }
 
         $oldEvent = EventModel::where('event_id', $eventId)->first();
 

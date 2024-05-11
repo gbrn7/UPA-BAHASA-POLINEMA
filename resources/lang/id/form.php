@@ -5,6 +5,10 @@ return [
   "title" => [
     'english_test' => "Form Pendaftaran TOEIC"
   ],
+  "batch" => [
+    "label" => "Batch",
+    "placeholder" => "Pilih Batch yang ingin anda pilih",
+  ],
   "name" => [
     "label" => "Nama Lengkap",
     "placeholder" => "Masukkan nama lengkap anda"
