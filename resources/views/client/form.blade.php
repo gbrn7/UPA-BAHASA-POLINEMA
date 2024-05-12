@@ -76,7 +76,7 @@
               <tbody id="tableBody">
                 @foreach ($activeEvents as $activeEvent)
                 <tr>
-                  <td>{{$loop->iteration}}</td>
+                  <td>{{$activeEvent->toeic_test_events_id}}</td>
                   <td>{{date("d M Y", strtotime($activeEvent->register_start)) }} - {{date("d M
                     Y", strtotime($activeEvent->register_end)) }}</td>
                   <td>{{date("d M Y", strtotime($activeEvent->execution)) }}</td>
@@ -93,13 +93,14 @@
           <div class="col-12 col-lg-6">
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">@lang('form.batch.label')</label>
-              <select name="event_id" required id="batch-select" class="form-select"
+              <select name="toeic_test_events_id" required id="batch-select" class="form-select"
                 aria-label="Default select example">
                 <option value="">@lang('form.batch.placeholder')</option>
                 @foreach ($activeEvents as $activeEvent)
-                <option value="{{$activeEvent->event_id}}" {{old('event_id')===$activeEvent->event_id ? 'selected'
+                <option value="{{$activeEvent->toeic_test_events_id}}" {{old('toeic_test_events_id')===$activeEvent->
+                  toeic_test_events_id ? 'selected'
                   :
-                  ''}}>Batch-{{$activeEvent->event_id}}</option>
+                  ''}}>Batch-{{$activeEvent->toeic_test_events_id}}</option>
                 @endforeach
               </select>
             </div>

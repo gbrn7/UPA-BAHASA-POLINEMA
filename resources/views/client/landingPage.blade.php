@@ -118,7 +118,7 @@
                     <tbody id="tableBody">
                       @foreach ($activeEvents as $activeEvent)
                       <tr>
-                        <td>{{$loop->iteration}}</td>
+                        <td>{{$activeEvent->toeic_test_events_id}}</td>
                         <td>{{date("d M Y", strtotime($activeEvent->register_start)) }} - {{date("d M
                           Y", strtotime($activeEvent->register_end)) }}</td>
                         <td>{{date("d M Y", strtotime($activeEvent->execution)) }}</td>

@@ -151,7 +151,7 @@ class ClientController extends Controller
     public function saveRegistration(Request $request)
     {
         $validation = [
-            'event_id' => 'required',
+            'toeic_test_events_id' => 'required',
             'name' => 'required|string|max:255',
             'nim' => 'required|string|max:255',
             'nik' => 'required|string|max:255',
@@ -189,7 +189,7 @@ class ClientController extends Controller
             ->withErrors($validator->messages()->all());
         }
 
-        $activeEvent = ToeicTestEventModel::find($request->event_id);
+        $activeEvent = ToeicTestEventModel::find($request->toeic_test_events_id);
 
         if (!isset($activeEvent)) return redirect()->route('client')->with('toast_warning', 'Event tidak ditemukan');
 
@@ -201,7 +201,7 @@ class ClientController extends Controller
         if (!isset($departement)) return back()->withInput()->withErrors('Jurusan tidak ditemukan');
         $newRegistration['departement'] = $departement->name;
 
-        $checkEmail = ToeicTestRegistrationsModel::where('event_id', $activeEvent->event_id)
+        $checkEmail = ToeicTestRegistrationsModel::where('toeic_test_events_id', $activeEvent->toeic_test_events_id)
                                          ->where('email', $newRegistration['email'] )
                                          ->first();
 
@@ -215,25 +215,25 @@ class ClientController extends Controller
             ]); 
             //Ktp rename file
             $ktp = $request->ktp_img;
-            $imageName = $activeEvent->event_id.'_'.Str::random(5).'.'.$ktp->getClientOriginalExtension();
+            $imageName = $activeEvent->toeic_test_events_id.'_'.Str::random(5).'.'.$ktp->getClientOriginalExtension();
             $ktp->storeAs('public/ktp', $imageName);
             $newRegistration['ktp_img'] = $imageName;
     
             //Ktm rename file
             $ktm = $request->ktm_img;
-            $imageName = $activeEvent->event_id.'_'.Str::random(5).'.'.$ktm->getClientOriginalExtension();
+            $imageName = $activeEvent->toeic_test_events_id.'_'.Str::random(5).'.'.$ktm->getClientOriginalExtension();
             $ktm->storeAs('public/ktm', $imageName);
             $newRegistration['ktm_img'] = $imageName;
     
             //Surat Pernyataan IISMA rename file
             $srtPrytnis = $request->surat_pernyataan_iisma;
-            $imageName = $activeEvent->event_id.'_'.Str::random(5).'.'.$srtPrytnis->getClientOriginalExtension();
+            $imageName = $activeEvent->toeic_test_events_id.'_'.Str::random(5).'.'.$srtPrytnis->getClientOriginalExtension();
             $srtPrytnis->storeAs('public/surat_pernyataan_iisma', $imageName);
             $newRegistration['surat_pernyataan_iisma'] = $imageName;
     
             //Pas Foto rename file
             $pasFoto = $request->pasFoto_img;
-            $imageName = $activeEvent->event_id.'_'.Str::random(5).'.'.$pasFoto->getClientOriginalExtension();
+            $imageName = $activeEvent->toeic_test_events_id.'_'.Str::random(5).'.'.$pasFoto->getClientOriginalExtension();
             $pasFoto->storeAs('public/pasFoto', $imageName);
             $newRegistration['pasFoto_img'] = $imageName;
     

@@ -21,7 +21,7 @@ class ToiecDataExport implements FromView
     public function view():View
     {
         $detailRegisters = ToeicTestRegistrationsModel::
-        where('event_id', $this->eventId)
+        where('toeic_test_events_id', $this->eventId)
         ->get();
 
         return view('export_table.toeicRegister', [
