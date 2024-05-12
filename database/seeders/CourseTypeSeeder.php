@@ -4,38 +4,48 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
 
-class DepartementSedder extends Seeder
+class CourseTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        DB::table('m_departement')->insert([
+        DB::table('m_course_type')->insert(
+        [
             [
-                'name' => 'Teknik Elektro',
+                'name' => 'Test Preparation (TOEIC, TOEFL, IELTS)',
                 'created_by' => 1,
                 'updated_by' => 1,
                 'created_at' => now(),
-                'updated_at' => now(),
                 ],
                 [
-                'name' => 'Teknik Mesin',
+                'name' => 'Japanese',
                 'created_by' => 1,
                 'updated_by' => 1,
                 'created_at' => now(),
-                'updated_at' => now(),
                 ],
                 [
-                'name' => 'Teknologi Informasi',
+                'name' => 'Mandarin',
                 'created_by' => 1,
                 'updated_by' => 1,
                 'created_at' => now(),
-                'updated_at' => now(),
                 ],
-            ]
-        );
+                [
+                'name' => 'French',
+                'created_by' => 1,
+                'updated_by' => 1,
+                'created_at' => now(),
+                ],
+                [
+                'name' => 'BIPA',
+                'created_by' => 1,
+                'updated_by' => 1,
+                'created_at' => now(),
+                ],
+        ]
+    );    
     }
 }

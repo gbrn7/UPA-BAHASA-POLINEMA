@@ -37,7 +37,7 @@
             <div class="card-body-content col-9">
               <h3 class="card-title">Data Jurusan</h3>
               <p class="card-text text-secondary fw-normal">Fitur ini digunakan untuk mengolah data jurusan seperti
-                menambah, memperbarui, atau menghapus data jurusan.</p>
+                menambah, memperbarui, atau menghapus data jurusan</p>
             </div>
             <div class="col-2 col-sm-3 d-flex justify-content-center img-menu">
               <i class="fs-1 ri-building-2-line "></i>
@@ -50,11 +50,25 @@
           <div class="card-body  row justify-content-between align-items-center">
             <div class="card-body-content col-9">
               <h3 class="card-title">Data Gambar</h3>
-              <p class="card-text text-secondary fw-normal">Fitur ini digunakan untuk mengolah data jurusan seperti
-                menambah, memperbarui, atau menghapus data gambar.</p>
+              <p class="card-text text-secondary fw-normal">Fitur ini digunakan untuk mengolah data gambar seperti
+                menambah, memperbarui, atau menghapus data gambar</p>
             </div>
             <div class="col-2 col-sm-3 d-flex justify-content-center img-menu">
               <i class="fs-1 ri-image-fill"></i>
+            </div>
+          </div>
+        </div>
+      </a>
+      <a href={{route('admin.data.courseType')}} class="card-dashboard text-decoration-none">
+        <div class="card h-100">
+          <div class="card-body  row justify-content-between align-items-center">
+            <div class="card-body-content col-9">
+              <h3 class="card-title">Data Tipe Kursus</h3>
+              <p class="card-text text-secondary fw-normal">Fitur ini digunakan untuk mengolah data tipe kursus seperti
+                menambah, memperbarui, atau menghapus data tipe kursus</p>
+            </div>
+            <div class="col-2 col-sm-3 d-flex justify-content-center img-menu">
+              <i class="ri-earth-line"></i>
             </div>
           </div>
         </div>

@@ -23,7 +23,7 @@
             <div class="card-body-content col-9">
               <h3 class="card-title">Data Gambar Galeri</h3>
               <p class="card-text text-secondary fw-normal">Fitur ini digunakan untuk mengolah data gambar galeri
-                seperti menambah, memperbarui, atau menghapus data .</p>
+                seperti menambah, memperbarui, atau menghapus data</p>
             </div>
             <div class="col-2 col-sm-3 d-flex justify-content-center img-menu">
               <i class="fs-1 ri-gallery-line"></i>
@@ -38,7 +38,7 @@
             <div class="card-body-content col-9">
               <h3 class="card-title">Data Gambar Struktur Organisasi</h3>
               <p class="card-text text-secondary fw-normal">Fitur ini digunakan untuk mengolah data gambar struktur
-                organisai UPA Bahasa Politeknik Negeri Malang.</p>
+                organisai UPA Bahasa Politeknik Negeri Malang</p>
             </div>
             <div class="col-2 col-sm-3 d-flex justify-content-center img-menu">
               <i class="fs-1 ri-organization-chart"></i>
