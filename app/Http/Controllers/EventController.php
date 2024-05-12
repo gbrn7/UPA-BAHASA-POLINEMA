@@ -73,9 +73,9 @@ class EventController extends Controller
         return redirect()->route('admin.data.event')->with('toast_success', 'Event Berhasil Ditambahkan');
     }   
 
-    public function editEvent($eventId)
+    public function editEvent($toeic_test_events_id)
     {   
-        $event = ToeicTestEventModel::where('event_id', $eventId)->first();
+        $event = ToeicTestEventModel::where('toeic_test_events_id', $toeic_test_events_id)->first();
         $registerStart = date('d-m-Y', strtotime($event->register_start));
         $registerEnd = date('d-m-Y', strtotime($event->register_end));
         $execution = date('d-m-Y', strtotime($event->execution));
@@ -89,7 +89,7 @@ class EventController extends Controller
 
     }
 
-    public function updateEvent($eventId, Request $request)
+    public function updateEvent($toeic_test_events_id, Request $request)
     {
         $request->validate([
             'registration_range' => 'required',
@@ -99,7 +99,7 @@ class EventController extends Controller
             'wa_group_link' => 'nullable',
         ]);
 
-        $oldEvent = ToeicTestEventModel::where('event_id', $eventId)->first();
+        $oldEvent = ToeicTestEventModel::where('toeic_test_events_id', $toeic_test_events_id)->first();
 
         $registerStart = Carbon::parse(explode(' - ',$request->registration_range)[0])->startOfDay();
         $registerEnd = Carbon::parse(explode(' - ',$request->registration_range)[1])->endOfDay();
@@ -124,10 +124,10 @@ class EventController extends Controller
     {
 
         $request->validate([
-            'eventId' => 'required',
+            'toeic_test_events_id' => 'required',
         ]);
 
-        $event = ToeicTestEventModel::find($request->eventId);
+        $event = ToeicTestEventModel::find($request->toeic_test_events_id);
 
         $event->delete([
             'deleted_by' => auth()->user()->user_id
@@ -137,12 +137,12 @@ class EventController extends Controller
 
     }
 
-    public function detailRegisters($eventId)
+    public function detailRegisters($toeic_test_events_id)
     {
-        $detailRegisters = ToeicTestRegistrationsModel::where('event_id', $eventId)
+        $detailRegisters = ToeicTestRegistrationsModel::where('toeic_test_events_id', $toeic_test_events_id)
                     ->get();
 
-        $event = ToeicTestEventModel::find($eventId);
+        $event = ToeicTestEventModel::find($toeic_test_events_id);
 
         return view('admin.data-event.detail-registers.detail-registers', [
             'detailRegisters' => $detailRegisters,
@@ -150,12 +150,12 @@ class EventController extends Controller
         ]);
     }
 
-    public function exportToeicData(string $eventId)
+    public function exportToeicData(string $toeic_test_events_id)
     {
-        return Excel::download(new ToiecDataExport($eventId), 'Data Pendaftar TOEIC Batch-'.$eventId.'.xlsx');
+        return Excel::download(new ToiecDataExport($toeic_test_events_id), 'Data Pendaftar TOEIC Batch-'.$toeic_test_events_id.'.xlsx');
     }
 
-    public function createRegister($eventId)
+    public function createRegister($toeic_test_events_id)
     {
         $departements = DepartementModel::all();
         $prodys = ProdyModel::all();
@@ -163,11 +163,11 @@ class EventController extends Controller
         return view('admin.data-event.detail-registers.create-data-register', [
             'departements' => $departements, 
             'prodys' => $prodys,      
-            'event_id' => $eventId,      
+            'toeic_test_events_id' => $toeic_test_events_id,      
         ]);
     }
 
-    public function saveRegister(Request $request, $eventId)
+    public function saveRegister(Request $request, $toeic_test_events_id)
     {
         $validation = [
             'name' => 'required|string|max:255',
@@ -207,14 +207,14 @@ class EventController extends Controller
             ->withErrors($validator->messages()->all());
         }
 
-        $event = ToeicTestEventModel::find($eventId);
+        $event = ToeicTestEventModel::find($toeic_test_events_id);
 
         if (!isset($event)) return back()->with('toast_warning', 'Event tidak ditemukan')->withInput();
 
         if($event->remaining_quota <= 0) return back()->with('toast_warning', 'Kuota pendaftaran habis')->withInput();
 
         $newRegistration = $request->except('_token');
-        $newRegistration['event_id'] = $event->event_id;
+        $newRegistration['toeic_test_events_id'] = $event->toeic_test_events_id;
 
         $departement  = DepartementModel::find($request->departement);
         if (!isset($departement)) return back()->withInput()->withErrors('Jurusan tidak ditemukan');
@@ -223,7 +223,7 @@ class EventController extends Controller
         $newRegistration['created_by'] = auth()->user()->user_id;
         $newRegistration['updated_by'] = auth()->user()->user_id;
 
-        $checkEmail = ToeicTestRegistrationsModel::where('event_id', $event->event_id)
+        $checkEmail = ToeicTestRegistrationsModel::where('toeic_test_events_id', $event->toeic_test_events_id)
                                          ->where('email', $newRegistration['email'] )
                                          ->first();
 
@@ -236,25 +236,25 @@ class EventController extends Controller
             ]); 
             //Ktp rename file
             $ktp = $request->ktp_img;
-            $imageName = $event->event_id.'_'.Str::random(5).'.'.$ktp->getClientOriginalExtension();
+            $imageName = $event->toeic_test_events_id.'_'.Str::random(5).'.'.$ktp->getClientOriginalExtension();
             $ktp->storeAs('public/ktp', $imageName);
             $newRegistration['ktp_img'] = $imageName;
     
             //Ktm rename file
             $ktm = $request->ktm_img;
-            $imageName = $event->event_id.'_'.Str::random(5).'.'.$ktm->getClientOriginalExtension();
+            $imageName = $event->toeic_test_events_id.'_'.Str::random(5).'.'.$ktm->getClientOriginalExtension();
             $ktm->storeAs('public/ktm', $imageName);
             $newRegistration['ktm_img'] = $imageName;
     
             //Surat Pernyataan IISMA rename file
             $srtPrytnis = $request->surat_pernyataan_iisma;
-            $imageName = $event->event_id.'_'.Str::random(5).'.'.$srtPrytnis->getClientOriginalExtension();
+            $imageName = $event->toeic_test_events_id.'_'.Str::random(5).'.'.$srtPrytnis->getClientOriginalExtension();
             $srtPrytnis->storeAs('public/surat_pernyataan_iisma', $imageName);
             $newRegistration['surat_pernyataan_iisma'] = $imageName;
     
             //Pas Foto IISMA rename file
             $pasFoto = $request->pasFoto_img;
-            $imageName = $event->event_id.'_'.Str::random(5).'.'.$pasFoto->getClientOriginalExtension();
+            $imageName = $event->toeic_test_events_id.'_'.Str::random(5).'.'.$pasFoto->getClientOriginalExtension();
             $pasFoto->storeAs('public/pasFoto', $imageName);
             $newRegistration['pasFoto_img'] = $imageName;
     
@@ -273,13 +273,14 @@ class EventController extends Controller
                     ]);
                     
                 } catch (\Throwable $th) {
-                    return redirect()->route('admin.data.detail.registers', $eventId)->with('toast_success', 'Pendaftaran test bahasa inggris TOEIC '.$newRegistration->name.' berhasil');
+                    return redirect()->route('admin.data.detail.registers', $toeic_test_events_id)->with('toast_success', 'Pendaftaran test bahasa inggris TOEIC '.$newRegistration->name.' berhasil');
                 }
 
             }
 
-            return redirect()->route('admin.data.detail.registers', $eventId)->with('toast_success', 'Pendaftaran test bahasa inggris TOEIC '.$newRegistration->name.' berhasil');
+            return redirect()->route('admin.data.detail.registers', $toeic_test_events_id)->with('toast_success', 'Pendaftaran test bahasa inggris TOEIC '.$newRegistration->name.' berhasil');
         }catch (\Throwable $th){
+            dd($th->getMessage());
             return back()->withInput()->with('toast_error','Internal Server Error');
         }
     }
@@ -289,10 +290,10 @@ class EventController extends Controller
         Mail::to($data['email'])->send(new RegistrationMail($data));
     }
 
-    public function editRegister($eventId, $registerId)
+    public function editRegister($toeic_test_events_id, $toeic_test_registrations_id)
     {
         $departements = DepartementModel::all();
-        $register = ToeicTestRegistrationsModel::find($registerId);
+        $register = ToeicTestRegistrationsModel::find($toeic_test_registrations_id);
         $selectedDept = $departements->where('name',$register->departement)->first();
         $prodys = ProdyModel::where('departement_id', $selectedDept->departement_id)->get();
 
@@ -301,12 +302,12 @@ class EventController extends Controller
         return view('admin.data-event.detail-registers.edit-data-register', [
             'departements' => $departements, 
             'prodys' => $prodys,      
-            'event_id' => $eventId,      
+            'toeic_test_events_id' => $toeic_test_events_id,      
             'register' => $register,      
         ]);
     }
 
-    public function updateRegister(Request $request, $eventId, $registerId)
+    public function updateRegister(Request $request, $toeic_test_events_id, $toeic_test_registrations_id)
     {
         $validation = [
             'name' => 'required|string|max:255',
@@ -346,14 +347,14 @@ class EventController extends Controller
             ->withErrors($validator->messages()->all());
         }
 
-        $registration = ToeicTestRegistrationsModel::find($registerId);
+        $registration = ToeicTestRegistrationsModel::find($toeic_test_registrations_id);
         if (!isset($registration)) return back()->with('toast_warning', 'Register tidak ditemukan')->withInput();
 
-        $event = ToeicTestEventModel::find($eventId);
+        $event = ToeicTestEventModel::find($toeic_test_events_id);
         if (!isset($event)) return back()->with('toast_warning', 'Event tidak ditemukan')->withInput();
 
         $newRegistration = $request->except('_token');
-        $newRegistration['event_id'] = $event->event_id;
+        $newRegistration['toeic_test_events_id'] = $event->toeic_test_events_id;
 
         $departement  = DepartementModel::find($request->departement);
         if (!isset($departement)) return back()->withInput()->withErrors('Jurusan tidak ditemukan');
@@ -361,8 +362,8 @@ class EventController extends Controller
 
         $newRegistration['updated_by'] = auth()->user()->user_id;
 
-        $checkEmail = ToeicTestRegistrationsModel::where('event_id', $event->event_id)
-                                         ->where('registration_id', '<>', $registerId)
+        $checkEmail = ToeicTestRegistrationsModel::where('toeic_test_events_id', $event->toeic_test_events_id)
+                                         ->where('toeic_test_registrations_id', '<>', $toeic_test_registrations_id)
                                          ->where('email', $newRegistration['email'] )
                                          ->first();
 
@@ -373,7 +374,7 @@ class EventController extends Controller
             //Ktp update file
             if(isset( $request->ktp_img)){
                 $ktp = $request->ktp_img;
-                $fileName = $event->event_id.'_'.Str::random(5).'.'.$ktp->getClientOriginalExtension();
+                $fileName = $event->toeic_test_events_id.'_'.Str::random(5).'.'.$ktp->getClientOriginalExtension();
                 $ktp->storeAs('public/ktp', $fileName);
                 $newRegistration['ktp_img'] = $fileName;
 
@@ -384,7 +385,7 @@ class EventController extends Controller
             //Ktm update file
             if(isset( $request->ktm_img)){
                 $ktm = $request->ktm_img;
-                $fileName = $event->event_id.'_'.Str::random(5).'.'.$ktm->getClientOriginalExtension();
+                $fileName = $event->toeic_test_events_id.'_'.Str::random(5).'.'.$ktm->getClientOriginalExtension();
                 $ktm->storeAs('public/ktm', $fileName);
                 $newRegistration['ktm_img'] = $fileName;
                 //delete old ktm
@@ -394,7 +395,7 @@ class EventController extends Controller
             //Surat Pernyataan IISMA update file
             if(isset( $request->surat_pernyataan_iisma)){
                 $srtPrytnis = $request->surat_pernyataan_iisma;
-                $fileName = $event->event_id.'_'.Str::random(5).'.'.$srtPrytnis->getClientOriginalExtension();
+                $fileName = $event->toeic_test_events_id.'_'.Str::random(5).'.'.$srtPrytnis->getClientOriginalExtension();
                 $srtPrytnis->storeAs('public/surat_pernyataan_iisma', $fileName);
                 $newRegistration['surat_pernyataan_iisma'] = $fileName;
                 //delete old Surat Pernyataan IISMA
@@ -404,7 +405,7 @@ class EventController extends Controller
             //Pas Foto update file
             if(isset( $request->pasFoto_img)){
                 $pasFoto = $request->pasFoto_img;
-                $fileName = $event->event_id.'_'.Str::random(5).'.'.$pasFoto->getClientOriginalExtension();
+                $fileName = $event->toeic_test_events_id.'_'.Str::random(5).'.'.$pasFoto->getClientOriginalExtension();
                 $pasFoto->storeAs('public/pasFoto', $fileName);
                 $newRegistration['pasFoto_img'] = $fileName;
                 //delete old pasFoto
@@ -414,7 +415,7 @@ class EventController extends Controller
             $registration->update($newRegistration);
             DB::commit();
     
-            return redirect()->route('admin.data.detail.registers', $eventId)->with('toast_success', 'Pengeditan pendaftaran test bahasa inggris TOEIC '.$request->name.' berhasil');
+            return redirect()->route('admin.data.detail.registers', $toeic_test_events_id)->with('toast_success', 'Pengeditan pendaftaran test bahasa inggris TOEIC '.$request->name.' berhasil');
         } catch (\Throwable $th) {
             return back()->withInput()->with('toast_error', 'Internal Server Error');
         }
@@ -425,41 +426,41 @@ class EventController extends Controller
     {
 
         $request->validate([
-            'registerId' => 'required',
-            'eventId' => 'required',
+            'toeic_test_registrations_id' => 'required',
+            'toeic_test_events_id' => 'required',
         ]);
 
         try {
             DB::beginTransaction();
 
-            $register = ToeicTestRegistrationsModel::find($request->registerId);
+            $register = ToeicTestRegistrationsModel::find($request->toeic_test_registrations_id);
             $register->delete([
                 'deleted_by' => auth()->user()->user_id
             ]);
     
-            $event = ToeicTestEventModel::find($register->event_id);
+            $event = ToeicTestEventModel::find($register->toeic_test_events_id);
             $event->update([
                 'remaining_quota' => ($event->remaining_quota + 1),
             ]); 
     
             DB::commit();
     
-            return redirect()->route('admin.data.detail.registers', $request->eventId)->with('toast_success', 'Pendaftar Berhasil Dihapus');
+            return redirect()->route('admin.data.detail.registers', $request->toeic_test_events_id)->with('toast_success', 'Pendaftar Berhasil Dihapus');
         } catch (\Throwable $th) {
             
-            return redirect()->route('admin.data.detail.registers', $request->eventId)->with('toast_error', 'Gagal menghapus data pendaftaran');
+            return redirect()->route('admin.data.detail.registers', $request->toeic_test_events_id)->with('toast_error', 'Gagal menghapus data pendaftaran');
         }
 
     }
 
-    public function detailRegister($eventId, $registerId)
+    public function detailRegister($toeic_test_events_id, $toeic_test_registrations_id)
     {
-        $register = ToeicTestRegistrationsModel::find($registerId);
+        $register = ToeicTestRegistrationsModel::find($toeic_test_registrations_id);
 
 
         return view('admin.data-event.detail-registers.detail-data-register', [
             'register' => $register,
-            'event_id' => $eventId,
+            'toeic_test_events_id' => $toeic_test_events_id,
         ]);
     }
 

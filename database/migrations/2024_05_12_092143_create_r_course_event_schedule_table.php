@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('day_name');
             $table->string('time_start');
             $table->string('time_end');
+            $table->boolean('status');
+            $table->string('information')->nullable();
             $table->unsignedBigInteger('created_by')->index();
             $table->unsignedBigInteger('updated_by')->index()->nullable();
             $table->unsignedBigInteger('deleted_by')->index()->nullable();

@@ -11,7 +11,7 @@
     <ol class="breadcrumb mb-0">
       <li class="breadcrumb-item d-flex gap-2 align-items-center"><i class="ri-apps-line"></i>UPA Bahasa</li>
       <li class="breadcrumb-item"><a href={{route('admin.data.event')}} class="text-decoration-none">Data Event</a></li>
-      <li class="breadcrumb-item"><a href={{route('admin.data.detail.registers', $event_id)}}
+      <li class="breadcrumb-item"><a href={{route('admin.data.detail.registers', $toeic_test_events_id)}}
           class="text-decoration-none">Detail
           Pendaftar</a></li>
       <li class="breadcrumb-item active" aria-current="page">Tambah Pendaftar</li>
@@ -33,8 +33,8 @@
       @endif
     </div>
 
-    <form enctype="multipart/form-data" action={{route('admin.data.detail.registers.saveRegister', $event_id)}}
-      class="form" method="POST">
+    <form enctype="multipart/form-data" action={{route('admin.data.detail.registers.saveRegister',
+      $toeic_test_events_id)}} class="form" method="POST">
       @csrf
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Nama Lengkap</label>

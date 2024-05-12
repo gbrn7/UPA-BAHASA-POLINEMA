@@ -11,10 +11,10 @@ class ToeicTestRegistrationsModel extends Model
     use HasFactory, SoftDeletes;
     
     protected $table = 't_toeic_test_registrations';
-    protected $primaryKey = 'registration_id';
+    protected $primaryKey = 'toeic_test_registrations_id';
 
     protected $fillable = ([
-        'event_id',
+        'toeic_test_events_id',
         'name',
         'nim',
         'nik',

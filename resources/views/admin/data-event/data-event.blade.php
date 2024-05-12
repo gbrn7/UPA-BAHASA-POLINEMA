@@ -60,17 +60,17 @@
             <td class="text-capitalize">{{$event->status == 1 ? 'Aktif' : 'Non-Aktif'}}</td>
             <td class="">
               <div class="btn-wrapper d-flex gap-2 flex-wrap">
-                <a href={{route('admin.data.editEvent', $event->event_id)}} data-bs-toggle="tooltip"
+                <a href={{route('admin.data.editEvent', $event->toeic_test_events_id)}} data-bs-toggle="tooltip"
                   data-bs-custom-class="custom-tooltip"
                   data-bs-title="Edit Event" class="btn edit btn-action
                   btn-warning
                   text-white"><i class="ri-edit-2-line"></i></a>
                 <div class="delete cursor-pointer btn btn-action btn-danger
                   text-white" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
-                  data-bs-title="Hapus Event" data-id="{{$event->event_id}}">
+                  data-bs-title="Hapus Event" data-id="{{$event->toeic_test_events_id}}">
                   <i class="ri-delete-bin-line"></i>
                 </div>
-                <a href={{route('admin.data.detail.registers', $event->event_id)}} data-bs-toggle="tooltip"
+                <a href={{route('admin.data.detail.registers', $event->toeic_test_events_id)}} data-bs-toggle="tooltip"
                   data-bs-custom-class="custom-tooltip"
                   data-bs-title="Detail Pendaftar" class="btn detail btn-action
                   btn-primary

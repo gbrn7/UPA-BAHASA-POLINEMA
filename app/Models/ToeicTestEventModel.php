@@ -11,7 +11,7 @@ class ToeicTestEventModel extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 'r_toeic_test_events';
-    protected $primaryKey = 'event_id';
+    protected $primaryKey = 'toeic_test_events_id';
 
     protected $fillable = ([
         'register_start',

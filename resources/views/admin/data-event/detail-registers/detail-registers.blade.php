@@ -33,10 +33,12 @@
     </div>
     @endif
     <div class="btn-wrapper mt-2">
-      <a class="text-decoration-none" href={{route('admin.data.detail.registers.createRegister', $event->event_id)}}>
+      <a class="text-decoration-none" href={{route('admin.data.detail.registers.createRegister',
+        $event->toeic_test_events_id)}}>
         <div id="add" class="btn btn-success"><i class="ri-add-box-line me-2"></i>Tambah Pendaftar</div>
       </a>
-      <a class="text-decoration-none" href={{route('admin.data.detail.registers.exportToeicData', $event->event_id)}}>
+      <a class="text-decoration-none" href={{route('admin.data.detail.registers.exportToeicData',
+        $event->toeic_test_events_id)}}>
         <div id="add" class="btn btn-success"><i class="ri-file-excel-2-line me-2"></i>Export Excel</div>
       </a>
     </div>
@@ -66,8 +68,8 @@
             <td>{{$detailRegister->email}}</td>
             <td class="">
               <div class="btn-wrapper d-flex gap-2 flex-wrap">
-                <a href={{route('admin.data.registers.editRegister', [$event->event_id,
-                  $detailRegister->registration_id])}}
+                <a href={{route('admin.data.registers.editRegister', [$event->toeic_test_events_id,
+                  $detailRegister->toeic_test_registrations_id])}}
                   data-bs-toggle="tooltip"
                   data-bs-custom-class="custom-tooltip"
                   data-bs-title="Edit Data" class="btn edit btn-action
@@ -75,11 +77,12 @@
                   text-white"><i class="ri-edit-2-line"></i></a>
                 <div class="delete cursor-pointer btn btn-action btn-danger
                   text-white" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-title="Hapus Data"
-                  data-id="{{$detailRegister->registration_id}}" data-register-name="{{$detailRegister->name}}">
+                  data-id="{{$detailRegister->toeic_test_registrations_id}}"
+                  data-register-name="{{$detailRegister->name}}">
                   <i class="ri-delete-bin-line"></i>
                 </div>
-                <a href={{route('admin.data.registers.dataRegister', [$event->event_id,
-                  $detailRegister->registration_id])}}
+                <a href={{route('admin.data.registers.dataRegister', [$event->toeic_test_events_id,
+                  $detailRegister->toeic_test_registrations_id])}}
                   data-bs-toggle="tooltip"
                   data-bs-custom-class="custom-tooltip"
                   data-bs-title="Detail Data" class="btn detail btn-action
@@ -109,8 +112,8 @@
       <form action={{route('admin.data.deleteRegister')}} method="post">
         @method('delete')
         @csrf
-        <input type="hidden" name="eventId" id="eventId" value="{{$event->event_id}}">
-        <input type="hidden" name="registerId" id="registerId">
+        <input type="hidden" name="toeic_test_events_id" id="eventId" value="{{$event->toeic_test_events_id}}">
+        <input type="hidden" name="toeic_test_registrations_id" id="toeic_test_registrations_id">
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
           <button type="submit" id="deletecriteria" class="btn btn-danger">Hapus</button>
@@ -128,7 +131,7 @@
           var id = $(this).data('id');
           var name = $(this).data('register-name');
           $('#deletemodal').modal('show');
-          $('#registerId').val(id);
+          $('#toeic_test_registrations_id').val(id);
           $('#register-name').html(name);
       });  
 

@@ -20,6 +20,7 @@ class CourseEventScheduleSeeder extends Seeder
             'day_name' => 'Senin',
             'time_start' => '15.30',
             'time_end' => '16.30',
+            'status' => 1,
             'created_at' => now(),
             'updated_at' => now(),
             'created_by' => 1,
