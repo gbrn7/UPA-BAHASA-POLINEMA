@@ -14,7 +14,7 @@ class ToeicTestRegistrationSeeder extends Seeder
     public function run(): void
     {
         DB::table('t_toeic_test_registrations')->insert([
-            'event_id' => 1,
+            'toeic_test_events_id' => 1,
             'name' => 'Muhammad Rayhan Gibran',
             'nik' => '35071333',
             'nim' => '2141762099',

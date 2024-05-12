@@ -20,6 +20,10 @@ class DatabaseSeeder extends Seeder
             DepartementSedder::class,
             ProdySedder::class,
             CourseTypeSeeder::class,
+            CourseEventSeeder::class,
+            CourseEventTypeCourseSeeder::class,
+            CourseEventScheduleSeeder::class,
+            CourseEventRegistrationSeeder::class,
         ]);
     }
 }

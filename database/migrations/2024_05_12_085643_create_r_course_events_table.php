@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('r_toeic_test_events', function (Blueprint $table) {
-            $table->id('toeic_test_events_id');
+        Schema::create('r_course_events', function (Blueprint $table) {
+            $table->id('course_events_id');
             $table->timestamp('register_start')->nullable();
             $table->timestamp('register_end')->nullable();
-            $table->date('execution');
-            $table->integer('quota');
-            $table->integer('remaining_quota');
             $table->boolean('status');
-            $table->string('wa_group_link')->nullable();
             $table->unsignedBigInteger('created_by')->index();
             $table->unsignedBigInteger('updated_by')->index()->nullable();
             $table->unsignedBigInteger('deleted_by')->index()->nullable();
@@ -37,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('r_activity');
+        Schema::dropIfExists('r_course_events');
     }
 };

@@ -11,21 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('r_toeic_test_events', function (Blueprint $table) {
-            $table->id('toeic_test_events_id');
-            $table->timestamp('register_start')->nullable();
-            $table->timestamp('register_end')->nullable();
-            $table->date('execution');
-            $table->integer('quota');
-            $table->integer('remaining_quota');
-            $table->boolean('status');
-            $table->string('wa_group_link')->nullable();
-            $table->unsignedBigInteger('created_by')->index();
+        Schema::create('t_course_event_registrations', function (Blueprint $table) {
+            $table->id('course_event__registrations_id');
+            $table->unsignedBigInteger('course_event_schedule_id')->index();
+            $table->string('name');
+            $table->string('email');
+            $table->string('phone_num');
+            $table->string('address');
+            $table->string('goal')->nullable();
+            $table->text('experience')->nullable();
+            $table->string('ktp_or_passport_img');
+            $table->unsignedBigInteger('created_by')->index()->nullable();
             $table->unsignedBigInteger('updated_by')->index()->nullable();
             $table->unsignedBigInteger('deleted_by')->index()->nullable();
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreign(('course_event_schedule_id'))->references('course_event_schedule_id')->on('r_course_event_schedule')->cascadeOnUpdate();
             $table->foreign(('created_by'))->references('user_id')->on('d_user');
             $table->foreign(('updated_by'))->references('user_id')->on('d_user');
             $table->foreign(('deleted_by'))->references('user_id')->on('d_user');
@@ -37,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('r_activity');
+        Schema::dropIfExists('t_course_event__registrations');
     }
 };

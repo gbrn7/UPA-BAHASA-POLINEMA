@@ -6,17 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CourseTypeModel extends Model
+class CourseEventModel extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $table = 'm_course_type';
-    protected $primaryKey = 'course_type_id';
+    protected $table = 'r_course_events';
+    protected $primaryKey = 'event_id';
 
     protected $fillable = ([
-        'name',
+        'register_start',
+        'register_end',
+        'status',
         'created_by',
         'updated_by',
-        'deleted_by',    
+        'deleted_by',
     ]);
 }

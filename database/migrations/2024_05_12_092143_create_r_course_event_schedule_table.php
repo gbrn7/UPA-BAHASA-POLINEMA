@@ -11,21 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('r_toeic_test_events', function (Blueprint $table) {
-            $table->id('toeic_test_events_id');
-            $table->timestamp('register_start')->nullable();
-            $table->timestamp('register_end')->nullable();
-            $table->date('execution');
+        Schema::create('r_course_event_schedule', function (Blueprint $table) {
+            $table->id('course_event_schedule_id');
+            $table->unsignedBigInteger('course_event_type_course_id')->index();
             $table->integer('quota');
             $table->integer('remaining_quota');
-            $table->boolean('status');
-            $table->string('wa_group_link')->nullable();
+            $table->string('day_name');
+            $table->string('time_start');
+            $table->string('time_end');
             $table->unsignedBigInteger('created_by')->index();
             $table->unsignedBigInteger('updated_by')->index()->nullable();
             $table->unsignedBigInteger('deleted_by')->index()->nullable();
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreign(('course_event_type_course_id'))->references('course_event_type_course_id')->on('r_course_event_type_course');
             $table->foreign(('created_by'))->references('user_id')->on('d_user');
             $table->foreign(('updated_by'))->references('user_id')->on('d_user');
             $table->foreign(('deleted_by'))->references('user_id')->on('d_user');
@@ -37,6 +37,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('r_activity');
+        Schema::dropIfExists('r_course_event_schedule');
     }
 };
