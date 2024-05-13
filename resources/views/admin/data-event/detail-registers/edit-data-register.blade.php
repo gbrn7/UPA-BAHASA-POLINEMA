@@ -2,7 +2,8 @@
 
 @section('content')
 <div class="title-box  d-flex gap-2 align-items-baseline"><i class="ri-calendar-event-line fs-2"></i>
-  <p class="fs-3 m-0">Edit Pendaftar <span class="fs-5 fw-light">(#{{$register->registration_id}})</span></p>
+  <p class="fs-3 m-0">Edit Pendaftar <span class="fs-5 fw-light">(#{{$register->toeic_test_registrations_id}})</span>
+  </p>
 </div>
 <div class="breadcrumbs-box mt-2 rounded rounded-2 bg-white p-2">
   <nav
@@ -33,9 +34,17 @@
       @endif
     </div>
 
-    <form enctype="multipart/form-data" action=# class="form" method="POST">
+    <form enctype="multipart/form-data" action={{route('admin.data.updateRegister', [$register->toeic_test_events_id,
+      $register->toeic_test_registrations_id])}}
+      class="form"
+      method="POST">
       @csrf
       @method('PUT')
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">ID Register</label>
+        <input required type="text" name="toeic_test_events_id" class="form-control" disabled
+          value={{$register->toeic_test_registrations_id}} />
+      </div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Nama Lengkap</label>
         <input required type="Text" name="name" value="{{$register->name}}" class=" form-control"

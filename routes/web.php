@@ -107,13 +107,12 @@ Route::group(['prefix' => 'admin'], function(){
       Route::put('/update', [CourseEventsController::class, 'update'])->name('admin.data-course.update');
       Route::delete('/delete', [CourseEventsController::class, 'delete'])->name('admin.data-course.delete');
 
-      Route::group(['prefix' => 'data-schedule'], function(){
-        Route::get('/{courseEventId}', [CourseEventScheduleController::class, 'index'])->name('admin.data-course.data-schedule.index');
-        Route::get('/{courseEventId}/create', [CourseEventScheduleController::class, 'create'])->name('admin.data-course.data-schedule.create');
-        Route::post('/{courseEventId}/store', [CourseEventScheduleController::class, 'store'])->name('admin.data-course.data-schedule.store');
-
-      });
-
+      Route::get('/{courseEventId}/data-schedule', [CourseEventScheduleController::class, 'index'])->name('admin.data-course.data-schedule.index');
+      Route::get('/{courseEventId}/data-schedule/create', [CourseEventScheduleController::class, 'create'])->name('admin.data-course.data-schedule.create');
+      Route::post('/{courseEventId}/data-schedule/store', [CourseEventScheduleController::class, 'store'])->name('admin.data-course.data-schedule.store');
+      Route::get('/{courseEventId}/data-schedule/edit/{courseEventScheduleId}', [CourseEventScheduleController::class, 'edit'])->name('admin.data-course.data-schedule.edit');
+      Route::put('/{courseEventId}/data-schedule/edit/{courseEventScheduleId}', [CourseEventScheduleController::class, 'update'])->name('admin.data-course.data-schedule.update');
+      Route::delete('/data-schedule/delete', [CourseEventScheduleController::class, 'delete'])->name('admin.data-course.data-schedule.delete');
     });
 
 

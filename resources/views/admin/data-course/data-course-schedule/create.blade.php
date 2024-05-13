@@ -1,7 +1,7 @@
 @extends('admin.layouts.base')
 
 @section('content')
-<div class="title-box  d-flex gap-2 align-items-baseline"><i class="ri-calendar-event-line fs-2"></i>
+<div class="title-box  d-flex gap-2 align-items-baseline"><i class="ri-graduation-cap-line fs-2"></i>
   <p class="fs-3 m-0">Tambah Jadwal</p>
 </div>
 <div class="breadcrumbs-box mt-2 rounded rounded-2 bg-white p-2">
@@ -41,8 +41,8 @@
         <select name="course_type_id" required class="form-select">
           <option value="">Pilih Tipe Kursus</option>
           @foreach ($courseTypes as $courseType)
-          <option value="{{$courseType->course_type_id}}" {{old('course_type_id')===$courseType->
-            course_type_id ? 'selected':''}}>
+          <option value="{{$courseType->course_type_id}}" {{old('course_type_id')===$courseType->course_type_id ?
+            'selected':''}}>
             {{$courseType->name}}
           </option>
           @endforeach

@@ -88,4 +88,9 @@ class CourseEventsController extends Controller
 
         return redirect()->route('admin.data-course.index')->with('toast_success', 'Event Berhasil Dihapus');
     }
+
+    public function edit(Request $request)
+    {
+        
+    }
 }

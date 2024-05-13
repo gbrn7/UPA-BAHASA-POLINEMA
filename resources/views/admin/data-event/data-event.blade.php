@@ -99,7 +99,7 @@
       <form action={{route('admin.data.deleteEvent')}} method="post">
         @method('delete')
         @csrf
-        <input type="hidden" name="eventId" id="eventId">
+        <input type="hidden" name="deleteId" id="deleteId">
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
           <button type="submit" id="deletecriteria" class="btn btn-danger">Hapus</button>
@@ -116,7 +116,7 @@
           event.preventDefault();
           var id = $(this).data('id');
           $('#deletemodal').modal('show');
-          $('#eventId').val(id);
+          $('#deleteId').val(id);
       });  
 
   }); 

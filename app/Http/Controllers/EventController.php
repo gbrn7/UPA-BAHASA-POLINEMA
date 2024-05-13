@@ -57,19 +57,25 @@ class EventController extends Controller
         $registerEnd = Carbon::parse(explode(' - ',$request->registration_range)[1])->endOfDay();
         $execution = Carbon::parse($request->execution);
 
-        $newEvent = ToeicTestEventModel::create([
-            'register_start' => $registerStart,
-            'register_end' => $registerEnd,
-            'execution' => $execution,
-            'quota' => $request->quota,
-            'remaining_quota' => $request->quota,
-            'wa_group_link' => isset($request->wa_group_link) ? $request->wa_group_link :null,
-            'status' => $request->status,
-            'created_by' => auth()->user()->user_id,
-            'updated_by' => auth()->user()->user_id
-        ]);
+        try {
+            $newEvent = ToeicTestEventModel::create([
+                'register_start' => $registerStart,
+                'register_end' => $registerEnd,
+                'execution' => $execution,
+                'quota' => $request->quota,
+                'remaining_quota' => $request->quota,
+                'wa_group_link' => isset($request->wa_group_link) ? $request->wa_group_link :null,
+                'status' => $request->status,
+                'created_by' => auth()->user()->user_id,
+                'updated_by' => auth()->user()->user_id
+            ]);
+    
+            return redirect()->route('admin.data.event')->with('toast_success', 'Event Berhasil Ditambahkan');
 
-        return redirect()->route('admin.data.event')->with('toast_success', 'Event Berhasil Ditambahkan');
+        } catch (\Throwable $th) {
+            return redirect()->route('admin.data.event')->with('toast_warning', 'Internal Server Error');
+        }
+
     }   
 
     public function editEvent($toeic_test_events_id)
@@ -104,36 +110,45 @@ class EventController extends Controller
         $registerEnd = Carbon::parse(explode(' - ',$request->registration_range)[1])->endOfDay();
         $execution = Carbon::parse($request->execution);
 
-        $oldEvent->update([
-            'register_start' => $registerStart,
-            'register_end' => $registerEnd,
-            'execution' => $execution,
-            'quota' => $request->quota,
-            'remaining_quota' => ($request->quota) - (($oldEvent->quota) - ($oldEvent->remaining_quota)),
-            'wa_group_link' => isset($request->wa_group_link) ? $request->wa_group_link :null,
-            'status' => $request->status,
-            'created_by' => auth()->user()->user_id,
-            'updated_by' => auth()->user()->user_id
-        ]);
-
-        return redirect()->route('admin.data.event')->with('toast_success', 'Event Berhasil Diedit');
+        try {
+            $oldEvent->update([
+                'register_start' => $registerStart,
+                'register_end' => $registerEnd,
+                'execution' => $execution,
+                'quota' => $request->quota,
+                'remaining_quota' => ($request->quota) - (($oldEvent->quota) - ($oldEvent->remaining_quota)),
+                'wa_group_link' => isset($request->wa_group_link) ? $request->wa_group_link :null,
+                'status' => $request->status,
+                'created_by' => auth()->user()->user_id,
+                'updated_by' => auth()->user()->user_id
+            ]);
+    
+            return redirect()->route('admin.data.event')->with('toast_success', 'Event Berhasil Diedit');
+        } catch (\Throwable $th) {
+            return redirect()->route('admin.data.event')->with('toast_warning', 'Internal Server Error');
+        }
     }
 
     public function deleteEvent(Request $request)
     {
 
         $request->validate([
-            'toeic_test_events_id' => 'required',
+            'deleteId' => 'required',
         ]);
 
-        $event = ToeicTestEventModel::find($request->toeic_test_events_id);
+        try {
+        $event = ToeicTestEventModel::find($request->deleteId);
+
+        if(!$event) return back()->with('toast_error', 'Kursus Tidak Ditemukan');
 
         $event->delete([
             'deleted_by' => auth()->user()->user_id
         ]);
 
         return redirect()->route('admin.data.event')->with('toast_success', 'Event Berhasil Dihapus');
-
+        } catch (\Throwable $th) {
+        return redirect()->route('admin.data.event')->with('toast_error', 'Internal Server Error');
+        }
     }
 
     public function detailRegisters($toeic_test_events_id)

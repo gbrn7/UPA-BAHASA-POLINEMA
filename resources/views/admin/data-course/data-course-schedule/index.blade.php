@@ -57,17 +57,20 @@
             <td>{{(($schedule->quota) - ($schedule->remaining_quota))}}</td>
             <td>{{$schedule->remaining_quota <= 0 ? 0 : $schedule->remaining_quota}}</td>
             <td>{{$schedule->day_name }}</td>
-            <td>{{$schedule->time_start }} - {{$schedule->time_end}}</td>
+            <td>{{date("H:i", strtotime($schedule->time_start))}} - {{date("H:i", strtotime($schedule->time_end))}}</td>
             <td class="text-capitalize">{{$schedule->status == 1 ? 'Aktif' : 'Non-Aktif'}}</td>
             <td class="">
               <div class="btn-wrapper d-flex gap-2 flex-wrap">
-                <a href=# data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-title="Edit Event"
-                  class="btn edit btn-action
+                <a href="{{route('admin.data-course.data-schedule.edit', [$schedule->course_events_id, $schedule->course_event_schedule_id])}}"
+                  data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-title="Edit Event" class="btn edit btn-action
                   btn-warning
                   text-white"><i class="ri-edit-2-line"></i></a>
                 <div class="delete cursor-pointer btn btn-action btn-danger
                   text-white" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
-                  data-bs-title="Hapus Event" data-id="{{$schedule->toeic_test_events_id}}">
+                  data-bs-title="Hapus Event" data-course-type="{{$schedule->courseType->name}}"
+                  data-time-start="{{date(" H:i", strtotime($schedule->time_start))}}"
+                  data-time-end="{{date("H:i", strtotime($schedule->time_end))}}"
+                  data-day-name="{{$schedule->day_name}}" data-id="{{$schedule->course_event_schedule_id}}">
                   <i class="ri-delete-bin-line"></i>
                 </div>
                 <a href=# data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
@@ -93,9 +96,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h4 class="text-center">Apakah anda yakin mengapus jadwal ini?</h4>
+        <h4 class="text-center">Apakah anda yakin mengapus jadwal kursus <span id="courseType"></span> <span
+            id="dayName"></span> jam <span id="time"></span> ?</h4>
       </div>
-      <form action="" method="post">
+      <form action="{{route('admin.data-course.data-schedule.delete')}}" method="post">
         @method('delete')
         @csrf
         <input type="hidden" name="deleteId" id="deleteId">
@@ -113,7 +117,16 @@
   $(document).ready(function(){
       $(document).on('click', '.delete', function(event){
           event.preventDefault();
-          var id = $(this).data('id');
+          let id = $(this).data('id');
+          let courseType = $(this).data('course-type');
+          let dayName = $(this).data('day-name');
+          let timeStart = $(this).data('time-start');
+          let timeEnd = $(this).data('time-end');
+
+          $('#courseType').html(courseType);
+          $('#dayName').html(dayName);
+          $('#time').html(`${timeStart} - ${timeEnd}`);
+
           $('#deletemodal').modal('show');
           $('#deleteId').val(id);
       });  

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->integer('quota');
             $table->integer('remaining_quota');
             $table->string('day_name');
-            $table->string('time_start');
-            $table->string('time_end');
+            $table->time('time_start');
+            $table->time('time_end');
             $table->boolean('status');
             $table->string('information')->nullable();
             $table->unsignedBigInteger('created_by')->index();
