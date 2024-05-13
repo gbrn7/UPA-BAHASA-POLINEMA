@@ -30,12 +30,13 @@
       @endif
     </div>
 
-    <form action={{route('admin.data.updateEvent', $event->event_id)}} class="form" method="POST">
+    <form action={{route('admin.data.updateEvent', $event->toeic_test_events_id)}} class="form" method="POST">
       @csrf
       @method('PUT')
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">ID Event</label>
-        <input required type="text" name="event_id" class="form-control" disabled value={{$event->event_id}} />
+        <input required type="text" name="toeic_test_events_id" class="form-control" disabled
+          value={{$event->toeic_test_events_id}} />
       </div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Rentang Pendaftaran</label>
@@ -90,6 +91,8 @@
             },
     startDate: "{{$execution}}",
     });
+
+    
 </script>
 
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\CourseEventsController;
 use App\Http\Controllers\CourseTypeController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\EventController;
@@ -97,6 +98,13 @@ Route::group(['prefix' => 'admin'], function(){
       Route::post('/create-courseType', [CourseTypeController::class, 'storeCourseType'])->name('admin.data.courseType.storeCourseType');
       Route::put('/update-courseType', [CourseTypeController::class, 'updateCourseType'])->name('admin.data.courseType.updateCourseType');
       Route::delete('/delete-courseType', [CourseTypeController::class, 'deleteCourseType'])->name('admin.data.courseType.deleteDepartement');
+    });
+
+    Route::group(['prefix' => 'data-course'], function(){
+      Route::get('/', [CourseEventsController::class, 'index'])->name('data-course.index');
+      Route::post('/store', [CourseEventsController::class, 'store'])->name('data-course.store');
+      Route::put('/update', [CourseEventsController::class, 'update'])->name('data-course.update');
+      Route::delete('/delete', [CourseEventsController::class, 'delete'])->name('data-course.delete');
     });
 
 

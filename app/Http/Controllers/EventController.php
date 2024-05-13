@@ -23,19 +23,18 @@ class EventController extends Controller
     {
         $events = ToeicTestEventModel::all();
 
-        $activeEvent = $events->where('status', true)->first();
+        $activeEvents = $events->where('status', true);
 
-        if (isset($activeEvent)) {
+        if (isset($activeEvents)) {
             $dateNow = Carbon::now();
-            $registerEnd = Carbon::parse($activeEvent->register_end);
-    
-            if($dateNow->greaterThan($registerEnd) || $activeEvent->remaining_quota <= 0)
-            {    
-            $activeEvent->update(['status' => false]);
-        
+            foreach ($activeEvents as $key => $event) {
+                $registerEnd = Carbon::parse($event->register_end);
+                
+                if($dateNow->greaterThan($registerEnd) || $event->remaining_quota <= 0){    
+                    $event->update(['status' => false]);
+                }
             }
         }
-
         return view('admin.data-event.data-event', ['events' => $events]);
     }
 

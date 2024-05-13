@@ -36,7 +36,7 @@
       <table id="example" class="table mt-3 table-hover table-borderless" style="width: 100%">
         <thead>
           <tr>
-            <th class="text-secondary">No</th>
+            <th class="text-secondary">Batch</th>
             <th class="text-secondary">Awal Pendaftaran</th>
             <th class="text-secondary">Akhir Pendaftaran</th>
             <th class="text-secondary">Pelaksanaan</th>
@@ -50,7 +50,7 @@
         <tbody id="tableBody">
           @foreach ($events as $event)
           <tr>
-            <td>{{$loop->iteration }}</td>
+            <td>{{$event->toeic_test_events_id }}</td>
             <td>{{date("d-m-Y", strtotime($event->register_start)) }}</td>
             <td>{{date("d-m-Y", strtotime($event->register_end)) }}</td>
             <td>{{date("d-m-Y", strtotime($event->execution)) }}</td>
@@ -119,7 +119,9 @@
           $('#eventId').val(id);
       });  
 
-  });    
+  }); 
+  
+  
 </script>
 @endpush
 
