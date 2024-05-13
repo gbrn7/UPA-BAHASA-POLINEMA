@@ -59,7 +59,7 @@
           </div>
         </div>
       </a>
-      <a href="{{route('data-course.index')}}" class="card-dashboard text-decoration-none">
+      <a href="{{route('admin.data-course.index')}}" class="card-dashboard text-decoration-none">
         <div class="card h-100">
           <div class="card-body  row justify-content-between align-items-center">
             <div class="card-body-content col-9">

@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
             ProdySedder::class,
             CourseTypeSeeder::class,
             CourseEventSeeder::class,
-            CourseEventTypeCourseSeeder::class,
             CourseEventScheduleSeeder::class,
             CourseEventRegistrationSeeder::class,
         ]);

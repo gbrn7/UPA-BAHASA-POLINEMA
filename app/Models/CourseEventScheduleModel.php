@@ -14,14 +14,26 @@ class CourseEventScheduleModel extends Model
     protected $primaryKey = 'course_event_schedule_id';
 
     protected $fillable = ([
-        'course_event_type_course_id',
+        'course_events_id',
+        'course_type_id',
         'quota',
         'remaining_quota',
         'day_name',
         'time_start',
         'time_end',
+        'status',
         'created_by',
         'updated_by',
         'deleted_by',
     ]);
+
+    public function courseEvent()
+    {
+        return $this->belongsTo(CourseEventModel::class, 'course_events_id', 'course_events_id');
+    }
+
+    public function courseType()
+    {
+        return $this->belongsTo(CourseTypeModel::class, 'course_type_id', 'course_type_id');
+    }
 }

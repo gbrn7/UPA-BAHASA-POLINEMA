@@ -21,4 +21,9 @@ class CourseEventModel extends Model
         'updated_by',
         'deleted_by',
     ]);
+
+    public function courseEventSchedules()
+    {
+        return $this->hasMany(CourseEventScheduleModel::class, 'course_events_id', 'course_events_id');
+    }
 }

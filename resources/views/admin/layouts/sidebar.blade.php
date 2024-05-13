@@ -31,7 +31,7 @@
             class="ri-image-fill me-2"></i>Data Gambar</a>
       </li>
       <li class="rounded {{Request::segment(2) === 'data-course' ? 'active' : ''}} rounded-2">
-        <a href={{route('data-course.index')}}
+        <a href={{route('admin.data-course.index')}}
           class="text-decoration-none p-3 rounded rounded-2 d-flex align-items-baseline"><i
             class="ri-graduation-cap-line me-2"></i>Data Kursus</a>
       </li>

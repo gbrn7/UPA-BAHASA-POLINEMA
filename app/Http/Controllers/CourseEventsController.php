@@ -47,7 +47,7 @@ class CourseEventsController extends Controller
             'updated_by' => auth()->user()->user_id
         ]);
 
-        return redirect()->route('data-course.index')->with('toast_success', 'Batch kursus berhasil ditambahkan');
+        return redirect()->route('admin.data-course.index')->with('toast_success', 'Batch kursus berhasil ditambahkan');
     }  
 
     public function update(Request $request)
@@ -71,12 +71,11 @@ class CourseEventsController extends Controller
             'updated_by' => auth()->user()->user_id
         ]);
 
-        return redirect()->route('data-course.index')->with('toast_success', 'Batch Berhasil Diedit');
+        return redirect()->route('admin.data-course.index')->with('toast_success', 'Batch Berhasil Diedit');
     } 
 
     public function delete(Request $request)
     {
-
         $request->validate([
             'delete_id' => 'required',
         ]);
@@ -87,7 +86,6 @@ class CourseEventsController extends Controller
             'deleted_by' => auth()->user()->user_id
         ]);
 
-        return redirect()->route('data-course.index')->with('toast_success', 'Event Berhasil Dihapus');
-
+        return redirect()->route('admin.data-course.index')->with('toast_success', 'Event Berhasil Dihapus');
     }
 }

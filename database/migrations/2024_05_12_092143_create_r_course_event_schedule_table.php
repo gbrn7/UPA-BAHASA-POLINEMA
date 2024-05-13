@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('r_course_event_schedule', function (Blueprint $table) {
             $table->id('course_event_schedule_id');
-            $table->unsignedBigInteger('course_event_type_course_id')->index();
+            $table->unsignedBigInteger('course_events_id')->index();
+            $table->unsignedBigInteger('course_type_id')->index();
             $table->integer('quota');
             $table->integer('remaining_quota');
             $table->string('day_name');
@@ -27,7 +28,8 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign(('course_event_type_course_id'))->references('course_event_type_course_id')->on('r_course_event_type_course');
+            $table->foreign(('course_events_id'))->references('course_events_id')->on('r_course_events');
+            $table->foreign(('course_type_id'))->references('course_type_id')->on('m_course_type');
             $table->foreign(('created_by'))->references('user_id')->on('d_user');
             $table->foreign(('updated_by'))->references('user_id')->on('d_user');
             $table->foreign(('deleted_by'))->references('user_id')->on('d_user');

@@ -34,7 +34,7 @@ class ToeicTestRegistrationsModel extends Model
 
     public function Event()
     {
-        return $this->belongsTo(ToeicTestEventModel::class, 'event_id', 'event_id');
+        return $this->belongsTo(ToeicTestEventModel::class, 'toeic_test_events_id', 'toeic_test_events_id');
     }
 
 }

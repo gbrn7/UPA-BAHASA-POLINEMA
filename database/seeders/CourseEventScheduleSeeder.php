@@ -14,7 +14,8 @@ class CourseEventScheduleSeeder extends Seeder
     public function run(): void
     {
         DB::table('r_course_event_schedule')->insert([
-            'course_event_type_course_id' => 1,
+            'course_events_id' => 1,
+            'course_type_id' => 1,
             'quota' => 200,
             'remaining_quota' => 200,
             'day_name' => 'Senin',

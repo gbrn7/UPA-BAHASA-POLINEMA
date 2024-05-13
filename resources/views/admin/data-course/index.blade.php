@@ -60,8 +60,8 @@
                   data-bs-title="Hapus batch" data-id="{{$course->course_events_id}}">
                   <i class="ri-delete-bin-line"></i>
                 </div>
-                <a href="" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-title="Detail kursus"
-                  class="btn detail btn-action
+                <a href="{{route('admin.data-course.data-schedule.index', $course->course_events_id)}}"
+                  data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-title="Detail kursus" class="btn detail btn-action
                   btn-primary
                   text-white"><i class="ri-list-check"></i></a>
               </div>
@@ -83,9 +83,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h4 class="text-center">Apakah anda yakin mengapus batch kursus ini?</h4>
+        <h4 class="text-center">Apakah anda yakin mengapus <br> batch <span id="batchId"></span>?</h4>
       </div>
-      <form action="{{route('data-course.delete')}}" method="post">
+      <form action="{{route('admin.data-course.delete')}}" method="post">
         @method('delete')
         @csrf
         <input type="hidden" name="delete_id" id="delete_id">
@@ -107,7 +107,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action={{route('data-course.store')}} id="addForm" method="POST">
+        <form action={{route('admin.data-course.store')}} id="addForm" method="POST">
           @csrf
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Rentang Pendaftaran</label>
@@ -141,7 +141,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action={{route('data-course.update')}} method="POST">
+        <form action={{route('admin.data-course.update')}} method="POST">
           @csrf
           @method('PUT')
           <input type="hidden" name="edit_id" id="edit-id">
@@ -175,6 +175,7 @@
           event.preventDefault();
           let id = $(this).data('id');
           $('#deletemodal').modal('show');
+          $('#batchId').html(id);
           $('#delete_id').val(id);
       });  
 

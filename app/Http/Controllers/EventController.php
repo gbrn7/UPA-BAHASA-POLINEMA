@@ -279,7 +279,6 @@ class EventController extends Controller
 
             return redirect()->route('admin.data.detail.registers', $toeic_test_events_id)->with('toast_success', 'Pendaftaran test bahasa inggris TOEIC '.$newRegistration->name.' berhasil');
         }catch (\Throwable $th){
-            dd($th->getMessage());
             return back()->withInput()->with('toast_error','Internal Server Error');
         }
     }
