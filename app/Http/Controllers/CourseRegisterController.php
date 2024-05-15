@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CourseRegisterExport;
 use App\Mail\CourseRegistrationMail;
 use App\Models\CourseEventRegistrationModel;
 use App\Models\CourseEventScheduleModel;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CourseRegisterController extends Controller
 {
@@ -251,10 +253,17 @@ class CourseRegisterController extends Controller
         ]);
     }
 
-    public function downloadKTP($fileName)
+    public function exportCourseRegister(string $CourseEventScheduleId)
     {
-        $path = public_path("storage/ktp/" . $fileName);
+        $courseEventSchedule = CourseEventScheduleModel::with('courseType')
+            ->find($CourseEventScheduleId);
 
-        return response()->download($path);
+
+        if (!$courseEventSchedule) return back()->with('toast_error', 'Course Event ID Invalid');
+
+        $timeStart = date("H.i", strtotime($courseEventSchedule->time_start));
+        $timeEnd = date("H.i", strtotime($courseEventSchedule->time_end));
+
+        return Excel::download(new CourseRegisterExport($CourseEventScheduleId), 'Data Pendaftar Kursus Batch-' . $courseEventSchedule->course_events_id . '-' . $courseEventSchedule->courseType->name . ' hari ' . $courseEventSchedule->day_name . '(' . $timeStart . '-' . $timeEnd . ').xlsx');
     }
 }

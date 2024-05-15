@@ -44,10 +44,10 @@
         href="{{route('admin.data-course.data-schedule.data-registers.create', [$courseEventSchedule->course_events_id, $courseEventSchedule->course_event_schedule_id])}}">
         <div id="add" class="btn btn-success"><i class="ri-add-box-line me-2"></i>Tambah Pendaftar</div>
       </a>
-      {{-- <a class="text-decoration-none" href={{route('admin.data.detail.registers.exportToeicData',
-        $event->toeic_test_events_id)}}>
+      <a class="text-decoration-none" href={{route('admin.data.detail.registers.exportCourseRegister',
+        $courseEventSchedule->course_event_schedule_id)}}>
         <div id="add" class="btn btn-success"><i class="ri-file-excel-2-line me-2"></i>Export Excel</div>
-      </a> --}}
+      </a>
     </div>
     <div class="table-wrapper mt-2 mb-2">
       <table id="example" class="table mt-3 table-hover table-borderless" style="width: 100%">
