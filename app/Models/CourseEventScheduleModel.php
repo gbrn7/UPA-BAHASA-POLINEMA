@@ -32,6 +32,11 @@ class CourseEventScheduleModel extends Model
         return $this->belongsTo(CourseEventModel::class, 'course_events_id', 'course_events_id');
     }
 
+    public function courseEventsRegisters()
+    {
+        return $this->hasMany(CourseEventRegistrationModel::class, 'course_event_schedule_id', 'course_event_schedule_id');
+    }
+
     public function courseType()
     {
         return $this->belongsTo(CourseTypeModel::class, 'course_type_id', 'course_type_id');

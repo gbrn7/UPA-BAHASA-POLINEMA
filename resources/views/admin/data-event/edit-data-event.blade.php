@@ -54,7 +54,7 @@
         placeholder="Masukkan kuota pendaftar" />
       </div>
       <div class="mb-3">
-        <label for="exampleFormControlInput1" class="form-label">Link Grup WhatsAppp</label>
+        <label for="exampleFormControlInput1" class="form-label">Link Grup WhatsAppp (tidak wajib)</label>
         <input type="Text" name="wa_group_link" value="{{$event->wa_group_link}}" class="form-control"
           placeholder="Masukkan link grup WhatsAppp" />
       </div>
@@ -66,8 +66,8 @@
         </select>
       </div>
       <div class=" mb-3">
-        <button type="submit" class="btn btn-success submit-btn fw-medium">
-          Simpan
+        <button type="submit" class="btn btn-warning text-white submit-btn fw-medium">
+          Update
         </button>
       </div>
     </form>

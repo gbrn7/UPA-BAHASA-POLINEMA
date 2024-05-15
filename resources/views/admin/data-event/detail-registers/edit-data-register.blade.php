@@ -119,8 +119,8 @@
         <input class="form-control" type="file" id="formFile" name="pasFoto_img" value={{$register->pasFoto_img}}>
       </div>
       <div class=" mb-5">
-        <button type="submit" class="btn btn-success submit-btn fw-medium">
-          Simpan
+        <button type="submit" class="btn btn-warning text-white submit-btn fw-medium">
+          Update
         </button>
       </div>
     </form>

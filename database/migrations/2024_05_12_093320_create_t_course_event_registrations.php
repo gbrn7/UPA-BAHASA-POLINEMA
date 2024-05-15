@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone_num');
             $table->string('address');
-            $table->string('goal')->nullable();
+            $table->text('goal')->nullable();
             $table->text('experience')->nullable();
             $table->string('ktp_or_passport_img');
             $table->unsignedBigInteger('created_by')->index()->nullable();

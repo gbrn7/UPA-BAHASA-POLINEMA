@@ -73,22 +73,23 @@
         <td>{{$data->phone_num}}</td>
         <td>{{$data->created_at->format('Y-m-d')}}</td>
         <td>
-          <a href="{{route('admin.data.registers.downloadKTP', $data->ktp_img)}}">
+          <a target="blank" href="{{url('storage/ktp/'.$data->ktp_img)}}">
             <p class="">{{$data->ktp_img}}</p>
           </a>
         </td>
         <td>
-          <a href="{{route('admin.data.registers.downloadKTM', $data->ktm_img)}}">
+          <a target="blank" href="{{url('storage/ktm/'.$data->ktm_img)}}">
             <p class="">{{$data->ktm_img}}</p>
           </a>
         </td>
         <td>
-          <a href="{{route('admin.data.registers.downloadSuratPernyataan', [$data->surat_pernyataan_iisma, 0])}}">
+          <a class="text-decoration-none" target="blank"
+            href="{{url('storage/surat_pernyataan_iisma/'.$data->surat_pernyataan_iisma)}}">
             <p class="">{{$data->surat_pernyataan_iisma}}</p>
           </a>
         </td>
         <td>
-          <a href="{{route('admin.data.registers.downloadPasFoto', $data->pasFoto_img)}}">
+          <a target="blank" href="{{url('storage/pasFoto/'.$data->pasFoto_img)}}">
             <p class="">{{$data->pasFoto_img}}</p>
           </a>
         </td>

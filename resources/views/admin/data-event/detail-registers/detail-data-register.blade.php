@@ -65,7 +65,7 @@
     <tr>
       <th>Foto KTP :</th>
       <td>
-        <a href="{{route('admin.data.registers.downloadKTP', $register->ktp_img)}}">
+        <a target="blank" href="{{url('storage/ktp/'.$register->ktp_img)}}">
           <p class="">{{$register->ktp_img}}</p>
         </a>
         <div class="img-wrapper">
@@ -76,31 +76,27 @@
     <tr>
       <th>Foto KTM :</th>
       <td>
-        <a href="{{route('admin.data.registers.downloadKTM', $register->ktm_img)}}">
+        <a target="blank" href="{{url('storage/ktm/'.$register->ktm_img)}}">
           <p class="">{{$register->ktm_img}}</p>
         </a>
         <div class="img-wrapper">
-          <img src="{{ asset('storage/ktp/'.$register->ktp_img) }}" alt="ktp" class="img-fluid register-data-img">
+          <img src="{{ asset('storage/ktm/'.$register->ktm_img) }}" alt="ktp" class="img-fluid register-data-img">
         </div>
       </td>
     </tr>
     <tr>
       <th>Surat Pernyataan Nominasi IISMA :</th>
       <td>
-        <a class="text-decoration-none"
-          href="{{route('admin.data.registers.downloadSuratPernyataan', [$register->surat_pernyataan_iisma, 0])}}">
-          <p class=" btn btn-danger">Download PDF</p>
-        </a>
         <a class="text-decoration-none" target="blank"
-          href="{{route('admin.data.registers.downloadSuratPernyataan', [$register->surat_pernyataan_iisma, 1])}}">
-          <p class=" btn btn-success ms-2">View PDF</p>
+          href="{{url('storage/surat_pernyataan_iisma/'.$register->surat_pernyataan_iisma)}}">
+          <p class=" btn btn-danger ms-2">PDF</p>
         </a>
       </td>
     </tr>
     <tr>
       <th>Pas Foto :</th>
       <td>
-        <a href="{{route('admin.data.registers.downloadPasFoto', $register->pasFoto_img)}}">
+        <a target="blank" href="{{url('storage/pasFoto/'.$register->pasFoto_img)}}">
           <p class="">{{$register->pasFoto_img}}</p>
         </a>
         <div class="img-wrapper">

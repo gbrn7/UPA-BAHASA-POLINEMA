@@ -125,4 +125,5 @@ class CourseEventScheduleController extends Controller
         return back()->with('toast_error', 'Internal Server Error');
         }
     }
+
 }

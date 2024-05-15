@@ -11,7 +11,7 @@ class CourseEventRegistrationModel extends Model
     use HasFactory, SoftDeletes;
 
     protected $table = 't_course_event_registrations';
-    protected $primaryKey = 'course_event__registrations_id';
+    protected $primaryKey = 'course_event_registrations_id';
 
     protected $fillable = ([
         'course_event_schedule_id',

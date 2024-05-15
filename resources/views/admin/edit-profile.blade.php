@@ -61,8 +61,8 @@
           placeholder="Masukkan password baru anda" />
       </div>
       <div class=" mb-3">
-        <button type="submit" class="btn btn-success submit-btn fw-medium">
-          Simpan
+        <button type="submit" class="btn btn-warning text-white submit-btn fw-medium">
+          Update
         </button>
       </div>
     </form>

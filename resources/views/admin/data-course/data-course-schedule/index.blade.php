@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="title-box  d-flex gap-2 align-items-baseline"><i class="ri-graduation-cap-line fs-2"></i>
-  <p class="fs-3 m-0">Data Jadwal Kursus</p>
+  <p class="fs-3 m-0">Data Jadwal Kursus #{{$course->course_events_id}}</p>
 </div>
 <div class="breadcrumbs-box mt-2 rounded rounded-2 bg-white p-2">
   <nav
@@ -73,8 +73,9 @@
                   data-day-name="{{$schedule->day_name}}" data-id="{{$schedule->course_event_schedule_id}}">
                   <i class="ri-delete-bin-line"></i>
                 </div>
-                <a href=# data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
-                  data-bs-title="Detail Pendaftar" class="btn detail btn-action
+                <a href={{route('admin.data-course.data-schedule.data-registers.index', [$schedule->course_events_id,
+                  $schedule->course_event_schedule_id])}} data-bs-toggle="tooltip"
+                  data-bs-custom-class="custom-tooltip" data-bs-title="Data Pendaftar" class="btn detail btn-action
                   btn-primary
                   text-white"><i class="ri-list-check"></i></a>
               </div>

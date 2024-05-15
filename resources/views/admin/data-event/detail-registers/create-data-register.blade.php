@@ -39,16 +39,16 @@
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Nama Lengkap</label>
         <input required type="Text" name="name" value="{{old('name')}}" class="form-control"
-          placeholder="Masukkan nama anda" />
+          placeholder="Masukkan nama pendaftar" />
       </div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">NIM</label>
-        <input required name="nim" type="Text" class="form-control" placeholder="Masukkan NIM anda"
+        <input required name="nim" type="Text" class="form-control" placeholder="Masukkan NIM pendaftar"
           value="{{old('nik')}}" />
       </div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">NIK (Nomor Induk Kependudukan)</label>
-        <input required name="nik" type="Text" class="form-control" placeholder="Masukkan NIK anda"
+        <input required name="nik" type="Text" class="form-control" placeholder="Masukkan NIK pendaftar"
           value="{{old('nik')}}" />
       </div>
       <div class="mb-3">
@@ -80,12 +80,12 @@
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Email</label>
         <input required type="email" class="form-control" id="exampleFormControlInput1"
-          placeholder="Masukkan email anda" name="email" value="{{old('email')}}" />
+          placeholder="Masukkan email pendaftar" name="email" value="{{old('email')}}" />
       </div>
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">No WA</label>
         <input required type="number" class="form-control" id="exampleFormControlInput1"
-          placeholder="Masukkan no telepon anda" name="phone_num" value="{{old('phone_num')}}" />
+          placeholder="Masukkan no telepon pendaftar" name="phone_num" value="{{old('phone_num')}}" />
       </div>
       <div class="mb-3">
         <label for="formFile" class="form-label">Foto KTP</label>
