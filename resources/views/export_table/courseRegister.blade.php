@@ -44,6 +44,10 @@
     <thead>
       <tr>
         <th><strong>No</strong></th>
+        <th><strong>Batch</strong></th>
+        <th><strong>Tipe Kursus</strong></th>
+        <th><strong>Hari</strong></th>
+        <th><strong>Waktu</strong></th>
         <th><strong>Nama Lengkap</strong></th>
         <th><strong>Email</strong></th>
         <th><strong>NO. Wa</strong></th>
@@ -58,6 +62,11 @@
       @foreach ($detailRegisters as $data)
       <tr>
         <td>{{$loop->iteration}}</td>
+        <td>{{$data->courseEventSchedules->course_events_id}}</td>
+        <td>{{$data->courseEventSchedules->courseType->name}}</td>
+        <td>{{$data->courseEventSchedules->day_name}}</td>
+        <td>{{date("H:i", strtotime($data->courseEventSchedules->time_start))}} - {{date("H:i",
+          strtotime($data->courseEventSchedules->time_end))}}</td>
         <td>{{$data->name}}</td>
         <td>{{$data->email}}</td>
         <td>{{$data->phone_num}}</td>

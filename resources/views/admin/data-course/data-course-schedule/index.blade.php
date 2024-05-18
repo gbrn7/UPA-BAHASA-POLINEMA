@@ -29,9 +29,14 @@
     </div>
     @endif
     <div class="btn-wrapper mt-2">
-      <a href={{route('admin.data-course.data-schedule.create', $course->course_events_id)}}>
+      <a href={{route('admin.data-course.data-schedule.create', $course->course_events_id)}}
+        class="text-decoration-none">
         <div id="add" class="btn btn-success"><i class="ri-add-box-line me-2"></i>Tambah Jadwal</div>
       </a>
+      <div class="text-decoration-none text-decoration-none d-inline-block" data-bs-toggle="modal"
+        data-bs-target="#exportTable" id="exportBtn">
+        <div id="add" class="btn btn-success"><i class="ri-file-excel-2-line me-2"></i>Export Excel</div>
+      </div>
     </div>
     <div class="table-wrapper mt-2 mb-2">
       <table id="example" class="table mt-3 table-hover table-borderless" style="width: 100%">
@@ -111,6 +116,52 @@
     </div>
   </div>
 </div>
+</div>
+
+{{-- Export Modal --}}
+<div class="modal fade" id="exportTable" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel">Export Table</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mt-2 mb-2">
+          <table id="example" class="table mt-3 table-hover table-borderless" style="width: 100%">
+            <thead>
+              <tr>
+                <th class="text-secondary">Tipe Kursus</th>
+                <th class="text-secondary">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              @foreach ($courseEventsDistinct as $item)
+              <tr>
+                <td>{{$item->courseType->name}}</td>
+                <td class="">
+                  <a class="btn btn-success text-decoration-none"
+                    href={{route('admin.data.detail.registers.exportCourseRegisterBySchedule', [
+                    $item->course_events_id, $item->course_type_id])}}>Export</a>
+                </td>
+              </tr>
+              @endforeach
+              <tr>
+                <td>Semua Tipe Kursus</td>
+                <td class="">
+                  <a class="btn btn-success text-decoration-none"
+                    href="{{route('admin.data.detail.registers.exportCourseRegisterAllByEventId', $course->course_events_id)}}">Export</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 @push('js')

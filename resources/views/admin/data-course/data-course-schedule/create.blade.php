@@ -68,13 +68,13 @@
       </div>
       <div class="mb-3">
         <label class="form-label">Jam Mulai</label>
-        <input required type="time" placeholder="Pilih jam mulai" name="time_start" value="{{old('time_start')}}"
-          class="form-control" placeholder="Masukkan jam mulai" />
+        <input required type="time" name="time_start" value="{{old('time_start')}}" class="form-control"
+          placeholder="Masukkan jam mulai" />
       </div>
       <div class="mb-3">
         <label class="form-label">Jam Selesai</label>
-        <input required type="time" placeholder="Pilih jam selesai" name="time_end" value="{{old('time_end')}}"
-          class="form-control" placeholder="Masukkan jam selesai" />
+        <input required type="time" name="time_end" value="{{old('time_end')}}" class="form-control"
+          placeholder="Masukkan jam selesai" />
       </div>
       <div class="mb-3">
         <label class="form-label">Status</label>
@@ -82,6 +82,11 @@
           <option value="1" {{old('status')==='1' ? ' selected' : '' }}>Aktif</option>
           <option value="0" {{old('status')==='0' ? ' selected' : '' }}>Non-Aktif</option>
         </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Keterangan (tidak wajib)</label>
+        <input type="text" placeholder="Masukkan keterangan atau informasi tambahan" name="information"
+          value="{{old('information')}}" class="form-control" />
       </div>
       <div class=" mb-3">
         <button type="submit" class="btn btn-success submit-btn fw-medium">

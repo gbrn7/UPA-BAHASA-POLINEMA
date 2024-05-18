@@ -22,6 +22,7 @@ class CourseEventScheduleModel extends Model
         'time_start',
         'time_end',
         'status',
+        'information',
         'created_by',
         'updated_by',
         'deleted_by',

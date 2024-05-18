@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CourseEventRegistrationModel extends Model
@@ -26,4 +27,9 @@ class CourseEventRegistrationModel extends Model
         'updated_by',
         'deleted_by',
     ]);
+
+    public function courseEventSchedules(): BelongsTo
+    {
+        return $this->belongsTo(CourseEventScheduleModel::class, 'course_event_schedule_id', 'course_event_schedule_id');
+    }
 }

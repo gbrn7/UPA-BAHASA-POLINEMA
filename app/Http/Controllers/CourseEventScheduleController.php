@@ -2,22 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CourseRegisterExportByEventId;
+use App\Exports\CourseRegisterExportBySchedule;
 use App\Models\CourseEventModel;
 use App\Models\CourseEventScheduleModel;
 use App\Models\CourseTypeModel;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CourseEventScheduleController extends Controller
 {
     public function index(string $courseEventId)
     {
-        if(!$courseEventId) return back()->with('toast_error', 'Id kursus tidak ditemukan');
+        if (!$courseEventId) return back()->with('toast_error', 'Id kursus tidak ditemukan');
 
         $course = CourseEventModel::with('courseEventSchedules.courseType')->find($courseEventId);
 
-        if(!$course) return back()->with('toast_error', 'Kursus tidak ditemukan');
+        if (!$course) return back()->with('toast_error', 'Kursus tidak ditemukan');
 
-        return view('admin.data-course.data-course-schedule.index', ['course' => $course]);
+        $courseEventsDistinct = $course->courseEventSchedules->unique('courseType');
+
+        return view('admin.data-course.data-course-schedule.index', ['course' => $course, 'courseEventsDistinct' => $courseEventsDistinct]);
     }
 
     public function create(string $courseEventId)
@@ -33,7 +38,7 @@ class CourseEventScheduleController extends Controller
 
         $courseScheduleEvent = CourseEventScheduleModel::find($courseEventScheduleId);
 
-        if(!$courseScheduleEvent) return back()->with('toast_error', 'Kursus tidak ditemukan');
+        if (!$courseScheduleEvent) return back()->with('toast_error', 'Kursus tidak ditemukan');
 
         return view('admin.data-course.data-course-schedule.edit', ['courseTypes' => $courseTypes, 'courseScheduleEvent' => $courseScheduleEvent]);
     }
@@ -47,6 +52,7 @@ class CourseEventScheduleController extends Controller
             'time_start' => 'required',
             'time_end' => 'required',
             'status' => 'required',
+            'information' => 'nullable',
         ]);
 
         try {
@@ -59,20 +65,20 @@ class CourseEventScheduleController extends Controller
                 'time_start' => $request->time_start,
                 'time_end' => $request->time_end,
                 'status' => $request->status,
+                'information' => $request->information,
                 'created_by' => auth()->user()->user_id,
                 'updated_by' => auth()->user()->user_id
             ]);
 
             return redirect()
-            ->route('admin.data-course.data-schedule.index', $newSchedule->course_events_id)
-            ->with('toast_success', 'Berhasil Menambahkan Jadwal');
+                ->route('admin.data-course.data-schedule.index', $newSchedule->course_events_id)
+                ->with('toast_success', 'Berhasil Menambahkan Jadwal');
         } catch (\Throwable $th) {
             return back()->with('toast_error', 'Internal Server Error');
         }
-    }  
+    }
 
-    public function update
-    (string $courseEventId, string $courseEventScheduleId, Request $request)
+    public function update(string $courseEventId, string $courseEventScheduleId, Request $request)
     {
         $request->validate([
             'course_type_id' => 'required',
@@ -81,6 +87,7 @@ class CourseEventScheduleController extends Controller
             'time_start' => 'required',
             'time_end' => 'required',
             'status' => 'required',
+            'information' => 'nullable',
         ]);
 
 
@@ -94,14 +101,14 @@ class CourseEventScheduleController extends Controller
                 'time_start' => $request->time_start,
                 'time_end' => $request->time_end,
                 'status' => $request->status,
+                'information' => $request->information,
                 'created_by' => auth()->user()->user_id,
                 'updated_by' => auth()->user()->user_id
             ]);
-    
-            return redirect()->route('admin.data-course.data-schedule.index', $oldSchedule->course_events_id)->with('toast_success', 'Data jadwal berhasil di perbarui');  
 
+            return redirect()->route('admin.data-course.data-schedule.index', $oldSchedule->course_events_id)->with('toast_success', 'Data jadwal berhasil di perbarui');
         } catch (\Throwable $th) {
-            return redirect()->route('admin.data-course.data-schedule.index', $courseEventId)->with('toast_warning', 'Internal server error');  
+            return redirect()->route('admin.data-course.data-schedule.index', $courseEventId)->with('toast_warning', 'Internal server error');
         }
     }
 
@@ -112,18 +119,35 @@ class CourseEventScheduleController extends Controller
         ]);
 
         try {
-        $schedule = CourseEventScheduleModel::find($request->deleteId);
+            $schedule = CourseEventScheduleModel::find($request->deleteId);
 
-        if(!$schedule) return back()->with('toast_error', 'Kursus Tidak Ditemukan');
+            if (!$schedule) return back()->with('toast_error', 'Kursus Tidak Ditemukan');
 
-        $schedule->delete([
-            'deleted_by' => auth()->user()->user_id
-        ]);
+            $schedule->delete([
+                'deleted_by' => auth()->user()->user_id
+            ]);
 
-        return back()->with('toast_success', 'Event Berhasil Dihapus');
+            return back()->with('toast_success', 'Event Berhasil Dihapus');
         } catch (\Throwable $th) {
-        return back()->with('toast_error', 'Internal Server Error');
+            return back()->with('toast_error', 'Internal Server Error');
         }
     }
 
+    public function exportCourseRegisterAllByEventId(string $courseEventId)
+    {
+
+        return Excel::download(new CourseRegisterExportByEventId($courseEventId), 'Data Pendaftar Kursus Batch-' . $courseEventId . '.xlsx');
+    }
+
+    public function exportCourseRegisterBySchedule(string $courseEventsId, string $courseTypeId)
+    {
+        $courseEventSchedule = CourseEventScheduleModel::with('courseType')
+            ->where('course_events_id', $courseEventsId)
+            ->where('course_type_id', $courseTypeId)
+            ->first();
+
+        if (!$courseEventSchedule) return back()->with('toast_error', 'Course Event Schedule ID Invalid');
+
+        return Excel::download(new CourseRegisterExportBySchedule($courseEventsId, $courseTypeId), 'Data Pendaftar Kursus Batch-' . $courseEventSchedule->course_events_id . '-' . $courseEventSchedule->courseType->name . '.xlsx');
+    }
 }

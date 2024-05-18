@@ -258,8 +258,7 @@ class CourseRegisterController extends Controller
         $courseEventSchedule = CourseEventScheduleModel::with('courseType')
             ->find($CourseEventScheduleId);
 
-
-        if (!$courseEventSchedule) return back()->with('toast_error', 'Course Event ID Invalid');
+        if (!$courseEventSchedule) return back()->with('toast_error', 'Course Event Schedule ID Invalid');
 
         $timeStart = date("H.i", strtotime($courseEventSchedule->time_start));
         $timeEnd = date("H.i", strtotime($courseEventSchedule->time_end));

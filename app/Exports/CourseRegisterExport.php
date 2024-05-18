@@ -22,6 +22,7 @@ class CourseRegisterExport implements FromView
     public function view(): View
     {
         $detailRegisters = CourseEventRegistrationModel::where('course_event_schedule_id', $this->courseEventScheduleId)
+            ->with('courseEventSchedules.courseType')
             ->get();
 
         return view('export_table.courseRegister', [

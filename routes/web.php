@@ -114,6 +114,8 @@ Route::group(['prefix' => 'admin'], function () {
       Route::get('/{courseEventId}/data-schedule/edit/{courseEventScheduleId}', [CourseEventScheduleController::class, 'edit'])->name('admin.data-course.data-schedule.edit');
       Route::put('/{courseEventId}/data-schedule/edit/{courseEventScheduleId}', [CourseEventScheduleController::class, 'update'])->name('admin.data-course.data-schedule.update');
       Route::delete('/data-schedule/delete', [CourseEventScheduleController::class, 'delete'])->name('admin.data-course.data-schedule.delete');
+      Route::get('{courseEventId}/exportExcel', [CourseEventScheduleController::class, 'exportCourseRegisterAllByEventId'])->name('admin.data.detail.registers.exportCourseRegisterAllByEventId');
+      Route::get('/{courseEventsId}/courseType/{courseTypeId}/exportExcel', [CourseEventScheduleController::class, 'exportCourseRegisterBySchedule'])->name('admin.data.detail.registers.exportCourseRegisterBySchedule');
 
 
       Route::get('/{courseEventId}/data-schedule/{courseEventScheduleId}/data-registers', [CourseRegisterController::class, 'index'])->name('admin.data-course.data-schedule.data-registers.index');

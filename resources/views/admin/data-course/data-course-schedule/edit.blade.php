@@ -93,6 +93,11 @@
           <option value="0" {{$courseScheduleEvent->status==='0' ? ' selected' : '' }}>Non-Aktif</option>
         </select>
       </div>
+      <div class="mb-3">
+        <label class="form-label">Keterangan (tidak wajib)</label>
+        <input type="text" placeholder="Masukkan keterangan atau informasi tambahan" name="information"
+          value="{{$courseScheduleEvent->information}}" class="form-control" />
+      </div>
       <div class=" mb-3">
         <button type="submit" class="btn btn-warning text-white submit-btn fw-medium">
           Update
