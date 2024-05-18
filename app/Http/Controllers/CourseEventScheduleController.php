@@ -139,15 +139,8 @@ class CourseEventScheduleController extends Controller
         return Excel::download(new CourseRegisterExportByEventId($courseEventId), 'Data Pendaftar Kursus Batch-' . $courseEventId . '.xlsx');
     }
 
-    public function exportCourseRegisterBySchedule(string $courseEventsId, string $courseTypeId)
+    public function exportCourseRegisterBySchedule(string $courseEventsId, string $courseTypeId, Request $request)
     {
-        $courseEventSchedule = CourseEventScheduleModel::with('courseType')
-            ->where('course_events_id', $courseEventsId)
-            ->where('course_type_id', $courseTypeId)
-            ->first();
-
-        if (!$courseEventSchedule) return back()->with('toast_error', 'Course Event Schedule ID Invalid');
-
-        return Excel::download(new CourseRegisterExportBySchedule($courseEventsId, $courseTypeId), 'Data Pendaftar Kursus Batch-' . $courseEventSchedule->course_events_id . '-' . $courseEventSchedule->courseType->name . '.xlsx');
+        return Excel::download(new CourseRegisterExportBySchedule($courseEventsId, $courseTypeId), 'Data Pendaftar Kursus Batch-' . $courseEventsId . '-' . $request->courseName . '.xlsx');
     }
 }

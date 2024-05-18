@@ -142,7 +142,8 @@
                 <td class="">
                   <a class="btn btn-success text-decoration-none"
                     href={{route('admin.data.detail.registers.exportCourseRegisterBySchedule', [
-                    $item->course_events_id, $item->course_type_id])}}>Export</a>
+                    $item->course_events_id, $item->course_type_id, 'courseName' =>
+                    $item->courseType->name])}}>Export</a>
                 </td>
               </tr>
               @endforeach
