@@ -419,9 +419,6 @@ class ClientController extends Controller
         $newRegistration = $request->except('_token');
         $newRegistration['course_event_schedule_id'] = $schedule->course_event_schedule_id;
 
-        $newRegistration['created_by'] = auth()->user()->user_id;
-        $newRegistration['updated_by'] = auth()->user()->user_id;
-
         $checkEmail = CourseEventRegistrationModel::where('course_event_schedule_id', $schedule->course_event_schedule_id)
             ->where('email', $newRegistration['email'])
             ->first();
