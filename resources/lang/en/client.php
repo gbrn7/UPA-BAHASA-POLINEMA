@@ -35,6 +35,15 @@ return [
         "number_of_courses" => "Number of Courses",
         "execution_date" => "Course Start Date",
       ],
+      "detail_course_table_content" => [
+        "num" => "Num",
+        "course_type" => "Course Type",
+        "quota" => "Quota",
+        "remaining_quota" => "Remaining Quota",
+        "day_name" => "Day",
+        "time" => "Time",
+        "information" => "Information",
+      ],
     ],
     "register_btn" => "Register Now"
   ],

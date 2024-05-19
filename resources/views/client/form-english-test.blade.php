@@ -43,7 +43,7 @@
           </div>
         </a>
       </div>
-      <form action={{route('client.form.registration')}} class="form w-100 mt-2" method="POST"
+      <form action={{route('client.form.saveToeicTestRegistration')}} class="form w-100 mt-2" method="POST"
         enctype="multipart/form-data">
         <div class="col-12 d-flex justify-content-between">
           <h5 class="mt-2 fw-semibold title">@lang('form.title.english_test')</h5>
@@ -52,9 +52,9 @@
               data-bs-toggle="dropdown" aria-expanded="false"></i>
             <ul class="dropdown-menu">
               <li class="px-1"><a class="dropdown-item rounded rounded-2"
-                  href="{{route('client.form', ['lang'=> 'id'])}}">Indonesian</a></li>
+                  href="{{route('client.english.test.form', ['lang'=> 'id'])}}">Indonesian</a></li>
               <li class="px-1"><a class="dropdown-item rounded rounded-2"
-                  href="{{route('client.form', ['lang'=> 'en'])}}">English</a></li>
+                  href="{{route('client.english.test.form', ['lang'=> 'en'])}}">English</a></li>
             </ul>
           </div>
         </div>
@@ -63,13 +63,15 @@
             <table id="example" class="table mt-3 table-hover" style="width: 100%">
               <thead>
                 <tr>
-                  <th class="text-secondary batch">@lang('client.announcement_section.table_content.batch')</th>
+                  <th class="text-secondary batch">@lang('client.announcement_section.english_test.table_content.batch')
+                  </th>
                   <th class="text-secondary registration-date">
-                    @lang('client.announcement_section.table_content.registration_date')</th>
+                    @lang('client.announcement_section.english_test.table_content.registration_date')</th>
                   <th class="text-secondary execution-date">
-                    @lang('client.announcement_section.table_content.execution_date')</th>
-                  <th class="text-secondary">@lang('client.announcement_section.table_content.quota')</th>
-                  <th class="text-secondary">@lang('client.announcement_section.table_content.remaining_quota')
+                    @lang('client.announcement_section.english_test.table_content.execution_date')</th>
+                  <th class="text-secondary">@lang('client.announcement_section.english_test.table_content.quota')</th>
+                  <th class="text-secondary">
+                    @lang('client.announcement_section.english_test.table_content.remaining_quota')
                   </th>
                 </tr>
               </thead>
@@ -155,9 +157,9 @@
                 placeholder=@lang('form.email.placeholder') name="email" value="{{old('email')}}" />
             </div>
             <div class="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">@lang('form.Wa_number.label')</label>
+              <label for="exampleFormControlInput1" class="form-label">@lang('form.wa_number.label')</label>
               <input required type="number" class="form-control" id="exampleFormControlInput1"
-                placeholder=@lang('form.Wa_number.placeholder') name="phone_num" value="{{old('phone_num')}}" />
+                placeholder=@lang('form.wa_number.placeholder') name="phone_num" value="{{old('phone_num')}}" />
             </div>
             <div class="mb-3">
               <label for="formFile" class="form-label">@lang('form.identity_card_image')</label>

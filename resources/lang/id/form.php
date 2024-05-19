@@ -3,7 +3,9 @@
 
 return [
   "title" => [
-    'english_test' => "Form Pendaftaran TOEIC"
+    'english_test' => "Formulir Pendaftaran TOEIC",
+    'language_course' => "Formulir pendaftaran kursus bahasa"
+
   ],
   "batch" => [
     "label" => "Batch",
@@ -33,15 +35,31 @@ return [
     "label" => "Semester",
     "placeholder" => "Pilih semester anda"
   ],
+  "address" => [
+    "label" => "Alamat",
+    "placeholder" => "Masukkan alamat anda"
+  ],
   "email" => [
     "label" => "Email",
     "placeholder" => "Masukkan email anda"
   ],
-  "Wa_number" => [
+  "wa_number" => [
     "label" => "Nomor WhatsApp",
     "placeholder" => "Masukkan nomor WhatsApp anda"
   ],
-  "identity_card_image" => "Foto Gambar",
+  "goal" => [
+    "label" => "Tujuan",
+    "placeholder" => "Masukkan Tujuan anda"
+  ],
+  "course" => [
+    "label" => "Pilihan Kursus",
+    "placeholder" => "Pilih kursus yang ingin anda inginkan"
+  ],
+  "experience" => [
+    "label" => "Pengalaman",
+    "placeholder" => "Masukkan pengalaman anda"
+  ],
+  "identity_card_image" => "Foto KTP",
   "iisma_nomination_image" => "Surat Pernyataan Nominasi IISMA (dari KPS)",
   "student_identity_image" => "Foto KTM",
   "self_photo" => "PAS Foto",

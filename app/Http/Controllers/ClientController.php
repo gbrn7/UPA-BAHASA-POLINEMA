@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\CourseRegistrationMail;
 use App\Mail\RegistrationMail;
 use App\Models\CourseEventModel;
+use App\Models\CourseEventRegistrationModel;
+use App\Models\CourseEventScheduleModel;
 use App\Models\DepartementModel;
 use App\Models\ToeicTestEventModel;
 use App\Models\imageModel;
@@ -34,7 +37,7 @@ class ClientController extends Controller
         $courseEvent = CourseEventModel::where('status', true)
             ->withCount([
                 'courseEventSchedules' => function ($query) {
-                    $query->where('status', true);
+                    $query->where('status', true)->where('remaining_quota', '>', 0);
                 }
             ])
             ->first();
@@ -193,11 +196,11 @@ class ClientController extends Controller
         return view('client.structure-organization', ['activeEvent' => (count($activeEvents) > 0 ? (object)$activeEvents : null), 'adminPhoneNum' => $admin->phone_num, 'image' => $image]);
     }
 
-    public function formView(Request $request)
+    public function englishTestFormView(Request $request)
     {
         if ($request->lang) App::setlocale($request->lang);
 
-        $events = ToeicTestEventModel::where('status', true)->get();
+        $events = ToeicTestEventModel::where('status', true)->where('remaining_quota', '>', 0)->get();
 
         if (!isset($events)) {
             return redirect()->route('client');
@@ -223,7 +226,7 @@ class ClientController extends Controller
 
 
         return view(
-            'client.form',
+            'client.form-english-test',
             [
                 'activeEvents' =>  $activeEvents,
                 'departements' => $departements,
@@ -231,7 +234,37 @@ class ClientController extends Controller
         );
     }
 
-    public function saveRegistration(Request $request)
+    public function languageCourseFormView(Request $request)
+    {
+        if ($request->lang) App::setlocale($request->lang);
+
+        $activeEvent = CourseEventModel::where('status', true)
+            ->with('courseEventSchedules.courseType')
+            ->whereRelation('courseEventSchedules', 'status', true)
+            ->whereRelation('courseEventSchedules', 'remaining_quota', '>', 0)
+            ->first();
+
+        if (!isset($activeEvent)) {
+            return redirect()->route('client');
+        } else {
+            $dateNow = Carbon::now();
+            $registerEnd = Carbon::parse($activeEvent->register_end);
+
+            if ($dateNow->greaterThan($registerEnd)) {
+                $activeEvent->update(['status' => false]);
+                return redirect()->route('client');
+            }
+        }
+
+        return view(
+            'client.form-course',
+            [
+                'activeEvent' =>  $activeEvent,
+            ]
+        );
+    }
+
+    public function saveToeicTestRegistration(Request $request)
     {
         $validation = [
             'toeic_test_events_id' => 'required',
@@ -325,7 +358,7 @@ class ClientController extends Controller
             DB::commit();
 
             try {
-                $this->sendNotif([
+                $this->sendToeicNotif([
                     'name' => $newRegistration->name,
                     'email' => $newRegistration->email,
                     'nim' => $newRegistration->nim,
@@ -341,9 +374,105 @@ class ClientController extends Controller
         }
     }
 
-    public function sendNotif($data)
+    public function saveCourseEventRegistration(Request $request)
+    {
+        $validation = [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'phone_num' => 'required|string',
+            'course' => 'required',
+            'address' => 'required',
+            'goal' => 'required|string',
+            'experience' => 'required|string',
+            'ktp_or_passport_img' => 'required|mimes:png,jpg,jpeg|max:1024',
+        ];
+
+        $messages = [
+            'required' => ':attribute harus diisi',
+            'ktp_or_passport_img.required' => 'Foto ktp atau passport harus diisi',
+            'string' => 'Kolom :attribute harus bertipe teks atau string',
+            'email' => 'Kolom :attribute harus bertipe email',
+            'max' => ':attribute maksimal :max kb',
+            'ktp_or_passport_img.mimes' => 'File ktp harus bertipe :values',
+        ];
+
+        $validator = Validator::make($request->all(), $validation, $messages);
+
+        if ($validator->fails()) {
+            return back()
+                ->withInput()
+                ->withErrors($validator->messages()->all());
+        }
+
+        $schedule = CourseEventScheduleModel::find($request->course);
+
+        if (!isset($schedule)) return back()->with('toast_warning', 'Jadwal tidak ditemukan')->withInput();
+
+        if ($schedule->remaining_quota <= 0) return back()->with('toast_warning', 'Kuota pendaftaran habis')->withInput();
+
+        $batch = CourseEventModel::find($schedule->course_events_id);
+
+        if (!isset($batch)) return back()->with('toast_warning', 'Batch tidak ditemukan')->withInput();
+
+        if ($batch->status == false) return back()->with('toast_warning', 'Batch tidak aktif')->withInput();
+
+        $newRegistration = $request->except('_token');
+        $newRegistration['course_event_schedule_id'] = $schedule->course_event_schedule_id;
+
+        $newRegistration['created_by'] = auth()->user()->user_id;
+        $newRegistration['updated_by'] = auth()->user()->user_id;
+
+        $checkEmail = CourseEventRegistrationModel::where('course_event_schedule_id', $schedule->course_event_schedule_id)
+            ->where('email', $newRegistration['email'])
+            ->first();
+
+        if (isset($checkEmail)) return back()->with('toast_warning', 'Email sudah didaftarkan')->withInput();
+
+        try {
+            DB::beginTransaction();
+            $schedule->update([
+                'remaining_quota' => ($schedule->remaining_quota - 1),
+            ]);
+
+            //Ktp rename file
+            $ktpOrPassport = $request->ktp_or_passport_img;
+            $imageName = $schedule->course_event_schedule_id . '_cer_' . Str::random(5) . '.' . $ktpOrPassport->getClientOriginalExtension();
+            $ktpOrPassport->storeAs('public/ktp', $imageName);
+            $newRegistration['ktp_or_passport_img'] = $imageName;
+
+
+            $newRegistration = CourseEventRegistrationModel::create($newRegistration);
+
+            DB::commit();
+
+            if ($schedule->status == 1) {
+                try {
+                    $data = (object) [
+                        'name' => $newRegistration->name,
+                        'email' => $newRegistration->email,
+                        'schedule' => $schedule,
+                        'batch' => $batch,
+                    ];
+
+                    $this->sendCourseRegisNotif($data);
+                    return back()->withSuccess('Pendaftaran kursus ' . $schedule->courseType->name . ' berhasil, silahkan cek email anda');
+                } catch (\Throwable $th) {
+                    return back()->withSuccess('Pendaftaran kursus ' . $schedule->courseType->name . ' berhasil');
+                }
+            }
+        } catch (\Throwable $th) {
+            return back()->withInput()->withErrors('Internal Server Error');
+        }
+    }
+
+    public function sendToeicNotif($data)
     {
         Mail::to($data['email'])->send(new RegistrationMail($data));
+    }
+
+    public function sendCourseRegisNotif($data)
+    {
+        Mail::to($data->email)->send(new CourseRegistrationMail($data));
     }
 
     public function getProgramStudy(Request $request)

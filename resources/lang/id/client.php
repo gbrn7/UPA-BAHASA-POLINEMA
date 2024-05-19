@@ -35,6 +35,15 @@ return [
         "execution_date" => "Tanggal Awal Kursus",
         "number_of_courses" => "Banyak Kursus",
       ],
+      "detail_course_table_content" => [
+        "num" => "No",
+        "course_type" => "Tipe Kursus",
+        "quota" => "Kuota",
+        "remaining_quota" => "Sisa Kuota",
+        "day_name" => "Hari",
+        "time" => "Waktu",
+        "information" => "Ket/Info",
+      ],
     ],
     "register_btn" => "Daftar Sekarang"
   ],

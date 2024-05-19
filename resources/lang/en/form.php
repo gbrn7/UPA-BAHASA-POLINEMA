@@ -3,7 +3,8 @@
 
 return [
   "title" => [
-    'english_test' => "TOEIC Registration Form"
+    'english_test' => "TOEIC Registration Form",
+    'language_course' => "Language Course Registration Form"
   ],
   "batch" => [
     "label" => "Batch",
@@ -33,13 +34,29 @@ return [
     "label" => "Semester",
     "placeholder" => "Choose your semester"
   ],
+  "address" => [
+    "label" => "Address",
+    "placeholder" => "Enter your address"
+  ],
   "email" => [
     "label" => "Email",
     "placeholder" => "Enter your email"
   ],
-  "Wa_number" => [
+  "wa_number" => [
     "label" => "WhatsApp Number",
     "placeholder" => "Enter your WhatsApp Number"
+  ],
+  "goal" => [
+    "label" => "Goal",
+    "placeholder" => "Enter your goal"
+  ],
+  "course" => [
+    "label" => "Course Options",
+    "placeholder" => "Select the course you want"
+  ],
+  "experience" => [
+    "label" => "Experience",
+    "placeholder" => "Enter your experience"
   ],
   "identity_card_image" => "Identity Card Image",
   "iisma_nomination_image" => "IISMA Nomination Statement Letter (from KPS)",

@@ -134,7 +134,7 @@
                   </table>
                 </div>
                 <a class="btn btn-primary register_btn fw-medium mt-3"
-                  href={{route('client.form')}}>@lang('client.announcement_section.register_btn')</a>
+                  href={{route('client.english.test.form')}}>@lang('client.announcement_section.register_btn')</a>
               </div>
             </div>
           </div>
@@ -177,7 +177,7 @@
                   </table>
                 </div>
                 <a class="btn btn-primary register_btn fw-medium mt-3"
-                  href={{route('client.form')}}>@lang('client.announcement_section.register_btn')</a>
+                  href={{route('client.language.course.form')}}>@lang('client.announcement_section.register_btn')</a>
               </div>
 
             </div>

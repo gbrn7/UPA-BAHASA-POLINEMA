@@ -335,7 +335,9 @@
                 <p style="color: black">Kepada {{$data->name}}</p>
                 <div class="wrapper">
                   <p class="m-0" style="color: black">
-                    Kami ingin memberitahu bahwa pendaftaran kursus {{$data->schedule->courseType->name}} hari
+                    Kami ingin memberitahu bahwa pendaftaran kursus {{$data->schedule->courseType->name}} batch
+                    {{$data->batch->course_events_id}} yang dilaksanakan mulai tanggal {{date("d-m-Y",
+                    strtotime($data->batch->execution)) }} dengan pilihan jadwal hari
                     {{$data->schedule->day_name}} pada jam {{date("H:i",
                     strtotime($data->schedule->time_start))}} - {{date("H:i",
                     strtotime($data->schedule->time_end))}}
