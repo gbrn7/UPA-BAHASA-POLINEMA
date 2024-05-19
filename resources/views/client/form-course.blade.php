@@ -144,12 +144,12 @@
             </div>
             <div class="mb-3">
               <label class="form-label">@lang('form.goal.label')</label>
-              <input required type="text" class="form-control" placeholder=@lang('form.goal.placeholder') name="goal"
+              <input type="text" class="form-control" placeholder=@lang('form.goal.placeholder') name="goal"
                 value="{{old('goal')}}" />
             </div>
             <div class="mb-3">
               <label class="form-label">@lang('form.experience.label')</label>
-              <input required type="text" class="form-control" placeholder="@lang('form.experience.placeholder')"
+              <input type="text" class="form-control" placeholder="@lang('form.experience.placeholder')"
                 name=" experience" value="{{old('experience')}}" />
             </div>
             <div class="mb-3">

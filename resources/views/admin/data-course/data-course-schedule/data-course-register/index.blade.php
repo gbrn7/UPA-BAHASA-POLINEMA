@@ -19,7 +19,7 @@
       <li class="breadcrumb-item" aria-current="page"><a
           href="{{route('admin.data-course.data-schedule.index', [$courseEventSchedule->course_events_id, $courseEventSchedule->course_event_schedule_id])}}"
           class="text-decoration-none">Data Jadwal
-          Kursus Batch #{{$courseEventSchedule->course_events_id}}</a></li>
+          Kursus Batch {{$courseEventSchedule->course_events_id}}</a></li>
       <li class="breadcrumb-item active">Data Pendaftar Kursus Jadwal ({{$courseEventSchedule->courseType->name}} |
         {{$courseEventSchedule->day_name}} |
         {{date("H:i", strtotime($courseEventSchedule->time_start))}} - {{date("H:i",
