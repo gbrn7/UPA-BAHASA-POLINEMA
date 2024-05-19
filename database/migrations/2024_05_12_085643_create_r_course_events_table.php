@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('r_course_events', function (Blueprint $table) {
             $table->id('course_events_id');
-            $table->timestamp('register_start');
-            $table->timestamp('register_end');
+            $table->date('register_start');
+            $table->date('register_end');
             $table->date('execution');
             $table->boolean('status');
             $table->unsignedBigInteger('created_by')->index();
