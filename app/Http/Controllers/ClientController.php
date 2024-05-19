@@ -382,8 +382,8 @@ class ClientController extends Controller
             'phone_num' => 'required|string',
             'course' => 'required',
             'address' => 'required',
-            'goal' => 'required|string',
-            'experience' => 'required|string',
+            'goal' => 'nullable|string',
+            'experience' => 'nullable|string',
             'ktp_or_passport_img' => 'required|mimes:png,jpg,jpeg|max:1024',
         ];
 
