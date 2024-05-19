@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('r_toeic_test_events', function (Blueprint $table) {
             $table->id('toeic_test_events_id');
-            $table->nullableTimestamps('register_start');
-            $table->nullableTimestamps('register_end');
+            $table->datetimes('register_start');
+            $table->datetimes('register_end');
             $table->date('execution');
             $table->integer('quota');
             $table->integer('remaining_quota');
