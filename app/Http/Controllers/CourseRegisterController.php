@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\CourseRegisterExport;
 use App\Mail\CourseRegistrationMail;
+use App\Models\CourseEventModel;
 use App\Models\CourseEventRegistrationModel;
 use App\Models\CourseEventScheduleModel;
 use Illuminate\Http\Request;
@@ -69,6 +70,12 @@ class CourseRegisterController extends Controller
 
         if ($schedule->remaining_quota <= 0) return back()->with('toast_warning', 'Kuota pendaftaran habis')->withInput();
 
+        $batch = CourseEventModel::find($schedule->course_events_id);
+
+        if (!isset($batch)) return back()->with('toast_warning', 'Batch tidak ditemukan')->withInput();
+
+        if ($batch->status == false) return back()->with('toast_warning', 'Batch tidak aktif')->withInput();
+
         $newRegistration = $request->except('_token');
         $newRegistration['course_event_schedule_id'] = $schedule->course_event_schedule_id;
 
@@ -104,6 +111,7 @@ class CourseRegisterController extends Controller
                         'name' => $newRegistration->name,
                         'email' => $newRegistration->email,
                         'schedule' => $schedule,
+                        'batch' => $batch,
                     ];
 
                     $this->sendNotif($data);
