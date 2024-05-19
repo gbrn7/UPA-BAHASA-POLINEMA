@@ -16,6 +16,7 @@ class CourseEventModel extends Model
     protected $fillable = ([
         'register_start',
         'register_end',
+        'execution',
         'status',
         'created_by',
         'updated_by',

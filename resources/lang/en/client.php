@@ -1,6 +1,6 @@
 <?php
 
-return[
+return [
   "navbar" => [
     "home" => "Home",
     "announcement" => "Announcement",
@@ -15,14 +15,27 @@ return[
   ],
   "announcement_section" => [
     "head_title" => "Announcement",
-    "title_content" => "English Test Announcement",
-    "desc_content" => "Malang State Polytechnic opens the TOIEC English Language Competency Test. This test aims to measure students' English language skills and provide certificates as proof of competency",
-    "table_content" => [
-      "batch" => "Batch",
-      "registration_date" => "Registration Date",
-      "execution_date" => "Test Date",
-      "quota" => "Quota",
-      "remaining_quota" => "Remaining Quota",
+    'english_test' => [
+      "title_content" => "English Test Announcement",
+      "desc_content" => "Malang State Polytechnic opens the TOIEC English Language Competency Test. This test aims to measure students' English language skills and provide certificates as proof of competency",
+      "table_content" => [
+        "batch" => "Batch",
+        "registration_date" => "Registration Date",
+        "execution_date" => "Test Date",
+        "quota" => "Quota",
+        "remaining_quota" => "Remaining Quota",
+      ],
+    ],
+    'language_course' => [
+      "title_content" => "Language Course Announcements",
+      "desc_content" => "Malang State Polytechnic opens the TOIEC English Language Competency Test. This test aims to improve language skills. Starting from preparing for exams such as TOEIC, TOEFL and IELTS to achieve the desired score, to Japanese, Mandarin, French and BIPA (Indonesian for Foreign Speakers) courses",
+      "table_content" => [
+        "batch" => "Batch",
+        "registration_date" => "Registration Date",
+        "execution_date" => "Test Date",
+        "quota" => "Quota",
+        "remaining_quota" => "Remaining Quota",
+      ],
     ],
     "register_btn" => "Register Now"
   ],
@@ -59,7 +72,7 @@ return[
   "gallery_section" => [
     "head_title" => "Our Gallery",
     "title_content" => "Activity Gallery",
-  ], 
+  ],
   "sop_section" => [
     "title_toeic" => "Standard Operating Procedures for Implementing the International TOEIC Test for Polinema Students",
     "title_consult" => "Standard Operating Procedure Individual Consultation UPA Malang State Polytechnic Language",

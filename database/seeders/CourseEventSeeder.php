@@ -16,12 +16,13 @@ class CourseEventSeeder extends Seeder
     {
         DB::table('r_course_events')->insert([
             'register_start' => Carbon::parse('2024-04-01')->startOfDay(),
-            'register_end' => Carbon::parse('2024-04-12')->endOfDay(), 
+            'register_end' => Carbon::parse('2024-04-12')->endOfDay(),
+            'execution' => Carbon::parse('2024-04-30'),
             'status' => 1,
             'created_at' => now(),
             'updated_at' => now(),
             'created_by' => 1,
             'updated_by' => 1,
-        ]);    
+        ]);
     }
 }

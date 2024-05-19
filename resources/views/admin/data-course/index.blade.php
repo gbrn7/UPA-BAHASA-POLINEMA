@@ -28,7 +28,7 @@
     @endif
     <div class="btn-wrapper mt-2">
       <div data-bs-toggle="modal" data-bs-target="#addnew" id="add" class="btn btn-success"><i
-          class="ri-add-box-line me-2"></i>Tambah batch kursus</div>
+          class="ri-add-box-line me-2"></i>Tambah Batch Kursus</div>
     </div>
     <div class="table-wrapper mt-2 mb-2">
       <table id="example" class="table mt-3 table-hover table-borderless" style="width: 100%">
@@ -37,6 +37,7 @@
             <th class="text-secondary">Batch</th>
             <th class="text-secondary">Awal Pendaftaran</th>
             <th class="text-secondary">Akhir Pendaftaran</th>
+            <th class="text-secondary">Tanggal Pelaksanaan</th>
             <th class="text-secondary">Status</th>
             <th class="text-secondary">Aksi</th>
           </tr>
@@ -47,6 +48,7 @@
             <td>{{$course->course_events_id }}</td>
             <td>{{date("d-m-Y", strtotime($course->register_start)) }}</td>
             <td>{{date("d-m-Y", strtotime($course->register_end)) }}</td>
+            <td>{{date("d-m-Y", strtotime($course->execution)) }}</td>
             <td class="text-capitalize">{{$course->status == 1 ? 'Aktif' : 'Non-Aktif'}}</td>
             <td class="">
               <div class="btn-wrapper d-flex gap-2 flex-wrap">
@@ -54,6 +56,7 @@
                   class="btn edit btn-action btn-warning text-white"
                   data-register-start="{{ date('d-m-Y', strtotime($course->register_start))}}"
                   data-register-end="{{ date('d-m-Y', strtotime($course->register_end))}}"
+                  data-execution-date="{{ date('Y-m-d', strtotime($course->execution))}}"
                   data-id="{{$course->course_events_id}}"><i class="ri-edit-2-line"></i></a>
                 <div class="delete cursor-pointer btn btn-action btn-danger
                   text-white" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
@@ -110,13 +113,18 @@
         <form action={{route('admin.data-course.store')}} id="addForm" method="POST">
           @csrf
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Rentang Pendaftaran</label>
+            <label class="form-label">Rentang Pendaftaran</label>
             <input required type="text" autocomplete="off" name="registration_range"
               value="{{old('registration_range')}}" id="datepicker" class="form-control"
               placeholder="Masukkan rentang tanggal pendaftaran" />
           </div>
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Status</label>
+            <label class="form-label">Tanggal Pelaksanaan</label>
+            <input required type="date" id="execution-form" autocomplete="off" name="execution"
+              value="{{old('execution')}}" class="form-control" placeholder="Masukkan tanggal pelaksanaan" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Status</label>
             <select required name="status" class="form-select" aria-label="Default select example">
               <option value="1" {{old('status')==='1' ? "selected" : '' }}>Aktif</option>
               <option value="0" {{old('status')==='0' ? "selected" : '' }}>Non-Aktif</option>
@@ -146,13 +154,18 @@
           @method('PUT')
           <input type="hidden" name="edit_id" id="edit-id">
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Rentang Pendaftaran</label>
+            <label class="form-label">Rentang Pendaftaran</label>
             <input required type="text" autocomplete="off" name="registration_range"
               value="{{old('registration_range')}}" id="datepicker" class="form-control"
               placeholder="Masukkan rentang tanggal pendaftaran" />
           </div>
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Status</label>
+            <label class="form-label">Tanggal Pelaksanaan</label>
+            <input required type="date" id="execution-form" autocomplete="off" name="execution"
+              value="{{old('execution')}}" class="form-control" placeholder="Masukkan tanggal pelaksanaan" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Status</label>
             <select required name="status" class="form-select" aria-label="Default select example">
               <option value="1" {{old('status')==='1' ? "selected" : '' }}>Aktif</option>
               <option value="0" {{old('status')==='0' ? "selected" : '' }}>Non-Aktif</option>
@@ -186,6 +199,7 @@
           let id = $(this).data('id');
           let registerStart = $(this).data('register-start');
           let registerEnd = $(this).data('register-end');
+          let executionDate = $(this).data('execution-date');
 
           $('input[name="registration_range"]').daterangepicker({
           locale: {
@@ -195,8 +209,9 @@
           startDate: registerStart,
           endDate: registerEnd,
         });
-          $('#editmodal').modal('show');
-          $('#edit-id').val(id);
+        $('#edit-id').val(id);
+        $('input[name="execution"]').val(executionDate);
+        $('#editmodal').modal('show');
       });
 
   $('input[name="registration_range"]').daterangepicker({

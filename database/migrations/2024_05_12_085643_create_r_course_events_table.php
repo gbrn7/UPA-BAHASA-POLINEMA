@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('course_events_id');
             $table->timestamp('register_start');
             $table->timestamp('register_end');
+            $table->date('execution');
             $table->boolean('status');
             $table->unsignedBigInteger('created_by')->index();
             $table->unsignedBigInteger('updated_by')->index()->nullable();

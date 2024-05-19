@@ -1,11 +1,11 @@
 <div class="sidebar" id="side_nav">
   <div class="header-box px-2 pt-3 pb-2 d-flex justify-content-center">
     <h1 class="header-text rounded rounded-3 p-2 border border-1">
-      <div class="wrapper">
+      <a class="wrapper text-decoration-none" href="{{route('admin.home')}}">
         <img src={{asset('assets/images/POLINEMA.png')}} class="header-logo">
         <br>
         <p class="mb-0 mt-3 text-black">UPA BAHASA POLINEMA</p>
-      </div>
+      </a>
     </h1>
   </div>
   <div class="list-box  d-flex flex-column">

@@ -93,9 +93,52 @@
     <div class="container">
       <div class="header-section text-center">
         <p class="head-title mb-2">@lang('client.announcement_section.head_title')</p>
-        <h3 class="title-content">@lang('client.announcement_section.title_content')</h3>
       </div>
-      <div class="body-section mt-2 row justify-content-center">
+      <div class="body-section english-test mt-2 row justify-content-center">
+        <h3 class="title-content text-center">@lang('client.announcement_section.title_content')</h3>
+        <div class="col-lg-10 col-12 rounded rounded-2">
+          <p class="text-center desc-content">@lang('client.announcement_section.desc_content')</p>
+          <div class="info-wrapper overflow-auto p-3 row bg-white rounded-3">
+            <div class="info p-3 overflow-auto rounded-2 text-center">
+              <div class="schedule-wrapper">
+                <div class="table-wrapper table-content mt-2 mb-2">
+                  <table id="example" class="table mt-3 table-hover" style="width: 100%">
+                    <thead>
+                      <tr>
+                        <th class="text-secondary batch">@lang('client.announcement_section.table_content.batch')</th>
+                        <th class="text-secondary registration-date">
+                          @lang('client.announcement_section.table_content.registration_date')</th>
+                        <th class="text-secondary execution-date">
+                          @lang('client.announcement_section.table_content.execution_date')</th>
+                        <th class="text-secondary">@lang('client.announcement_section.table_content.quota')</th>
+                        <th class="text-secondary">@lang('client.announcement_section.table_content.remaining_quota')
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                      @foreach ($activeEvents as $activeEvent)
+                      <tr>
+                        <td>{{$activeEvent->toeic_test_events_id}}</td>
+                        <td>{{date("d M Y", strtotime($activeEvent->register_start)) }} - {{date("d M
+                          Y", strtotime($activeEvent->register_end)) }}</td>
+                        <td>{{date("d M Y", strtotime($activeEvent->execution)) }}</td>
+                        <td>{{$activeEvent->quota}}</td>
+                        <td>{{$activeEvent->remaining_quota}}</td>
+                      </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
+                </div>
+                <a class="btn btn-primary register_btn fw-medium mt-3"
+                  href={{route('client.form')}}>@lang('client.announcement_section.register_btn')</a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="body-section english-test mt-2 row justify-content-center">
+        <h3 class="title-content text-center">@lang('client.announcement_section.title_content')</h3>
         <div class="col-lg-10 col-12 rounded rounded-2">
           <p class="text-center desc-content">@lang('client.announcement_section.desc_content')</p>
           <div class="info-wrapper overflow-auto p-3 row bg-white rounded-3">
@@ -165,7 +208,7 @@
             </div>
           </div>
         </a>
-        <a href="#"
+        <a href="#program"
           class="activity-wrapper translation-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
           <div class="activity-wrap p-3 rounded-2 h-100">
             <div class="img-wrapper w-100">
@@ -182,7 +225,7 @@
             </div>
           </div>
         </a>
-        <a href="#"
+        <a href="#program"
           class="activity-wrapper english-test-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
           <div class="activity-wrap p-3 rounded-2 h-100">
             <div class="img-wrapper w-100">
@@ -198,7 +241,7 @@
             </div>
           </div>
         </a>
-        <a href="#"
+        <a href="#program"
           class="activity-wrapper competence-development-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
           <div class="activity-wrap p-3 rounded-2 h-100">
             <div class="img-wrapper w-100">
@@ -214,7 +257,7 @@
             </div>
           </div>
         </a>
-        <a href="#"
+        <a href="#program"
           class="activity-wrapper individual-consultant-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
           <div class="activity-wrap p-3 rounded-2 h-100">
             <div class="img-wrapper w-100">
@@ -230,7 +273,7 @@
             </div>
           </div>
         </a>
-        <a href="#"
+        <a href="#program"
           class="activity-wrapper teaching-staff-training-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
           <div class="activity-wrap p-3 rounded-2 h-100">
             <div class="img-wrapper w-100">
