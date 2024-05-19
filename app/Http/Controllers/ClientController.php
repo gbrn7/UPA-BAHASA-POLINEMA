@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\RegistrationMail;
+use App\Models\CourseEventModel;
 use App\Models\DepartementModel;
 use App\Models\ToeicTestEventModel;
 use App\Models\imageModel;
@@ -21,100 +22,180 @@ class ClientController extends Controller
 {
     public function index(Request $request)
     {
-        if($request->lang) App::setlocale($request->lang);
+        if ($request->lang) App::setlocale($request->lang);
 
-        $events = ToeicTestEventModel::where('status', true)->get();
 
         $admin = User::first();
 
         $gallery = imageModel::where('type', 'gallery')->orderBy('image_id', 'desc')->get();
 
-        if (!isset($events)) {
+        $toeicEvent = ToeicTestEventModel::where('status', true)->get();
+
+        $courseEvent = CourseEventModel::where('status', true)
+            ->withCount([
+                'courseEventSchedules' => function ($query) {
+                    $query->where('status', true);
+                }
+            ])
+            ->first();
+
+        if (!isset($toeicEvent) && !isset($courseEvent)) {
             return view('client.landingPage', ['gallery' => $gallery]);
         }
 
-        $activeEvents = collect();
+        $activeToeicEvents = collect();
 
         $dateNow = Carbon::now();
-        foreach ($events as $key => $activeEvent) {
-            $registerEnd = Carbon::parse($activeEvent->register_end);
 
-            if($dateNow->greaterThan($registerEnd) || $activeEvent->remaining_quota <= 0){    
-                $activeEvent->update(['status' => false]);
-            }else{
-                $activeEvents->push($activeEvent);
+        $activeEvents = [];
+
+        foreach ($toeicEvent as $key => $item) {
+            $registerEnd = Carbon::parse($item->register_end);
+
+            if ($dateNow->greaterThan($registerEnd) || $item->remaining_quota <= 0) {
+                $item->update(['status' => false]);
+            } else {
+                $activeToeicEvents->push($item);
             }
         }
 
-        return view('client.landingPage', ['activeEvents' => (count($activeEvents) > 0 ? $activeEvents : null), 'adminPhoneNum' => $admin->phone_num, 'gallery' => count($gallery) > 0 ? $gallery : null]);
+        if ($activeToeicEvents->count() > 0) {
+            $activeEvents = [
+                'activeToeicEvents' =>  $activeToeicEvents,
+            ];
+        }
+
+        if (isset($courseEvent)) {
+            $registerEnd = Carbon::parse($courseEvent->register_end);
+
+            if ($dateNow->greaterThan($registerEnd)) {
+                $courseEvent->update(['status' => false]);
+            } else {
+                $activeEvents['activeCourseEvent'] = $courseEvent->course_event_schedules_count ? $courseEvent : null;
+            }
+        }
+
+        return view('client.landingPage', ['activeEvents' => (count($activeEvents) > 0 ? (object) $activeEvents : null), 'adminPhoneNum' => $admin->phone_num, 'gallery' => count($gallery) > 0 ? $gallery : null]);
     }
 
     public function sop(Request $request)
     {
-        if($request->lang) App::setlocale($request->lang);
-
-        $events = ToeicTestEventModel::where('status', true)->get();
+        if ($request->lang) App::setlocale($request->lang);
 
         $admin = User::first();
 
         $image_toeic = imageModel::where('type', 'sop-toeic')->first();
         $image_consult = imageModel::where('type', 'sop-consult')->first();
 
-        if (!isset($events)) {
+        $toeicEvent = ToeicTestEventModel::where('status', true)->get();
+
+        $courseEvent = CourseEventModel::where('status', true)
+            ->withCount([
+                'courseEventSchedules' => function ($query) {
+                    $query->where('status', true);
+                }
+            ])
+            ->first();
+
+        if (!isset($toeicEvent) && !isset($courseEvent)) {
             return view('client.sop', ['image_toeic' => $image_toeic, 'image_consult' => $image_consult]);
         }
 
-        $activeEvents = collect();
+        $activeToeicEvents = collect();
 
         $dateNow = Carbon::now();
-        foreach ($events as $key => $activeEvent) {
-            $registerEnd = Carbon::parse($activeEvent->register_end);
 
-            if($dateNow->greaterThan($registerEnd) || $activeEvent->remaining_quota <= 0){    
-                $activeEvent->update(['status' => false]);
-            }else{
-                $activeEvents->push($activeEvent);
+        $activeEvents = [];
+
+        foreach ($toeicEvent as $key => $item) {
+            $registerEnd = Carbon::parse($item->register_end);
+
+            if ($dateNow->greaterThan($registerEnd) || $item->remaining_quota <= 0) {
+                $item->update(['status' => false]);
+            } else {
+                $activeToeicEvents->push($item);
             }
         }
 
-        return view('client.sop', ['activeEvent' => (count($activeEvents) > 0 ? $activeEvents : null), 'adminPhoneNum' => $admin->phone_num, 'image_toeic' => $image_toeic, 'image_consult' => $image_consult]);
-        
+        if ($activeToeicEvents->count() > 0) {
+            $activeEvents = [
+                'activeToeicEvents' =>  $activeToeicEvents,
+            ];
+        }
+
+        if (isset($courseEvent)) {
+            $registerEnd = Carbon::parse($courseEvent->register_end);
+
+            if ($dateNow->greaterThan($registerEnd)) {
+                $courseEvent->update(['status' => false]);
+            } else {
+                $activeEvents['activeCourseEvent'] = $courseEvent->course_event_schedules_count ? $courseEvent : null;
+            }
+        }
+
+        return view('client.sop', ['activeEvent' => (count($activeEvents) > 0 ? (object) $activeEvents : null), 'adminPhoneNum' => $admin->phone_num, 'image_toeic' => $image_toeic, 'image_consult' => $image_consult]);
     }
 
     public function structureOrganization(Request $request)
     {
-        if($request->lang) App::setlocale($request->lang);
-
-        $events = ToeicTestEventModel::where('status', true)->get();
+        if ($request->lang) App::setlocale($request->lang);
 
         $admin = User::first();
 
         $image = imageModel::where('type', 'structure_organization')->first();
 
-        if (!isset($events)) {
+        $toeicEvent = ToeicTestEventModel::where('status', true)->get();
+
+        $courseEvent = CourseEventModel::where('status', true)
+            ->withCount([
+                'courseEventSchedules' => function ($query) {
+                    $query->where('status', true);
+                }
+            ])
+            ->first();
+
+        if (!isset($toeicEvent) && !isset($courseEvent)) {
             return view('client.structure-organization', ['image' => $image]);
         }
 
-        $activeEvents = collect();
+        $activeToeicEvents = collect();
 
         $dateNow = Carbon::now();
-        foreach ($events as $key => $activeEvent) {
-            $registerEnd = Carbon::parse($activeEvent->register_end);
 
-            if($dateNow->greaterThan($registerEnd) || $activeEvent->remaining_quota <= 0){    
-                $activeEvent->update(['status' => false]);
-            }else{
-                $activeEvents->push($activeEvent);
+        $activeEvents = [];
+
+        foreach ($toeicEvent as $key => $item) {
+            $registerEnd = Carbon::parse($item->register_end);
+
+            if ($dateNow->greaterThan($registerEnd) || $item->remaining_quota <= 0) {
+                $item->update(['status' => false]);
+            } else {
+                $activeToeicEvents->push($item);
             }
         }
 
-        return view('client.structure-organization', ['activeEvent' => (count($activeEvents) > 0 ? $activeEvents : null), 'adminPhoneNum' => $admin->phone_num, 'image' => $image]);
-        
+        if ($activeToeicEvents->count() > 0) {
+            $activeEvents = [
+                'activeToeicEvents' =>  $activeToeicEvents,
+            ];
+        }
+
+        if (isset($courseEvent)) {
+            $registerEnd = Carbon::parse($courseEvent->register_end);
+
+            if ($dateNow->greaterThan($registerEnd)) {
+                $courseEvent->update(['status' => false]);
+            } else {
+                $activeEvents['activeCourseEvent'] = $courseEvent->course_event_schedules_count ? $courseEvent : null;
+            }
+        }
+
+        return view('client.structure-organization', ['activeEvent' => (count($activeEvents) > 0 ? (object)$activeEvents : null), 'adminPhoneNum' => $admin->phone_num, 'image' => $image]);
     }
 
     public function formView(Request $request)
     {
-        if($request->lang) App::setlocale($request->lang);
+        if ($request->lang) App::setlocale($request->lang);
 
         $events = ToeicTestEventModel::where('status', true)->get();
 
@@ -129,23 +210,25 @@ class ClientController extends Controller
         foreach ($events as $key => $activeEvent) {
             $registerEnd = Carbon::parse($activeEvent->register_end);
 
-            if($dateNow->greaterThan($registerEnd) || $activeEvent->remaining_quota <= 0){    
+            if ($dateNow->greaterThan($registerEnd) || $activeEvent->remaining_quota <= 0) {
                 $activeEvent->update(['status' => false]);
-            }else{
+            } else {
                 $activeEvents->push($activeEvent);
             }
         }
 
         $departements = DepartementModel::all();
 
-        if(count($activeEvents) <= 0) return redirect()->route('client')->with('toast_warning', 'Event tes TOEIC tidak ditemukan');
+        if (count($activeEvents) <= 0) return redirect()->route('client')->with('toast_warning', 'Event tes TOEIC tidak ditemukan');
 
-        
-        return view('client.form', 
-        [
-        'activeEvents' =>  $activeEvents,
-        'departements' => $departements, 
-        ]);
+
+        return view(
+            'client.form',
+            [
+                'activeEvents' =>  $activeEvents,
+                'departements' => $departements,
+            ]
+        );
     }
 
     public function saveRegistration(Request $request)
@@ -183,10 +266,10 @@ class ClientController extends Controller
 
         $validator = Validator::make($request->all(), $validation, $messages);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return back()
-            ->withInput()
-            ->withErrors($validator->messages()->all());
+                ->withInput()
+                ->withErrors($validator->messages()->all());
         }
 
         $activeEvent = ToeicTestEventModel::find($request->toeic_test_events_id);
@@ -194,7 +277,7 @@ class ClientController extends Controller
         if (!isset($activeEvent)) return redirect()->route('client')->with('toast_warning', 'Event tidak ditemukan');
 
         if ($activeEvent->quota <= 0) return redirect()->route('client')->with('toast_warning', 'Kuota telah habis');
-        
+
         $newRegistration = $request->except('_token');
 
         $departement  = DepartementModel::find($request->departement);
@@ -202,43 +285,43 @@ class ClientController extends Controller
         $newRegistration['departement'] = $departement->name;
 
         $checkEmail = ToeicTestRegistrationsModel::where('toeic_test_events_id', $activeEvent->toeic_test_events_id)
-                                         ->where('email', $newRegistration['email'] )
-                                         ->first();
+            ->where('email', $newRegistration['email'])
+            ->first();
 
         if (isset($checkEmail)) return back()->withInput()->withErrors('Pendaftaran anda sudah terdaftar pada test TOEIC batch ini');
 
-        try{
+        try {
             DB::beginTransaction();
 
             $activeEvent->update([
                 'remaining_quota' => ($activeEvent->remaining_quota - 1),
-            ]); 
+            ]);
             //Ktp rename file
             $ktp = $request->ktp_img;
-            $imageName = $activeEvent->toeic_test_events_id.'_'.Str::random(5).'.'.$ktp->getClientOriginalExtension();
+            $imageName = $activeEvent->toeic_test_events_id . '_' . Str::random(5) . '.' . $ktp->getClientOriginalExtension();
             $ktp->storeAs('public/ktp', $imageName);
             $newRegistration['ktp_img'] = $imageName;
-    
+
             //Ktm rename file
             $ktm = $request->ktm_img;
-            $imageName = $activeEvent->toeic_test_events_id.'_'.Str::random(5).'.'.$ktm->getClientOriginalExtension();
+            $imageName = $activeEvent->toeic_test_events_id . '_' . Str::random(5) . '.' . $ktm->getClientOriginalExtension();
             $ktm->storeAs('public/ktm', $imageName);
             $newRegistration['ktm_img'] = $imageName;
-    
+
             //Surat Pernyataan IISMA rename file
             $srtPrytnis = $request->surat_pernyataan_iisma;
-            $imageName = $activeEvent->toeic_test_events_id.'_'.Str::random(5).'.'.$srtPrytnis->getClientOriginalExtension();
+            $imageName = $activeEvent->toeic_test_events_id . '_' . Str::random(5) . '.' . $srtPrytnis->getClientOriginalExtension();
             $srtPrytnis->storeAs('public/surat_pernyataan_iisma', $imageName);
             $newRegistration['surat_pernyataan_iisma'] = $imageName;
-    
+
             //Pas Foto rename file
             $pasFoto = $request->pasFoto_img;
-            $imageName = $activeEvent->toeic_test_events_id.'_'.Str::random(5).'.'.$pasFoto->getClientOriginalExtension();
+            $imageName = $activeEvent->toeic_test_events_id . '_' . Str::random(5) . '.' . $pasFoto->getClientOriginalExtension();
             $pasFoto->storeAs('public/pasFoto', $imageName);
             $newRegistration['pasFoto_img'] = $imageName;
-    
+
             $newRegistration = ToeicTestRegistrationsModel::create($newRegistration);
-           
+
             DB::commit();
 
             try {
@@ -249,17 +332,13 @@ class ClientController extends Controller
                     'execution' => $activeEvent->execution,
                     'wa_group_link' => isset($activeEvent->wa_group_link) ? $activeEvent->wa_group_link : null,
                 ]);
-                return back()->withSuccess('Pendaftaran test bahasa inggris TOEIC '.$newRegistration->name.' berhasil, silahkan cek email anda '.(isset($activeEvent->wa_group_link)? 'untuk mengikuti grup WhatsApp pendaftar': '' ));
-            
+                return back()->withSuccess('Pendaftaran test bahasa inggris TOEIC ' . $newRegistration->name . ' berhasil, silahkan cek email anda ' . (isset($activeEvent->wa_group_link) ? 'untuk mengikuti grup WhatsApp pendaftar' : ''));
             } catch (\Throwable $th) {
-                return back()->withSuccess('Pendaftaran test bahasa inggris TOEIC '.$newRegistration->name.' berhasil');
+                return back()->withSuccess('Pendaftaran test bahasa inggris TOEIC ' . $newRegistration->name . ' berhasil');
             }
-            
-        }catch (\Throwable $th){
+        } catch (\Throwable $th) {
             return back()->withInput()->withErrors('Internal Server Error');
         }
-
-
     }
 
     public function sendNotif($data)

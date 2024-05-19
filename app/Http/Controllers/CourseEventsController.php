@@ -28,7 +28,7 @@ class CourseEventsController extends Controller
     {
         $activeEvent = CourseEventModel::where('status', true)->first();
 
-        if ($activeEvent) return redirect()->route('data-course.index')->with('toast_warning', 'Terdapat batch yang masih aktif, pastikan tidak ada batch yang aktif');
+        if ($activeEvent) return redirect()->route('admin.data-course.index')->with('toast_warning', 'Terdapat batch yang masih aktif, pastikan tidak ada batch yang aktif');
 
         $request->validate([
             'registration_range' => 'required',
@@ -59,6 +59,12 @@ class CourseEventsController extends Controller
             'execution' => 'required',
             'status' => 'required|boolean',
         ]);
+
+        if ($request->status == true) {
+            $activeEvent = CourseEventModel::where('status', true)->where('course_events_id', '<>', $request->edit_id)->first();
+
+            if ($activeEvent) return redirect()->route('admin.data-course.index')->with('toast_warning', 'Terdapat batch yang masih aktif, pastikan tidak ada batch yang aktif');
+        }
 
         $oldEvent = CourseEventModel::find($request->edit_id);
 

@@ -32,9 +32,8 @@ return [
       "table_content" => [
         "batch" => "Batch",
         "registration_date" => "Registration Date",
-        "execution_date" => "Test Date",
-        "quota" => "Quota",
-        "remaining_quota" => "Remaining Quota",
+        "number_of_courses" => "Number of Courses",
+        "execution_date" => "Course Start Date",
       ],
     ],
     "register_btn" => "Register Now"

@@ -61,8 +61,8 @@
       <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Status</label>
         <select required name="status" class="form-select" aria-label="Default select example">
-          <option value="1" {{$event->status === 1 ? ' selected' : '' }}>Aktif</option>
-          <option value="0" {{$event->status === 0 ? ' selected' : '' }}>Non-Aktif</option>
+          <option value="1" {{$event->status == 1 ? ' selected' : '' }}>Aktif</option>
+          <option value="0" {{$event->status == 0 ? ' selected' : '' }}>Non-Aktif</option>
         </select>
       </div>
       <div class=" mb-3">

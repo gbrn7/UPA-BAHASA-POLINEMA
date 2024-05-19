@@ -1,6 +1,6 @@
 <?php
 
-return[
+return [
   "navbar" => [
     "home" => "Beranda",
     "announcement" => "Pengumuman",
@@ -15,14 +15,26 @@ return[
   ],
   "announcement_section" => [
     "head_title" => "Pengumuman",
-    "title_content" => "Pengumuman Tes Bahasa Inggris",
-    "desc_content" => "Politeknik Negeri Malang membuka Tes Kompetensi Bahasa Inggris TOIEC. Tes ini bertujuan untuk mengukur kemampuan bahasa Inggris para mahasiswa dan memberikan sertifikat sebagai bukti kompetensi",
-    "table_content" => [
-      "batch" => "Batch",
-      "registration_date" => "Tanggal Pendaftaran",
-      "execution_date" => "Pelaksanaan Tes",
-      "quota" => "Kuota",
-      "remaining_quota" => "Sisa Kuota",
+    'english_test' => [
+      "title_content" => "Pengumuman Tes Bahasa Inggris",
+      "desc_content" => "Politeknik Negeri Malang membuka Tes Kompetensi Bahasa Inggris TOIEC. Tes ini bertujuan untuk mengukur kemampuan bahasa Inggris para mahasiswa dan memberikan sertifikat sebagai bukti kompetensi",
+      "table_content" => [
+        "batch" => "Batch",
+        "registration_date" => "Tanggal Pendaftaran",
+        "execution_date" => "Pelaksanaan Tes",
+        "quota" => "Kuota",
+        "remaining_quota" => "Sisa Kuota",
+      ],
+    ],
+    'language_course' => [
+      "title_content" => "Pengumuman Kursus Bahasa",
+      "desc_content" => "Politeknik Negeri Malang membuka Uji Kompetensi Bahasa Inggris TOIEC. Tes ini bertujuan untuk meningkatkan kemampuan berbahasa. Mulai dari persiapan ujian seperti TOEIC, TOEFL dan IELTS untuk mencapai nilai yang diinginkan, hingga kursus bahasa Jepang, Mandarin, Perancis dan BIPA (Bahasa Indonesia untuk Penutur Asing)",
+      "table_content" => [
+        "batch" => "Batch",
+        "registration_date" => "Tanggal Pendaftaran",
+        "execution_date" => "Tanggal Awal Kursus",
+        "number_of_courses" => "Banyak Kursus",
+      ],
     ],
     "register_btn" => "Daftar Sekarang"
   ],

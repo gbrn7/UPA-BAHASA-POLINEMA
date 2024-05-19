@@ -89,8 +89,8 @@
       <div class="mb-3">
         <label class="form-label">Status</label>
         <select required name="status" class="form-select" aria-label="Default select example">
-          <option value="1" {{$courseScheduleEvent->status==='1' ? ' selected' : '' }}>Aktif</option>
-          <option value="0" {{$courseScheduleEvent->status==='0' ? ' selected' : '' }}>Non-Aktif</option>
+          <option value="1" {{$courseScheduleEvent->status=='1' ? ' selected' : '' }}>Aktif</option>
+          <option value="0" {{$courseScheduleEvent->status=='0' ? ' selected' : '' }}>Non-Aktif</option>
         </select>
       </div>
       <div class="mb-3">

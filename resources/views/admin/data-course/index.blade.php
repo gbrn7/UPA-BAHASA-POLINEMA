@@ -57,7 +57,8 @@
                   data-register-start="{{ date('d-m-Y', strtotime($course->register_start))}}"
                   data-register-end="{{ date('d-m-Y', strtotime($course->register_end))}}"
                   data-execution-date="{{ date('Y-m-d', strtotime($course->execution))}}"
-                  data-id="{{$course->course_events_id}}"><i class="ri-edit-2-line"></i></a>
+                  data-status="{{ $course->status}}" data-id="{{$course->course_events_id}}"><i
+                    class="ri-edit-2-line"></i></a>
                 <div class="delete cursor-pointer btn btn-action btn-danger
                   text-white" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
                   data-bs-title="Hapus batch" data-id="{{$course->course_events_id}}">
@@ -166,7 +167,7 @@
           </div>
           <div class="mb-3">
             <label class="form-label">Status</label>
-            <select required name="status" class="form-select" aria-label="Default select example">
+            <select required name="status" class="form-select" id="edit-status" aria-label="Default select example">
               <option value="1" {{old('status')==='1' ? "selected" : '' }}>Aktif</option>
               <option value="0" {{old('status')==='0' ? "selected" : '' }}>Non-Aktif</option>
             </select>
@@ -200,6 +201,7 @@
           let registerStart = $(this).data('register-start');
           let registerEnd = $(this).data('register-end');
           let executionDate = $(this).data('execution-date');
+          let status = $(this).data('status');
 
           $('input[name="registration_range"]').daterangepicker({
           locale: {
@@ -210,6 +212,7 @@
           endDate: registerEnd,
         });
         $('#edit-id').val(id);
+        $('#edit-status').val(status);
         $('input[name="execution"]').val(executionDate);
         $('#editmodal').modal('show');
       });

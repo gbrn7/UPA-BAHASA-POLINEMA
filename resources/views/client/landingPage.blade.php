@@ -94,10 +94,11 @@
       <div class="header-section text-center">
         <p class="head-title mb-2">@lang('client.announcement_section.head_title')</p>
       </div>
+      @isset($activeEvents->activeToeicEvents)
       <div class="body-section english-test mt-2 row justify-content-center">
-        <h3 class="title-content text-center">@lang('client.announcement_section.title_content')</h3>
+        <h3 class="title-content text-center">@lang('client.announcement_section.english_test.title_content')</h3>
         <div class="col-lg-10 col-12 rounded rounded-2">
-          <p class="text-center desc-content">@lang('client.announcement_section.desc_content')</p>
+          <p class="text-center desc-content">@lang('client.announcement_section.english_test.desc_content')</p>
           <div class="info-wrapper overflow-auto p-3 row bg-white rounded-3">
             <div class="info p-3 overflow-auto rounded-2 text-center">
               <div class="schedule-wrapper">
@@ -105,18 +106,21 @@
                   <table id="example" class="table mt-3 table-hover" style="width: 100%">
                     <thead>
                       <tr>
-                        <th class="text-secondary batch">@lang('client.announcement_section.table_content.batch')</th>
+                        <th class="text-secondary batch">
+                          @lang('client.announcement_section.english_test.table_content.batch')</th>
                         <th class="text-secondary registration-date">
-                          @lang('client.announcement_section.table_content.registration_date')</th>
+                          @lang('client.announcement_section.english_test.table_content.registration_date')</th>
                         <th class="text-secondary execution-date">
-                          @lang('client.announcement_section.table_content.execution_date')</th>
-                        <th class="text-secondary">@lang('client.announcement_section.table_content.quota')</th>
-                        <th class="text-secondary">@lang('client.announcement_section.table_content.remaining_quota')
+                          @lang('client.announcement_section.english_test.table_content.execution_date')</th>
+                        <th class="text-secondary">@lang('client.announcement_section.english_test.table_content.quota')
+                        </th>
+                        <th class="text-secondary">
+                          @lang('client.announcement_section.english_test.table_content.remaining_quota')
                         </th>
                       </tr>
                     </thead>
                     <tbody id="tableBody">
-                      @foreach ($activeEvents as $activeEvent)
+                      @foreach ($activeEvents->activeToeicEvents as $activeEvent)
                       <tr>
                         <td>{{$activeEvent->toeic_test_events_id}}</td>
                         <td>{{date("d M Y", strtotime($activeEvent->register_start)) }} - {{date("d M
@@ -132,15 +136,16 @@
                 <a class="btn btn-primary register_btn fw-medium mt-3"
                   href={{route('client.form')}}>@lang('client.announcement_section.register_btn')</a>
               </div>
-
             </div>
           </div>
         </div>
       </div>
-      <div class="body-section english-test mt-2 row justify-content-center">
-        <h3 class="title-content text-center">@lang('client.announcement_section.title_content')</h3>
+      @endisset
+      @isset($activeEvents->activeCourseEvent)
+      <div class="body-section english-course mt-2 row justify-content-center mt-3">
+        <h3 class="title-content text-center">@lang('client.announcement_section.language_course.title_content')</h3>
         <div class="col-lg-10 col-12 rounded rounded-2">
-          <p class="text-center desc-content">@lang('client.announcement_section.desc_content')</p>
+          <p class="text-center desc-content">@lang('client.announcement_section.language_course.desc_content')</p>
           <div class="info-wrapper overflow-auto p-3 row bg-white rounded-3">
             <div class="info p-3 overflow-auto rounded-2 text-center">
               <div class="schedule-wrapper">
@@ -148,27 +153,26 @@
                   <table id="example" class="table mt-3 table-hover" style="width: 100%">
                     <thead>
                       <tr>
-                        <th class="text-secondary batch">@lang('client.announcement_section.table_content.batch')</th>
+                        <th class="text-secondary batch">
+                          @lang('client.announcement_section.language_course.table_content.batch')</th>
                         <th class="text-secondary registration-date">
-                          @lang('client.announcement_section.table_content.registration_date')</th>
+                          @lang('client.announcement_section.language_course.table_content.registration_date')</th>
                         <th class="text-secondary execution-date">
-                          @lang('client.announcement_section.table_content.execution_date')</th>
-                        <th class="text-secondary">@lang('client.announcement_section.table_content.quota')</th>
-                        <th class="text-secondary">@lang('client.announcement_section.table_content.remaining_quota')
+                          @lang('client.announcement_section.language_course.table_content.execution_date')</th>
+                        <th class="text-secondary execution-date">
+                          @lang('client.announcement_section.language_course.table_content.number_of_courses')</th>
                         </th>
                       </tr>
                     </thead>
                     <tbody id="tableBody">
-                      @foreach ($activeEvents as $activeEvent)
                       <tr>
-                        <td>{{$activeEvent->toeic_test_events_id}}</td>
-                        <td>{{date("d M Y", strtotime($activeEvent->register_start)) }} - {{date("d M
-                          Y", strtotime($activeEvent->register_end)) }}</td>
-                        <td>{{date("d M Y", strtotime($activeEvent->execution)) }}</td>
-                        <td>{{$activeEvent->quota}}</td>
-                        <td>{{$activeEvent->remaining_quota}}</td>
+                        <td>{{$activeEvents->activeCourseEvent->course_events_id}}</td>
+                        <td>{{date("d M Y", strtotime($activeEvents->activeCourseEvent->register_start)) }} - {{date("d
+                          M
+                          Y", strtotime($activeEvents->activeCourseEvent->register_end)) }}</td>
+                        <td>{{date("d M Y", strtotime($activeEvents->activeCourseEvent->execution)) }}</td>
+                        <td>{{$activeEvents->activeCourseEvent->course_event_schedules_count }}</td>
                       </tr>
-                      @endforeach
                     </tbody>
                   </table>
                 </div>
@@ -180,6 +184,7 @@
           </div>
         </div>
       </div>
+      @endisset
   </section>
   @endisset
 
