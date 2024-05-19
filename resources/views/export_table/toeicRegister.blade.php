@@ -71,7 +71,7 @@
         <td>{{$data->semester}}</td>
         <td>{{$data->email}}</td>
         <td>{{$data->phone_num}}</td>
-        <td>{{$data->created_at->format('Y-m-d')}}</td>
+        <td>{{date("d-m-Y", strtotime($data->created_at)) }}</td>
         <td>
           <a target="blank" href="{{url('storage/ktp/'.$data->ktp_img)}}">
             <p class="">{{$data->ktp_img}}</p>

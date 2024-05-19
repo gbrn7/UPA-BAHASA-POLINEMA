@@ -73,7 +73,7 @@
         <td>{{$data->address}}</td>
         <td>{{$data->goal}}</td>
         <td>{{$data->experience}}</td>
-        <td>{{$data->created_at->format('Y-m-d')}}</td>
+        <td>{{date("d-m-Y", strtotime($data->created_at)) }}</td>
         <td>
           <a target="blank" href="{{url('storage/ktp/'.$data->ktp_or_passport_img)}}">
             <p class="">{{$data->ktp_or_passport_img}}</p>
