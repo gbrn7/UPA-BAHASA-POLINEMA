@@ -45,7 +45,7 @@
           @isset($activeEvents)
           <a class="nav-link d-flex align-items-center" href="#announcement">@lang('client.navbar.announcement')</a>
           @endisset
-          <a class="nav-link d-flex align-items-center" href="#program">@lang('client.navbar.program')</a>
+          <a class="nav-link d-flex align-items-center" href="#">@lang('client.navbar.program')</a>
           <a class="nav-link d-flex align-items-center" href="#gallery">@lang('client.navbar.gallery')</a>
           <a class="nav-link d-flex align-items-center"
             href="{{route('client.structureOrganization')}}">@lang('client.navbar.structure')</a>
@@ -196,7 +196,7 @@
         <h3 class="title-content">@lang('client.program_section.title_content')</h3>
       </div>
       <div class="body-content program-section mt-4 row row-gap-2 justify-content-center">
-        <a href="#"
+        <div
           class="activity-wrapper course-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
           <div class="activity-wrap p-3 rounded-2 h-100">
             <div class="img-wrapper w-100">
@@ -212,8 +212,8 @@
                 @lang('client.program_section.program_content.course_program.content_desc')</div>
             </div>
           </div>
-        </a>
-        <a href="#program"
+        </div>
+        <div
           class="activity-wrapper translation-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
           <div class="activity-wrap p-3 rounded-2 h-100">
             <div class="img-wrapper w-100">
@@ -229,8 +229,8 @@
               </div>
             </div>
           </div>
-        </a>
-        <a href="#program"
+        </div>
+        <div
           class="activity-wrapper english-test-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
           <div class="activity-wrap p-3 rounded-2 h-100">
             <div class="img-wrapper w-100">
@@ -245,8 +245,8 @@
                 @lang('client.program_section.program_content.english-test-program.content_desc')</div>
             </div>
           </div>
-        </a>
-        <a href="#program"
+        </div>
+        <div
           class="activity-wrapper competence-development-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
           <div class="activity-wrap p-3 rounded-2 h-100">
             <div class="img-wrapper w-100">
@@ -261,8 +261,8 @@
                 @lang('client.program_section.program_content.competence-development-program.content_desc')</div>
             </div>
           </div>
-        </a>
-        <a href="#program"
+        </div>
+        <div
           class="activity-wrapper individual-consultant-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
           <div class="activity-wrap p-3 rounded-2 h-100">
             <div class="img-wrapper w-100">
@@ -277,8 +277,8 @@
                 @lang('client.program_section.program_content.individual-consultant-program.content_desc')</div>
             </div>
           </div>
-        </a>
-        <a href="#program"
+        </div>
+        <div
           class="activity-wrapper teaching-staff-training-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
           <div class="activity-wrap p-3 rounded-2 h-100">
             <div class="img-wrapper w-100">
@@ -293,7 +293,7 @@
                 @lang('client.program_section.program_content.teaching-staff-training-program.content_desc')</div>
             </div>
           </div>
-        </a>
+        </div>
       </div>
     </div>
   </section>
