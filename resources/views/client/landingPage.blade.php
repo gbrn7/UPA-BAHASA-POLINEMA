@@ -45,7 +45,7 @@
           @isset($activeEvents)
           <a class="nav-link d-flex align-items-center" href="#announcement">@lang('client.navbar.announcement')</a>
           @endisset
-          <a class="nav-link d-flex align-items-center" href="#">@lang('client.navbar.program')</a>
+          <a class="nav-link d-flex align-items-center" href="#program">@lang('client.navbar.program')</a>
           <a class="nav-link d-flex align-items-center" href="#gallery">@lang('client.navbar.gallery')</a>
           <a class="nav-link d-flex align-items-center"
             href="{{route('client.structureOrganization')}}">@lang('client.navbar.structure')</a>
