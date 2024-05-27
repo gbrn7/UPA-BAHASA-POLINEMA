@@ -23,6 +23,8 @@
       <div class="pass-wrapper">
         <input name="password" type="password" class="form-control text-black @error('password') is-invalid @enderror"
           id="password" placeholder="Masukan password" />
+        <i class="ri-eye-close-fill pass-icon eye-pass position-absolute"></i>
+
         @error('password')
         <div class="invalid-feedback">
           {{$message}}
@@ -36,3 +38,19 @@
   </div>
 </form>
 @endsection
+
+@push('js')
+<script>
+  $(document).ready(function () {
+  $('.loading-wrapper').addClass('d-none');
+  });
+
+  $('.pass-icon').click(function (e) { 
+    e.preventDefault();
+    $('.pass-icon').toggleClass('ri-eye-fill');
+    $('#password').prop("type") == 'password' ?  $('#password').attr('type', 'text') :  $('#password').attr('type', 'password'); 
+  });
+
+</script>
+
+@endpush
