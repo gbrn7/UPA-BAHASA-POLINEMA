@@ -10,7 +10,7 @@ use App\Models\CourseEventRegistrationModel;
 use App\Models\CourseEventScheduleModel;
 use App\Models\DepartementModel;
 use App\Models\ToeicTestEventModel;
-use App\Models\imageModel;
+use App\Models\Imagemodel;
 use App\Models\ProdyModel;
 use App\Models\ToeicTestRegistrationsModel;
 use App\Models\User;
@@ -30,7 +30,7 @@ class ClientController extends Controller
 
         $admin = User::first();
 
-        $gallery = imageModel::where('type', 'gallery')->orderBy('image_id', 'desc')->get();
+        $gallery = ImageModel::where('type', 'gallery')->orderBy('image_id', 'desc')->get();
 
         $programs = ContentModel::where('type', 'program')->orderBy('content_id', 'desc')->get();
 
@@ -97,8 +97,8 @@ class ClientController extends Controller
 
         $admin = User::first();
 
-        $image_toeic = imageModel::where('type', 'sop-toeic')->first();
-        $image_consult = imageModel::where('type', 'sop-consult')->first();
+        $image_toeic = ImageModel::where('type', 'sop-toeic')->first();
+        $image_consult = ImageModel::where('type', 'sop-consult')->first();
 
         $toeicEvent = ToeicTestEventModel::where('status', true)->get();
 
@@ -155,7 +155,7 @@ class ClientController extends Controller
 
         $admin = User::first();
 
-        $image = imageModel::where('type', 'structure_organization')->first();
+        $image = ImageModel::where('type', 'structure_organization')->first();
 
         $toeicEvent = ToeicTestEventModel::where('status', true)->get();
 
