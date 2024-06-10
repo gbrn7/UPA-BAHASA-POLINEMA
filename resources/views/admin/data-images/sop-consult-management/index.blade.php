@@ -43,7 +43,7 @@
       @if (isset($image))
       <td>
         <div class="img-wrapper">
-          <img src="{{ asset('storage/images/'.$image->file_name) }}" alt="ktp" class="img-fluid register-data-img">
+          <img src="{{ asset('assets/images/'.$image->file_name) }}" alt="ktp" class="img-fluid register-data-img">
         </div>
       </td>
       @else

@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             CourseEventSeeder::class,
             CourseEventScheduleSeeder::class,
             CourseEventRegistrationSeeder::class,
+            ImageSeeder::class,
             ContentSeeder::class,
         ]);
     }

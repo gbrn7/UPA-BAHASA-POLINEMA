@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\CourseRegistrationMail;
 use App\Mail\RegistrationMail;
+use App\Models\ContentModel;
 use App\Models\CourseEventModel;
 use App\Models\CourseEventRegistrationModel;
 use App\Models\CourseEventScheduleModel;
@@ -27,10 +28,11 @@ class ClientController extends Controller
     {
         if ($request->lang) App::setlocale($request->lang);
 
-
         $admin = User::first();
 
         $gallery = imageModel::where('type', 'gallery')->orderBy('image_id', 'desc')->get();
+
+        $programs = ContentModel::where('type', 'program')->orderBy('content_id', 'desc')->get();
 
         $toeicEvent = ToeicTestEventModel::where('status', true)->get();
 
@@ -78,7 +80,15 @@ class ClientController extends Controller
             }
         }
 
-        return view('client.landingPage', ['activeEvents' => (count($activeEvents) > 0 ? (object) $activeEvents : null), 'adminPhoneNum' => $admin->phone_num, 'gallery' => count($gallery) > 0 ? $gallery : null]);
+        return view(
+            'client.landingPage',
+            [
+                'activeEvents' => (count($activeEvents) > 0 ? (object) $activeEvents : null),
+                'adminPhoneNum' => $admin->phone_num,
+                'gallery' => count($gallery) > 0 ? $gallery : null,
+                'programs' => count($programs) > 0 ? $programs : null
+            ]
+        );
     }
 
     public function sop(Request $request)

@@ -189,6 +189,7 @@
   @endisset
 
   <!-- Our Program -->
+  @if ($programs)
   <section class="program mt-5" id="program">
     <div class="container">
       <div class="header-section text-center">
@@ -196,107 +197,28 @@
         <h3 class="title-content">@lang('client.program_section.title_content')</h3>
       </div>
       <div class="body-content program-section mt-4 row row-gap-2 justify-content-center">
+        @foreach ($programs as $program)
         <div
           class="activity-wrapper course-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
           <div class="activity-wrap p-3 rounded-2 h-100">
             <div class="img-wrapper w-100">
-              <img src={{asset('assets/images/nguyen-dang-hoang-nhu-6u1nVonp4fY-unsplash.jpg')}} alt=""
-                class="img-fluid rounded-3" />
+              <img src={{asset('assets/images/'.$program->image_name)}} alt="" class="img-fluid rounded-3" />
             </div>
             <div class="content-wrapper mt-2">
               <div class="content-title">
-                <p class="mb-2 text-center">@lang('client.program_section.program_content.course_program.content_title')
+                <p class="mb-2 text-center">{{App::getLocale() == 'id' ? $program->title_indo :
+                  $program->title_english}}
                 </p>
               </div>
-              <div class="content-desc text-center">
-                @lang('client.program_section.program_content.course_program.content_desc')</div>
+              <div class="content-desc text-center">{{App::getLocale() == 'id' ? $program->text_indo :
+                $program->text_english}}</div>
             </div>
           </div>
         </div>
-        <div
-          class="activity-wrapper translation-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
-          <div class="activity-wrap p-3 rounded-2 h-100">
-            <div class="img-wrapper w-100">
-              <img src={{asset('assets/images/competition.jpg')}} alt="" class="img-fluid rounded-3" />
-            </div>
-            <div class="content-wrapper mt-2">
-              <div class="content-title">
-                <p class="mb-2 text-center">
-                  @lang('client.program_section.program_content.translation_program.content_title')</p>
-              </div>
-              <div class="content-desc text-center">
-                @lang('client.program_section.program_content.translation_program.content_desc')
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="activity-wrapper english-test-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
-          <div class="activity-wrap p-3 rounded-2 h-100">
-            <div class="img-wrapper w-100">
-              <img src={{asset('assets/images/seminar.jpg')}} alt="" class="img-fluid rounded-3" />
-            </div>
-            <div class="content-wrapper mt-2">
-              <div class="content-title">
-                <p class="mb-2 text-center">
-                  @lang('client.program_section.program_content.english-test-program.content_title')</p>
-              </div>
-              <div class="content-desc text-center">
-                @lang('client.program_section.program_content.english-test-program.content_desc')</div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="activity-wrapper competence-development-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
-          <div class="activity-wrap p-3 rounded-2 h-100">
-            <div class="img-wrapper w-100">
-              <img src={{asset('assets/images/dharmamahasiswa.jpg')}} alt="" class="img-fluid rounded-3" />
-            </div>
-            <div class="content-wrapper mt-2">
-              <div class="content-title">
-                <p class="mb-2 text-center">
-                  @lang('client.program_section.program_content.competence-development-program.content_title')</p>
-              </div>
-              <div class="content-desc text-center">
-                @lang('client.program_section.program_content.competence-development-program.content_desc')</div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="activity-wrapper individual-consultant-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
-          <div class="activity-wrap p-3 rounded-2 h-100">
-            <div class="img-wrapper w-100">
-              <img src={{asset('assets/images/benchmark.jpg')}} alt="" class="img-fluid rounded-3" />
-            </div>
-            <div class="content-wrapper mt-2">
-              <div class="content-title">
-                <p class="mb-2 text-center">
-                  @lang('client.program_section.program_content.individual-consultant-program.content_title')</p>
-              </div>
-              <div class="content-desc text-center">
-                @lang('client.program_section.program_content.individual-consultant-program.content_desc')</div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="activity-wrapper teaching-staff-training-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
-          <div class="activity-wrap p-3 rounded-2 h-100">
-            <div class="img-wrapper w-100">
-              <img src={{asset('assets/images/interview.jpg')}} alt="" class="img-fluid rounded-3" />
-            </div>
-            <div class="content-wrapper mt-2">
-              <div class="content-title">
-                <p class="mb-2 text-center">
-                  @lang('client.program_section.program_content.teaching-staff-training-program.content_title')</p>
-              </div>
-              <div class="content-desc text-center">
-                @lang('client.program_section.program_content.teaching-staff-training-program.content_desc')</div>
-            </div>
-          </div>
-        </div>
+        @endforeach
       </div>
-    </div>
   </section>
+  @endif
 
   <!-- Our Gallery -->
   @if ($gallery)
@@ -311,7 +233,7 @@
           <div class="swiper-wrapper">
             @foreach ($gallery as $image)
             <div class="swiper-slide rounded-2">
-              <img src="{{asset('storage/images/'.$image->file_name)}}" alt="" class=" img-fluid rounded-2" />
+              <img src="{{asset('assets/images/'.$image->file_name)}}" alt="" class=" img-fluid rounded-2" />
             </div>
             @endforeach
           </div>
@@ -340,8 +262,8 @@
             </div>
           </div>
           <div class="icon mt-4">
-            <a class="bx bxl-instagram text-decoration-none fs-3 text-black"
-              href="https://www.instagram.com/upabahasa/"></a>
+            <a class="text-decoration-none fs-3 text-black" target="blank"
+              href="https://www.instagram.com/upabahasa/"><i class="bx bxl-instagram"></i></a>
           </div>
         </div>
         <div class="col-12 col-lg-3 two mt-2 mt-lg-0 ms-auto">

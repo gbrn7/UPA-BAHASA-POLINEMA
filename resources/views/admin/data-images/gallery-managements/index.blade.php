@@ -47,7 +47,7 @@
           <tr>
             <td>{{$loop->iteration }}</td>
             <td>{{$image->file_name }}</td>
-            <td><img src="{{asset('storage/images/'.$image->file_name)}}" alt="images" style="max-width: 300px"></td>
+            <td><img src="{{asset('assets/images/'.$image->file_name)}}" alt="images" style="max-width: 300px"></td>
             <td class="">
               <div class="btn-wrapper d-flex gap-2 flex-wrap">
                 <a href=# data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-title="Edit Gambar"

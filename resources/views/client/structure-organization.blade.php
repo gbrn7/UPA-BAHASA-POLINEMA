@@ -83,7 +83,7 @@
       @if (isset($image))
       <div class="body-section col-12 mt-1 d-flex flex-column justify-content-center align-items-center">
         <div class="structure-organization-image sop-img-first mt-4 col-12 d-flex justify-content-center">
-          <img src="{{asset('storage/images/'.$image->file_name)}}" class="img-fluid">
+          <img src="{{asset('assets/images/'.$image->file_name)}}" class="img-fluid">
         </div>
       </div>
       @endif

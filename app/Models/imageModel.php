@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class imageModel extends Model
+class ImageModel extends Model
 {
     use HasFactory, SoftDeletes;
 
@@ -18,6 +18,6 @@ class imageModel extends Model
         'type',
         'created_by',
         'updated_by',
-        'deleted_by',    
+        'deleted_by',
     ]);
 }

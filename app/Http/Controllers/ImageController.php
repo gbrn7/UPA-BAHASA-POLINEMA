@@ -95,8 +95,6 @@ class ImageController extends Controller
                 $imageName = Str::random(5) . $image->getClientOriginalName();
                 $image->storeAs('public/images', $imageName);
 
-                Storage::delete('public/images/' . $oldData->file_name);
-
                 $oldData->update([
                     'file_name' => $imageName,
                     'updated_by' => auth()->user()->user_id,

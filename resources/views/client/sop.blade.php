@@ -83,13 +83,13 @@
         <div class="sop-image sop-img-first mt-4 col-lg-9 col-12">
           <div class="title col-12 text-center fw-bold">@lang('client.sop_section.title_toeic')</div>
           @isset($image_toeic)
-          <img src="{{asset('storage/images/'.$image_toeic->file_name)}}" class="img-fluid mt-3">
+          <img src="{{asset('assets/images/'.$image_toeic->file_name)}}" class="img-fluid mt-3">
           @endisset
         </div>
         <div class="sop-image sop-img-second d-none mt-4 col-lg-9 col-12">
           @isset($image_consult)
           <div class="title col-12 text-center fw-bold">@lang('client.sop_section.title_consult')</div>
-          <img src="{{asset('storage/images/'.$image_consult->file_name)}}" class="img-fluid mt-3">
+          <img src="{{asset('assets/images/'.$image_consult->file_name)}}" class="img-fluid mt-3">
           @endisset
         </div>
       </div>
