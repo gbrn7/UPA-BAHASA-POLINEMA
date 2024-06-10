@@ -23,6 +23,15 @@ class ContentController extends Controller
         ]);
     }
 
+    public function contentProgram()
+    {
+        $contents = ContentModel::where('type', 'program')->get();
+
+        return view('admin.data-content.data-program-content.index', [
+            'contents' => $contents
+        ]);
+    }
+
     public function storeContent(Request $request)
     {
         $validator = Validator::make(

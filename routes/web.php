@@ -103,6 +103,8 @@ Route::group(['prefix' => 'admin'], function () {
 
       Route::get('/data-profile-content', [ContentController::class, 'contentProfile'])->name('admin.data.content.contentProfile');
 
+      Route::get('/data-program-content', [ContentController::class, 'contentProgram'])->name('admin.data.content.contentProgram');
+
       Route::post('/', [ContentController::class, 'storeContent'])->name('admin.data.content.store');
 
       Route::put('/', [ContentController::class, 'updateContent'])->name('admin.data.content.update');

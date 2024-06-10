@@ -95,13 +95,11 @@
           @csrf
           <div class="mb-3">
             <label class="form-label">Judul Bahasa Indonesia</label>
-            <input required type="text" id="titleEditIndo" name="title_indo" value="{{old('title_indo')}}"
-              class="form-control" />
+            <input required type="text" name="title_indo" value="{{old('title_indo')}}" class="form-control" />
           </div>
           <div class="mb-3">
             <label class="form-label">Judul Bahasa Inggris</label>
-            <input required type="text" id="titleEditEnglish" name="title_english" value="{{old('title_english')}}"
-              class="form-control" />
+            <input required type="text" name="title_english" value="{{old('title_english')}}" class="form-control" />
           </div>
           <div class="mb-3">
             <label class="form-label">Konten Teks Bahasa Indonesia</label>
@@ -109,7 +107,7 @@
           </div>
           <div class="mb-3">
             <label class="form-label">Konten Teks Bahasa Inggris</label>
-            <textarea name="text_english" required id="edit-text-english" class="form-control" rows="3"></textarea>
+            <textarea name="text_english" required class="form-control" rows="3"></textarea>
           </div>
           <div class="form-group mb-3">
             <label class="form-label">Gambar</label>

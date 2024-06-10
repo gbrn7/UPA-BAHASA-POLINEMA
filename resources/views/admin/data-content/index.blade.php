@@ -31,7 +31,7 @@
           </div>
         </div>
       </a>
-      <a href="" class=" card-dashboard
+      <a href="{{route('admin.data.content.contentProgram')}}" class=" card-dashboard
         text-decoration-none">
         <div class="card h-100">
           <div class="card-body  row justify-content-between align-items-center">

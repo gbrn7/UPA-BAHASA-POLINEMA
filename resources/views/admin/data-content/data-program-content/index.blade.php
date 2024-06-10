@@ -30,14 +30,15 @@
       </div>
       @endif
       <div data-bs-toggle="modal" data-bs-target="#addnew" class="btn btn-success"><i
-          class="ri-add-box-line me-2"></i>Tambah Konten</div>
+          class="ri-add-box-line me-2"></i>Tambah Konten Program</div>
     </div>
     <div class="table-wrapper mt-2 mb-2">
       <table id="example" class="table mt-3 table-hover table-borderless" style="width: 100%">
         <thead>
           <tr>
             <th class="text-secondary">No</th>
-            <th class="text-secondary">Nama Program</th>
+            <th class="text-secondary">Judul Program (Indo)</th>
+            <th class="text-secondary">Judul Program (Inggris)</th>
             <th class="text-secondary">Deskripsi Indonesia</th>
             <th class="text-secondary">Dekripsi Inggris</th>
             <th class="text-secondary">Gambar</th>
@@ -48,19 +49,22 @@
           @foreach ($contents as $content)
           <tr>
             <td>{{$loop->iteration }}</td>
-            <td>{{$content->title }}</td>
+            <td>{{$content->title_indo }}</td>
+            <td>{{$content->title_english }}</td>
             <td>{{$content->text_indo }}</td>
             <td>{{$content->text_english }}</td>
-            <td><img src="{{asset('storage/images/'.$content->image_name)}}" alt="images" style="max-width: 300px"></td>
+            <td><img src="{{asset('assets/images/'.$content->image_name)}}" alt="images" style="max-width: 300px"></td>
             <td class="">
               <div class="btn-wrapper d-flex gap-2 flex-wrap">
                 <a href=# data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-title="Edit Konten"
-                  class="btn edit btn-action btn-warning text-white" data-title="{{$content->title}}"
-                  data-text-indo="{{$content->text_indo}}" data-text-english="{{$content->text_english}}"
-                  data-id="{{$content->content_id}}"><i class="ri-edit-2-line"></i></a>
+                  class="btn edit btn-action btn-warning text-white" data-title-indo="{{$content->title_indo}}"
+                  data-title-english="{{$content->title_english}}" data-edit-text-indo="{{$content->text_indo}}"
+                  data-edit-text-english="{{$content->text_english}}" data-id="{{$content->content_id}}"><i
+                    class="ri-edit-2-line"></i></a>
                 <div class="delete cursor-pointer btn btn-action btn-danger
                   text-white" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
-                  data-bs-title="Hapus Konten" data-title="{{$content->title}}" data-id="{{$content->content_id}}">
+                  data-bs-title="Hapus Konten" data-content-title="{{$content->title_indo}}"
+                  data-id="{{$content->content_id}}">
                   <i class="ri-delete-bin-line"></i>
                 </div>
               </div>
@@ -82,23 +86,28 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="" id="addForm" method="POST" enctype="multipart/form-data">
+        <form action="{{route('admin.data.content.store', ['type' => 'program'])}}" id="addForm" method="POST"
+          enctype="multipart/form-data">
           @csrf
-          <input type="hidden" name="contentId" id="contentId">
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Judul</label>
-            <input required type="text" name="title" value="{{old('title')}}" class="form-control" />
+            <label class="form-label">Judul Bahasa Indonesia</label>
+            <input required type="text" name="title_indo" value="{{old('title_indo')}}" class="form-control" />
           </div>
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Konten Teks Bahasa Indonesia</label>
-            <textarea name="text_indo">{{old('text_indo')}}</textarea>
+            <label class="form-label">Judul Bahasa Inggris</label>
+            <input required type="text" name="title_english" value="{{old('title_english')}}" class="form-control" />
           </div>
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Konten Teks Bahasa Inggris</label>
-            <textarea name="text_english">{{old('text_english')}}</textarea>
+            <label class="form-label">Konten Teks Bahasa Indonesia</label>
+            <textarea name="text_indo" required class="form-control" rows="3"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Konten Teks Bahasa Inggris</label>
+            <textarea name="text_english" required class="form-control" rows="3"></textarea>
           </div>
           <div class="form-group mb-3">
-            <input required class="form-control" name="image" type="file" />
+            <label class="form-label">Gambar</label>
+            <input class="form-control" required name="image_name" type="file" />
           </div>
       </div>
       <div class="modal-footer">
@@ -119,24 +128,32 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action={{route('admin.data.image.edit')}} id="addForm" method="POST" enctype="multipart/form-data">
+        <form action={{route('admin.data.content.update', ['type'=> 'program'])}} id="addForm" method="POST"
+          enctype="multipart/form-data">
           @csrf
           @method('PUT')
-          <input type="hidden" name="contentId" id="contentId">
+          <input type="hidden" name="contentId" id="editContentId">
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Judul</label>
-            <input required type="text" id="titleEdit" name="title" value="{{old('title')}}" class="form-control" />
+            <label class="form-label">Judul Bahasa Indonesia</label>
+            <input required type="text" id="titleEditIndo" name="title_indo" value="{{old('title_indo')}}"
+              class="form-control" />
           </div>
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Konten Teks Bahasa Indonesia</label>
-            <textarea name="text_indo" id="edit-text-indo"></textarea>
+            <label class="form-label">Judul Bahasa Inggris</label>
+            <input required type="text" id="titleEditEnglish" name="title_english" value="{{old('title_english')}}"
+              class="form-control" />
           </div>
           <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Konten Teks Bahasa Inggris</label>
-            <textarea name="text_english" id="edit-text-english"></textarea>
+            <label class="form-label">Konten Teks Bahasa Indonesia</label>
+            <textarea name="text_indo" required class="form-control" rows="3" id="edit-text-indo"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Konten Teks Bahasa Inggris</label>
+            <textarea name="text_english" required id="edit-text-english" class="form-control" rows="3"></textarea>
           </div>
           <div class="form-group mb-3">
-            <input required class="form-control" name="image" type="file" />
+            <label class="form-label">Gambar</label>
+            <input class="form-control" name="image_name" type="file" />
           </div>
       </div>
       <div class="modal-footer">
@@ -157,12 +174,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h4 class="text-center">Apakah anda yakin mengapus Konten <span id="titleDelete"></span> ini?</h4>
+        <h4 class="text-center">Apakah anda yakin mengapus Konten program <span id="content-title"></span> ini?</h4>
       </div>
-      <form action={{route('admin.data.image.destroy')}} method="post">
+      <form action={{route('admin.data.content.destroy')}} method="post">
         @method('delete')
         @csrf
-        <input type="hidden" name="contentId" id="contentId">
+        <input type="hidden" name="contentId" id="deleteContentId">
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
           <button type="submit" id="deletecriteria" class="btn btn-danger">Hapus</button>
@@ -172,16 +189,17 @@
 </div>
 
 
+
 @push('js')
 <script type="text/javascript">
   $(document).ready(function(){
       $(document).on('click', '.delete', function(event){
           event.preventDefault();
           var id = $(this).data('id');
-          var title = $(this).data('title');
+          var contentTitle = $(this).data('content-title');
           $('#deletemodal').modal('show');
-          $('#contentId').val(id);
-          $('#titleDelete').html(title);
+          $('#deleteContentId').val(id);
+          $('#content-title').html(contentTitle);
       });  
 
   });   
@@ -189,14 +207,16 @@
   $(document).on('click', '.edit', function (event){
           event.preventDefault();
           var id = $(this).data('id');
-          var title = $(this).data('title');
+          var titleIndo = $(this).data('title-indo');
+          var titleEnglish = $(this).data('title-english');
           var textIndo = $(this).data('edit-text-indo');
           var textEnglish = $(this).data('edit-text-english');
           $('#editmodal').modal('show');
-          $('#titleEdit').val(title);
-          $('#edit-text-indo').val(textIndo);
-          $('#edit-text-english').val(textEnglish);
-          $('#contentId').val(id);
+          $('#titleEditIndo').val(titleIndo);
+          $('#titleEditEnglish').val(titleEnglish);
+          $('#edit-text-indo').html(textIndo);
+          $('#edit-text-english').html(textEnglish);
+          $('#editContentId').val(id);
       });
 </script>
 @endpush
