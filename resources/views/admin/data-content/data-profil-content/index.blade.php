@@ -69,7 +69,7 @@
       @if (isset($content))
       <td>
         <div class="img-wrapper">
-          <img src="{{ asset('assets/images/'.$content->image_name) }}" alt="profile"
+          <img src="{{ asset('storage/images/'.$content->image_name) }}" alt="profile"
             class="img-fluid register-data-img">
         </div>
       </td>

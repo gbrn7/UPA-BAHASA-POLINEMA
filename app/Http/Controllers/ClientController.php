@@ -32,7 +32,9 @@ class ClientController extends Controller
 
         $gallery = ImageModel::where('type', 'gallery')->orderBy('image_id', 'desc')->get();
 
-        $programs = ContentModel::where('type', 'program')->orderBy('content_id', 'desc')->get();
+        $programs = ContentModel::where('type', 'program')->get();
+
+        $profile = ContentModel::where('type', 'profile')->first();
 
         $toeicEvent = ToeicTestEventModel::where('status', true)->get();
 
@@ -86,7 +88,8 @@ class ClientController extends Controller
                 'activeEvents' => (count($activeEvents) > 0 ? (object) $activeEvents : null),
                 'adminPhoneNum' => $admin->phone_num,
                 'gallery' => count($gallery) > 0 ? $gallery : null,
-                'programs' => count($programs) > 0 ? $programs : null
+                'programs' => count($programs) > 0 ? $programs : null,
+                'profile' => isset($profile) ? $profile : null
             ]
         );
     }

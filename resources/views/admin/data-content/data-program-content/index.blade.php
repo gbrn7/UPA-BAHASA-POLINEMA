@@ -53,7 +53,7 @@
             <td>{{$content->title_english }}</td>
             <td>{{$content->text_indo }}</td>
             <td>{{$content->text_english }}</td>
-            <td><img src="{{asset('assets/images/'.$content->image_name)}}" alt="images" style="max-width: 300px"></td>
+            <td><img src="{{asset('storage/images/'.$content->image_name)}}" alt="images" style="max-width: 300px"></td>
             <td class="">
               <div class="btn-wrapper d-flex gap-2 flex-wrap">
                 <a href=# data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-title="Edit Konten"

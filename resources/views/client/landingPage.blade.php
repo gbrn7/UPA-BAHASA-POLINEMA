@@ -70,15 +70,15 @@
   </nav>
 
   <!-- Home -->
+  @if ($profile)
   <section class="home mt-5" id="home">
     <div class="container">
       <div class="row align-items-center">
         <div class="header-section col-12 col-lg-7 text-center text-lg-start">
           <h4 class="head-title fw-bold">
-            UPA BAHASA <br />
-            <span class="mt-1">@lang('client.home_section.head_title')</span>
+            {{App::getLocale() == 'id' ? $profile->title_indo : $profile->title_english}}
           </h4>
-          <div class="desc-content">@lang('client.home_section.desc_content')</div>
+          <div class="desc-content">{{App::getLocale() == 'id' ? $profile->text_indo : $profile->text_english}}</div>
         </div>
         <div class="col-12 col-lg-5 mt-3 mt-lg-0">
           <img src={{asset('assets/images/home-hero.png')}} alt="" class="img-fluid rounded-5" />
@@ -86,6 +86,7 @@
       </div>
     </div>
   </section>
+  @endif
 
   @isset($activeEvents)
   <!-- Announcement -->
@@ -202,7 +203,7 @@
           class="activity-wrapper course-program text-decoration-none text-black py-2 rounded-3 col-12 col-sm-6 col-lg-4">
           <div class="activity-wrap p-3 rounded-2 h-100">
             <div class="img-wrapper w-100">
-              <img src={{asset('assets/images/'.$program->image_name)}} alt="" class="img-fluid rounded-3" />
+              <img src={{asset('storage/images/'.$program->image_name)}} alt="" class="img-fluid rounded-3" />
             </div>
             <div class="content-wrapper mt-2">
               <div class="content-title">
@@ -233,7 +234,7 @@
           <div class="swiper-wrapper">
             @foreach ($gallery as $image)
             <div class="swiper-slide rounded-2">
-              <img src="{{asset('assets/images/'.$image->file_name)}}" alt="" class=" img-fluid rounded-2" />
+              <img src="{{asset('storage/images/'.$image->file_name)}}" alt="" class=" img-fluid rounded-2" />
             </div>
             @endforeach
           </div>

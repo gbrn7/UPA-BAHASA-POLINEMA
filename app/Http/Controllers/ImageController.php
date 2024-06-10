@@ -51,6 +51,7 @@ class ImageController extends Controller
             $imageName = Str::random(5) . $image->getClientOriginalName();
             $image->storeAs('public/images', $imageName);
 
+
             imageModel::create([
                 'file_name' => $imageName,
                 'type' => $request->type,
@@ -130,8 +131,6 @@ class ImageController extends Controller
             $image->delete([
                 'deleted_by' => auth()->user()->user_id
             ]);
-
-            Storage::delete('public/images/' . $image->file_name);
 
             return back()->with('toast_success', 'Berhasil menghapus gambar');
         } catch (\Throwable $th) {
