@@ -299,6 +299,7 @@
   </section>
 
   <!-- Our Gallery -->
+  @if ($gallery)
   <section class="gallery mt-5" id="gallery">
     <div class="container">
       <div class="header-section text-center">
@@ -306,27 +307,6 @@
         <h3 class="title-content">@lang('client.gallery_section.title_content')</h3>
       </div>
       <div class="body-content mt-4">
-        @empty($gallery)
-        <div class="swiper mySwiper container">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide rounded-2">
-              <img src={{asset('assets/images/img-1.jpg')}} alt="" class="img-fluid rounded-2" />
-            </div>
-            <div class="swiper-slide rounded-2">
-              <img src={{asset('assets/images/img-2.jpg')}} alt="" class="img-fluid rounded-2" />
-            </div>
-            <div class="swiper-slide rounded-2">
-              <img src={{asset('assets/images/img-3.jpg')}} alt="" class="img-fluid rounded-2" />
-            </div>
-            <div class="swiper-slide rounded-2">
-              <img src={{asset('assets/images/img-4.jpg')}} alt="" class="img-fluid rounded-2" />
-            </div>
-          </div>
-          <div class="swiper-button-next"></div>
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-pagination"></div>
-        </div>
-        @else
         <div class="swiper mySwiper container">
           <div class="swiper-wrapper">
             @foreach ($gallery as $image)
@@ -339,10 +319,10 @@
           <div class="swiper-button-prev"></div>
           <div class="swiper-pagination"></div>
         </div>
-        @endempty
       </div>
     </div>
   </section>
+  @endif
 
   <!-- Footer Start -->
   <footer class="mt-5 pt-3">

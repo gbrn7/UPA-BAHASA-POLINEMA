@@ -30,6 +30,11 @@
           class="text-decoration-none p-3 rounded rounded-2 d-flex align-items-baseline"><i
             class="ri-image-fill me-2"></i>Data Gambar</a>
       </li>
+      <li class="rounded {{Request::segment(2) === 'data-content' ? 'active' : ''}} rounded-2">
+        <a href={{route('admin.data.content')}}
+          class="text-decoration-none p-3 rounded rounded-2 d-flex align-items-baseline"><i
+            class="ri-pages-line me-2"></i>Data Konten</a>
+      </li>
       <li class="rounded {{Request::segment(2) === 'data-course' ? 'active' : ''}} rounded-2">
         <a href={{route('admin.data-course.index')}}
           class="text-decoration-none p-3 rounded rounded-2 d-flex align-items-baseline"><i

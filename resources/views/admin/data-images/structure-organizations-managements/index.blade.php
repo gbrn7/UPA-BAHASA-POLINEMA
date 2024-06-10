@@ -1,7 +1,7 @@
 @extends('admin.layouts.base')
 
 @section('content')
-<div class="title-box  d-flex gap-2 align-items-baseline"><i class="ri-calendar-event-line fs-2"></i>
+<div class="title-box  d-flex gap-2 align-items-baseline"><i class="ri-organization-chart fs-2"></i>
   <p class="fs-3 m-0">Data Gambar Struktur Organisasi</p>
 </div>
 <div class="breadcrumbs-box mt-2 rounded rounded-2 bg-white p-2">
@@ -10,6 +10,8 @@
     aria-label="breadcrumb">
     <ol class="breadcrumb mb-0">
       <li class="breadcrumb-item d-flex gap-2 align-items-center"><i class="ri-apps-line"></i>UPA Bahasa</li>
+      <li class="breadcrumb-item" aria-current="page"><a href="{{route('admin.data.image')}}"
+          class="text-decoration-none">Data Gambar</a></li>
       <li class="breadcrumb-item active" aria-current="page">Data Gambar Struktur Organisasi</li>
     </ol>
   </nav>

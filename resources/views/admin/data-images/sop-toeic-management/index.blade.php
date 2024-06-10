@@ -10,6 +10,8 @@
     aria-label="breadcrumb">
     <ol class="breadcrumb mb-0">
       <li class="breadcrumb-item d-flex gap-2 align-items-center"><i class="ri-apps-line"></i>UPA Bahasa</li>
+      <li class="breadcrumb-item" aria-current="page"><a href="{{route('admin.data.image')}}"
+          class="text-decoration-none">Data Gambar</a></li>
       <li class="breadcrumb-item active" aria-current="page">Data Gambar SOP TOEIC</li>
     </ol>
   </nav>

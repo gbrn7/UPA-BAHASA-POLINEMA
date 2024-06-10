@@ -10,7 +10,7 @@ return [
     "sop" => "SOP",
   ],
   "home_section" => [
-    "head_title" => "State Polytechnic of Malang",
+    "head_title" => "STATE POLYTECHNIC OF MALANG",
     "desc_content" => "UPA Bahasa is one of the work units at the Malang State Polytechnic, and, as such, is also responsible for supporting the vision, mission and goals of the Malang State Polytechnic. The various activities carried out by UPA Bahasa so far are activities that are mostly related to language.",
   ],
   "announcement_section" => [

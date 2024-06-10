@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ContentController;
 use App\Http\Controllers\CourseEventScheduleController;
 use App\Http\Controllers\CourseEventsController;
 use App\Http\Controllers\CourseRegisterController;
@@ -95,6 +96,18 @@ Route::group(['prefix' => 'admin'], function () {
       Route::get('/sop-toeic-management', [ImageController::class, 'sopToiecManagement'])->name('admin.data.image.sopToeicManagement');
 
       Route::get('/consult-management', [ImageController::class, 'sopConsultManagement'])->name('admin.data.image.sopConsultManagement');
+    });
+
+    Route::group(['prefix' => 'data-content'], function () {
+      Route::get('/', [ContentController::class, 'index'])->name('admin.data.content');
+
+      Route::get('/data-profile-content', [ContentController::class, 'contentProfile'])->name('admin.data.content.contentProfile');
+
+      Route::post('/', [ContentController::class, 'storeContent'])->name('admin.data.content.store');
+
+      Route::put('/', [ContentController::class, 'updateContent'])->name('admin.data.content.update');
+
+      Route::delete('/', [ContentController::class, 'deleteContent'])->name('admin.data.content.destroy');
     });
 
     Route::group(['prefix' => 'data-course-type'], function () {

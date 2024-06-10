@@ -24,92 +24,89 @@ class ImageController extends Controller
 
     public function storeImage(Request $request)
     {
-        $validator = Validator::make($request->all(), 
-        [
-            'image' => 'required|mimes:png,jpg,jpeg|max:2000'
-        ],
-        [
-            'image.required' => 'Masukkan gambar gallery',
-            'image.max' => 'Ukuran maksimal gambar adalah :max',
-            'mimes' => 'Extension file gambar harus bertipe :values',
-        ]
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'image' => 'required|mimes:png,jpg,jpeg|max:2000'
+            ],
+            [
+                'image.required' => 'Masukkan gambar gallery',
+                'image.max' => 'Ukuran maksimal gambar adalah :max',
+                'mimes' => 'Extension file gambar harus bertipe :values',
+            ]
         );
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return back()
-            ->with('toast_error', $validator->messages()->all());
+                ->with('toast_error', $validator->messages()->all());
         }
 
-        if(!$request->type)
-        {
+        if (!$request->type) {
             return back()
-            ->with('toast_error', 'Image Type params is required');
+                ->with('toast_error', 'Image Type params is required');
         }
 
         try {
             $image = $request->file('image');
-            $imageName = Str::random(5).$image->getClientOriginalName();
+            $imageName = Str::random(5) . $image->getClientOriginalName();
             $image->storeAs('public/images', $imageName);
-            
+
             imageModel::create([
                 'file_name' => $imageName,
                 'type' => $request->type,
                 'created_by' => auth()->user()->user_id,
             ]);
 
-        return redirect()->back()->with('toast_success', 'Berhasil menambahkan gambar galeri');
+            return redirect()->back()->with('toast_success', 'Berhasil menambahkan gambar galeri');
         } catch (\Throwable $th) {
-        return redirect()->back()->with('toast_error', $th->getMessage());  
+            return redirect()->back()->with('toast_error', $th->getMessage());
         }
-
     }
 
     public function updateImage(Request $request)
     {
-        $validator = Validator::make($request->all(), 
-        [
-            'image' => 'nullable|mimes:png,jpg,jpeg|max:2000',
-            'imageId' => 'required'
-        ],
-        [
-            'imageId.required' => 'Image id is required',
-            'image.max' => 'Ukuran maksimal gambar adalah :max',
-            'mimes' => 'Extension file gambar harus bertipe :values',
-        ]
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'image' => 'nullable|mimes:png,jpg,jpeg|max:2000',
+                'imageId' => 'required'
+            ],
+            [
+                'imageId.required' => 'Image id is required',
+                'image.max' => 'Ukuran maksimal gambar adalah :max',
+                'mimes' => 'Extension file gambar harus bertipe :values',
+            ]
         );
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return back()
-            ->with('toast_error', $validator->messages()->all());
+                ->with('toast_error', $validator->messages()->all());
         }
 
         $oldData = imageModel::find($request->imageId);
-        if(!$oldData)
-        {
+        if (!$oldData) {
             return back()
-            ->with('toast_error', 'Gambar tidak ditemukan');
+                ->with('toast_error', 'Gambar tidak ditemukan');
         }
 
         try {
-            if($request->file('image'))
-            {
+            if ($request->file('image')) {
                 $image = $request->file('image');
-                $imageName = Str::random(5).$image->getClientOriginalName();
+                $imageName = Str::random(5) . $image->getClientOriginalName();
                 $image->storeAs('public/images', $imageName);
 
-                Storage::delete('public/images/'.$oldData->file_name);
-                
+                Storage::delete('public/images/' . $oldData->file_name);
+
                 $oldData->update([
                     'file_name' => $imageName,
                     'updated_by' => auth()->user()->user_id,
                 ]);
             }
 
-        return redirect()->back()->with('toast_success', 'Berhasil memperbarui gambar galeri');
+            return redirect()->back()->with('toast_success', 'Berhasil memperbarui gambar galeri');
         } catch (\Throwable $th) {
-        return redirect()->back()->with('toast_error', $th->getMessage());  
+            return redirect()->back()->with('toast_error', $th->getMessage());
         }
-
     }
 
     public function deleteImage(Request $request)
@@ -124,9 +121,9 @@ class ImageController extends Controller
 
         $validator = Validator::make($request->all(), $validation, $messages);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return back()
-            ->with('toast_error', $validator->messages()->all());
+                ->with('toast_error', $validator->messages()->all());
         }
 
         try {
@@ -136,12 +133,12 @@ class ImageController extends Controller
                 'deleted_by' => auth()->user()->user_id
             ]);
 
+            Storage::delete('public/images/' . $image->file_name);
+
             return back()->with('toast_success', 'Berhasil menghapus gambar');
         } catch (\Throwable $th) {
             return back()->with('toast_warning', $th->getMessage());
-
         }
-
     }
 
     public function StructureOrganizationManagement()
