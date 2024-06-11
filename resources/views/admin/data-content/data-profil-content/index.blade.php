@@ -103,7 +103,7 @@
           </div>
           <div class="mb-3">
             <label class="form-label">Konten Teks Bahasa Indonesia</label>
-            <textarea name="text_indo" required class="form-control" rows="3" id="edit-text-indo"></textarea>
+            <textarea name="text_indo" required class="form-control" rows="3"></textarea>
           </div>
           <div class="mb-3">
             <label class="form-label">Konten Teks Bahasa Inggris</label>
