@@ -81,7 +81,7 @@
           <div class="desc-content">{{App::getLocale() == 'id' ? $profile->text_indo : $profile->text_english}}</div>
         </div>
         <div class="col-12 col-lg-5 mt-3 mt-lg-0">
-          <img src={{asset('assets/images/home-hero.png')}} alt="" class="img-fluid rounded-5" />
+          <img src={{asset('storage/images/'.$profile->image_name)}} alt="" class="img-fluid rounded-5" />
         </div>
       </div>
     </div>
