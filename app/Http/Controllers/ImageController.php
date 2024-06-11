@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\ImageModel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -17,7 +16,7 @@ class ImageController extends Controller
 
     public function galleryManagement()
     {
-        $images = imageModel::where('type', 'like', '%gallery%')->get();
+        $images = ImageModel::where('type', 'like', '%gallery%')->get();
 
         return view('admin.data-images.gallery-managements.index', ['images' => $images]);
     }
@@ -52,7 +51,7 @@ class ImageController extends Controller
             $image->storeAs('public/images', $imageName);
 
 
-            imageModel::create([
+            ImageModel::create([
                 'file_name' => $imageName,
                 'type' => $request->type,
                 'created_by' => auth()->user()->user_id,
@@ -84,7 +83,7 @@ class ImageController extends Controller
                 ->with('toast_error', $validator->messages()->all());
         }
 
-        $oldData = imageModel::find($request->imageId);
+        $oldData = ImageModel::find($request->imageId);
         if (!$oldData) {
             return back()
                 ->with('toast_error', 'Gambar tidak ditemukan');
@@ -126,7 +125,7 @@ class ImageController extends Controller
         }
 
         try {
-            $image = imageModel::find($request->imageId);
+            $image = ImageModel::find($request->imageId);
 
             $image->delete([
                 'deleted_by' => auth()->user()->user_id
@@ -140,21 +139,21 @@ class ImageController extends Controller
 
     public function StructureOrganizationManagement()
     {
-        $image = imageModel::where('type', 'like', '%structure_organization%')->first();
+        $image = ImageModel::where('type', 'like', '%structure_organization%')->first();
 
         return view('admin.data-images.structure-organizations-managements.index', ['image' => $image]);
     }
 
     public function sopToiecManagement()
     {
-        $image = imageModel::where('type', 'like', '%sop-toeic%')->first();
+        $image = ImageModel::where('type', 'like', '%sop-toeic%')->first();
 
         return view('admin.data-images.sop-toeic-management.index', ['image' => $image]);
     }
 
     public function sopConsultManagement()
     {
-        $image = imageModel::where('type', 'like', '%sop-consult%')->first();
+        $image = ImageModel::where('type', 'like', '%sop-consult%')->first();
 
         return view('admin.data-images.sop-consult-management.index', ['image' => $image]);
     }

@@ -10,7 +10,7 @@ use App\Models\CourseEventRegistrationModel;
 use App\Models\CourseEventScheduleModel;
 use App\Models\DepartementModel;
 use App\Models\ToeicTestEventModel;
-use App\Models\Imagemodel;
+use App\Models\ImageModel;
 use App\Models\ProdyModel;
 use App\Models\ToeicTestRegistrationsModel;
 use App\Models\User;
