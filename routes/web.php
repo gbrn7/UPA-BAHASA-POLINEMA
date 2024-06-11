@@ -25,14 +25,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', [ClientController::class, 'index'])->name('client');
-Route::get('/sop', [ClientController::class, 'sop'])->name('client.sop');
-Route::get('/structure-organization', [ClientController::class, 'structureOrganization'])->name('client.structureOrganization');
-Route::get('/english-test-form-register', [ClientController::class, 'englishTestFormView'])->name('client.english.test.form');
-Route::get('/language-course-form-register', [ClientController::class, 'languageCourseFormView'])->name('client.language.course.form');
-Route::get('/get-program-study', [ClientController::class, 'getProgramStudy'])->name('client.getProgramStudy');
-Route::post('/english-test-form-register', [ClientController::class, 'saveToeicTestRegistration'])->name('client.form.saveToeicTestRegistration');
-Route::post('/language-course-form-register', [ClientController::class, 'saveCourseEventRegistration'])->name('client.form.saveCourseEventRegistration');
+Route::group(['prefix' => 'user'], function () {
+  Route::get('/', [ClientController::class, 'index'])->name('client');
+  Route::get('/sop', [ClientController::class, 'sop'])->name('client.sop');
+  Route::get('/structure-organization', [ClientController::class, 'structureOrganization'])->name('client.structureOrganization');
+  Route::get('/english-test-form-register', [ClientController::class, 'englishTestFormView'])->name('client.english.test.form');
+  Route::get('/language-course-form-register', [ClientController::class, 'languageCourseFormView'])->name('client.language.course.form');
+  Route::get('/get-program-study', [ClientController::class, 'getProgramStudy'])->name('client.getProgramStudy');
+  Route::post('/english-test-form-register', [ClientController::class, 'saveToeicTestRegistration'])->name('client.form.saveToeicTestRegistration');
+  Route::post('/language-course-form-register', [ClientController::class, 'saveCourseEventRegistration'])->name('client.form.saveCourseEventRegistration');
+});
 
 Route::group(['prefix' => 'admin'], function () {
   Route::get('/sign-in', [AuthController::class, 'index'])->name('admin.signIn');
