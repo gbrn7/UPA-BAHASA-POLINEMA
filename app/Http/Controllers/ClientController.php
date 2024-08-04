@@ -36,7 +36,8 @@ class ClientController extends Controller
 
         $profile = ContentModel::where('type', 'profile')->first();
 
-        $toeicEvent = ToeicTestEventModel::where('status', true)->get();
+        $toeicEvent = ToeicTestEventModel::where('status', true)
+            ->get();
 
         $courseEvent = CourseEventModel::where('status', true)
             ->withCount([
@@ -57,12 +58,16 @@ class ClientController extends Controller
         $activeEvents = [];
 
         foreach ($toeicEvent as $key => $item) {
+            $registerStart = Carbon::parse($item->register_start);
             $registerEnd = Carbon::parse($item->register_end);
 
             if ($dateNow->greaterThan($registerEnd) || $item->remaining_quota <= 0) {
                 $item->update(['status' => false]);
             } else {
-                $activeToeicEvents->push($item);
+
+                if ($dateNow->between($registerStart, $registerEnd)) {
+                    $activeToeicEvents->push($item);
+                }
             }
         }
 
@@ -73,12 +78,17 @@ class ClientController extends Controller
         }
 
         if (isset($courseEvent)) {
+            $registerStart = Carbon::parse($courseEvent->register_start);
             $registerEnd = Carbon::parse($courseEvent->register_end);
 
             if ($dateNow->greaterThan($registerEnd)) {
                 $courseEvent->update(['status' => false]);
             } else {
-                $activeEvents['activeCourseEvent'] = $courseEvent->course_event_schedules_count ? $courseEvent : null;
+                if ($dateNow->between($registerStart, $registerEnd)) {
+                    $activeEvents['activeCourseEvent'] = $courseEvent->course_event_schedules_count ? $courseEvent : null;
+                } else {
+                    $activeEvents['activeCourseEvent'] = null;
+                }
             }
         }
 
