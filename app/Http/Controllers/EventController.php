@@ -62,8 +62,8 @@ class EventController extends Controller
             back()->with('toast_warning', $th->getMessage())->withInput();
         }
 
-        if ($execution->lessThan($registerStart)) {
-            return back()->with('toast_warning', 'Tanggal pelaksanaan tidak boleh kurang dari tanggal pendaftaran')->withInput();
+        if ($execution->lessThan($registerEnd)) {
+            return back()->with('toast_warning', 'Tanggal pelaksanaan harus lebih dari rentang tanggal pendaftaran')->withInput();
         }
 
         try {
@@ -121,8 +121,8 @@ class EventController extends Controller
             back()->with('toast_warning', $th->getMessage())->withInput();
         }
 
-        if ($execution->lessThan($registerStart)) {
-            return back()->with('toast_warning', 'Tanggal pelaksanaan tidak boleh kurang dari tanggal pendaftaran')->withInput();
+        if ($execution->lessThan($registerEnd)) {
+            return back()->with('toast_warning', 'Tanggal pelaksanaan harus lebih dari rentang tanggal pendaftaran')->withInput();
         }
 
         try {
