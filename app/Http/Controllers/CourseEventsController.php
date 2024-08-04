@@ -36,8 +36,18 @@ class CourseEventsController extends Controller
             'execution' => 'required',
         ]);
 
-        $registerStart = Carbon::parse(explode(' - ', $request->registration_range)[0])->startOfDay();
-        $registerEnd = Carbon::parse(explode(' - ', $request->registration_range)[1])->endOfDay();
+        try {
+            $registerStart = Carbon::parse(explode(' - ', $request->registration_range)[0])->startOfDay();
+            $registerEnd = Carbon::parse(explode(' - ', $request->registration_range)[1])->endOfDay();
+            $execution = Carbon::parse($request->execution);
+        } catch (\Throwable $th) {
+            back()->with('toast_warning', $th->getMessage())->withInput();
+        }
+
+        if ($execution->lessThan($registerStart)) {
+            return back()->with('toast_warning', 'Tanggal pelaksanaan tidak boleh kurang dari tanggal pendaftaran')->withInput();
+        }
+
 
         $newEvent = CourseEventModel::create([
             'register_start' => $registerStart,
@@ -68,8 +78,19 @@ class CourseEventsController extends Controller
 
         $oldEvent = CourseEventModel::find($request->edit_id);
 
-        $registerStart = Carbon::parse(explode(' - ', $request->registration_range)[0])->startOfDay();
-        $registerEnd = Carbon::parse(explode(' - ', $request->registration_range)[1])->endOfDay();
+        try {
+            $registerStart = Carbon::parse(explode(' - ', $request->registration_range)[0])->startOfDay();
+            $registerEnd = Carbon::parse(explode(' - ', $request->registration_range)[1])->endOfDay();
+            $execution = Carbon::parse($request->execution);
+        } catch (\Throwable $th) {
+            back()->with('toast_warning', $th->getMessage())->withInput();
+        }
+
+
+        if ($execution->lessThan($registerStart)) {
+            return back()->with('toast_warning', 'Tanggal pelaksanaan tidak boleh kurang dari tanggal pendaftaran')->withInput();
+        }
+
 
         $oldEvent->update([
             'register_start' => $registerStart,

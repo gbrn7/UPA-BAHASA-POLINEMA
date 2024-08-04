@@ -53,9 +53,18 @@ class EventController extends Controller
             'wa_group_link' => 'nullable',
         ]);
 
-        $registerStart = Carbon::parse(explode(' - ', $request->registration_range)[0])->startOfDay();
-        $registerEnd = Carbon::parse(explode(' - ', $request->registration_range)[1])->endOfDay();
-        $execution = Carbon::parse($request->execution);
+
+        try {
+            $registerStart = Carbon::parse(explode(' - ', $request->registration_range)[0])->startOfDay();
+            $registerEnd = Carbon::parse(explode(' - ', $request->registration_range)[1])->endOfDay();
+            $execution = Carbon::parse($request->execution);
+        } catch (\Throwable $th) {
+            back()->with('toast_warning', $th->getMessage())->withInput();
+        }
+
+        if ($execution->lessThan($registerStart)) {
+            return back()->with('toast_warning', 'Tanggal pelaksanaan tidak boleh kurang dari tanggal pendaftaran')->withInput();
+        }
 
         try {
             $newEvent = ToeicTestEventModel::create([
@@ -83,6 +92,7 @@ class EventController extends Controller
         $registerEnd = date('d-m-Y', strtotime($event->register_end));
         $execution = date('d-m-Y', strtotime($event->execution));
 
+
         return view('admin.data-event.edit-data-event', [
             'event' => $event,
             'registerStart' => $registerStart,
@@ -103,9 +113,17 @@ class EventController extends Controller
 
         $oldEvent = ToeicTestEventModel::where('toeic_test_events_id', $toeic_test_events_id)->first();
 
-        $registerStart = Carbon::parse(explode(' - ', $request->registration_range)[0])->startOfDay();
-        $registerEnd = Carbon::parse(explode(' - ', $request->registration_range)[1])->endOfDay();
-        $execution = Carbon::parse($request->execution);
+        try {
+            $registerStart = Carbon::parse(explode(' - ', $request->registration_range)[0])->startOfDay();
+            $registerEnd = Carbon::parse(explode(' - ', $request->registration_range)[1])->endOfDay();
+            $execution = Carbon::parse($request->execution);
+        } catch (\Throwable $th) {
+            back()->with('toast_warning', $th->getMessage())->withInput();
+        }
+
+        if ($execution->lessThan($registerStart)) {
+            return back()->with('toast_warning', 'Tanggal pelaksanaan tidak boleh kurang dari tanggal pendaftaran')->withInput();
+        }
 
         try {
             $oldEvent->update([
