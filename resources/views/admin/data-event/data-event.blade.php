@@ -57,7 +57,12 @@
             <td>{{$event->quota }}</td>
             <td>{{(($event->quota) - ($event->remaining_quota))}}</td>
             <td>{{$event->remaining_quota <= 0 ? 0 : $event->remaining_quota}}</td>
-            <td class="text-capitalize">{{$event->status == 1 ? 'Aktif' : 'Non-Aktif'}}</td>
+            <td class="text-capitalize">
+              <span @class([ 'p-2' , 'badge' , 'text-bg-secondary'=>
+                !$event->status,
+                'text-bg-success' => $event->status,
+                ])>{{$event->status == 1 ? 'Aktif' : 'Non-Aktif'}}</span>
+            </td>
             <td class="">
               <div class="btn-wrapper d-flex gap-2 flex-wrap">
                 <a href={{route('admin.data.editEvent', $event->toeic_test_events_id)}} data-bs-toggle="tooltip"

@@ -49,7 +49,11 @@
             <td>{{date("d-m-Y", strtotime($course->register_start)) }}</td>
             <td>{{date("d-m-Y", strtotime($course->register_end)) }}</td>
             <td>{{date("d-m-Y", strtotime($course->execution)) }}</td>
-            <td class="text-capitalize">{{$course->status == 1 ? 'Aktif' : 'Non-Aktif'}}</td>
+            <td class="text-capitalize"><span @class([ 'p-2' , 'badge' , 'text-bg-secondary'=>
+                !$course->status,
+                'text-bg-success' => $course->status,
+                ])>{{$course->status == 1 ? 'Aktif' :
+                'Non-Aktif'}}</span></td>
             <td class="">
               <div class="btn-wrapper d-flex gap-2 flex-wrap">
                 <a href=# data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip" data-bs-title="Edit Batch"
