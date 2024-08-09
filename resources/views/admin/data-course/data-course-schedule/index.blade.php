@@ -63,7 +63,11 @@
             <td>{{$schedule->remaining_quota <= 0 ? 0 : $schedule->remaining_quota}}</td>
             <td>{{$schedule->day_name }}</td>
             <td>{{date("H:i", strtotime($schedule->time_start))}} - {{date("H:i", strtotime($schedule->time_end))}}</td>
-            <td class="text-capitalize">{{$schedule->status == 1 ? 'Aktif' : 'Non-Aktif'}}</td>
+            <td class="text-capitalize"><span @class([ 'p-2' , 'badge' , 'text-bg-secondary'=>
+                !$schedule->status,
+                'text-bg-success' => $schedule->status,
+                ])>{{$schedule->status == 1 ? 'Aktif' :
+                'Non-Aktif'}}</span></td>
             <td class="">
               <div class="btn-wrapper d-flex gap-2 flex-wrap">
                 <a href="{{route('admin.data-course.data-schedule.edit', [$schedule->course_events_id, $schedule->course_event_schedule_id])}}"
