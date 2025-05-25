@@ -1,7 +1,2 @@
-# *
-images
-ktm
-ktp
-pasFoto
-surat_pernyataan_iisma
-# !.gitignore
+*
+!.gitignore
