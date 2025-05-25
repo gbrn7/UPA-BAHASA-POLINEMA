@@ -23,12 +23,12 @@ class ToeicTestRegistrationSeeder extends Seeder
             'semester' => '4',
             'email' => '2141762099@gmail.com',
             'phone_num' => '082132679938',
-            'ktp_img' => 'ktp_2_gibran.png',
-            'ktm_img' => 'ktm_2_gibran.png',
-            'surat_pernyataan_iisma' => 'iisma_2_gibran.png',
-            'pasFoto_img' => 'pasFoto_2_gibran.png',
+            'ktp_img' => 'default.png',
+            'ktm_img' => 'default.png',
+            'surat_pernyataan_iisma' => 'default.pdf',
+            'pasFoto_img' => 'default.png',
             'created_at' => now(),
             'updated_at' => now(),
-        ]); 
+        ]);
     }
 }
