@@ -14,11 +14,11 @@ class ToeicTestEventsSeeder extends Seeder
     public function run(): void
     {
         DB::table('r_toeic_test_events')->insert([
-            'register_start' => Carbon::parse('2024-04-01')->startOfDay(),
-            'register_end' => Carbon::parse('2024-04-12')->endOfDay(), 
-            'execution' => Carbon::parse('2024-04-30'), 
-            'quota' => 120, 
-            'remaining_quota' => 100, 
+            'register_start' => now()->startOfDay(),
+            'register_end' => now()->addMonth(1)->endOfDay(),
+            'execution' => now()->addDay(40),
+            'quota' => 120,
+            'remaining_quota' => 119,
             'wa_group_link' => 'https://chat.whatsapp.com/LcO3slKxMsmC62XdXPMm5n',
             'status' => 1,
             'created_at' => now(),
