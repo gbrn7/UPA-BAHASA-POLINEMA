@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
                     'password'          => $mailsetting->mail_password,
                     'from'              => [
                         'address' => $mailsetting->mail_from,
-                        'name'   => 'LaravelStarter'
+                        'name'   => env('APP_NAME')
                     ]
                 ];
                 Config::set('mail', $data);
