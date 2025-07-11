@@ -49,10 +49,9 @@
         <select name="course_type_id" required class="form-select">
           <option value="">Pilih Tipe Kursus</option>
           @foreach ($courseTypes as $courseType)
-          <option value="{{$courseType->course_type_id}}" {{$courseScheduleEvent->
-            course_type_id===$courseType->course_type_id
-            ?
-            'selected':''}}>
+          <option value="{{$courseType->course_type_id}}" {{ $courseScheduleEvent->
+            course_type_id==$courseType->course_type_id?'selected':''}}
+            >
             {{$courseType->name}}
           </option>
           @endforeach
