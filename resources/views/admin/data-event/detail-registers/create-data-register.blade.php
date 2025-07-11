@@ -72,8 +72,13 @@
         <label for="exampleFormControlInput1" class="form-label">Semester</label>
         <select required name="semester" class="form-select" aria-label="Default select example">
           <option value="">Pilih Semester</option>
+          <option value="1" {{old('semester')==='1' ? ' selected' : '' }}>1</option>
+          <option value="2" {{old('semester')==='2' ? ' selected' : '' }}>2</option>
+          <option value="3" {{old('semester')==='3' ? ' selected' : '' }}>3</option>
           <option value="4" {{old('semester')==='4' ? ' selected' : '' }}>4</option>
+          <option value="5" {{old('semester')==='5' ? ' selected' : '' }}>5</option>
           <option value="6" {{old('semester')==='6' ? ' selected' : '' }}>6</option>
+          <option value="7" {{old('semester')==='7' ? ' selected' : '' }}>7</option>
           <option value="8" {{old('semester')==='8' ? ' selected' : '' }}>8</option>
         </select>
       </div>
