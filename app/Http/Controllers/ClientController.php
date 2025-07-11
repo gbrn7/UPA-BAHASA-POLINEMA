@@ -328,7 +328,7 @@ class ClientController extends Controller
                 ->withErrors($validator->messages()->all());
         }
 
-        $activeEvent = ToeicTestEventModel::find($request->toeic_test_events_id);
+        $activeEvent = ToeicTestEventModel::where('status', true)->where('toeic_test_events_id', $request->toeic_test_events_id)->first();
 
         if (!isset($activeEvent)) return redirect()->route('client')->with('toast_warning', 'Event tidak ditemukan');
 
@@ -429,7 +429,7 @@ class ClientController extends Controller
                 ->withErrors($validator->messages()->all());
         }
 
-        $schedule = CourseEventScheduleModel::find($request->course);
+        $schedule = CourseEventScheduleModel::where('status', true)->where('course_event_schedule_id', $request->course)->first();
 
         if (!isset($schedule)) return back()->with('toast_warning', 'Jadwal tidak ditemukan')->withInput();
 

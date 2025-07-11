@@ -18,7 +18,7 @@ class CourseEventSeeder extends Seeder
             'register_start' => now()->startOfDay(),
             'register_end' => now()->addMonth(1)->endOfDay(),
             'execution' => now()->addDay(40),
-            'status' => 1,
+            'status' => 0,
             'created_at' => now(),
             'updated_at' => now(),
             'created_by' => 1,

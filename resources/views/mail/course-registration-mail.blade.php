@@ -341,7 +341,8 @@
                     {{$data->schedule->day_name}} pada jam {{date("H:i",
                     strtotime($data->schedule->time_start))}} - {{date("H:i",
                     strtotime($data->schedule->time_end))}}
-                    UPA BAHASA POLINEMA atas nama {{$data->name}} telah berhasil. Terima kasih.
+                    UPA BAHASA POLINEMA atas nama {{$data->name}} telah berhasil. Terima kasih. Silahkan kontak pihak
+                    UPA BAHASA POLINEMA
                   </p>
                 </div>
                 <p style="color: black">UPA BAHASA POLINEMA</p>

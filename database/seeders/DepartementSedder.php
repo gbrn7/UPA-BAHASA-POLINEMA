@@ -13,27 +13,14 @@ class DepartementSedder extends Seeder
      */
     public function run(): void
     {
-        DB::table('m_departement')->insert([
+        DB::table('m_departement')->insert(
             [
-                'name' => 'Teknik Elektro',
-                'created_by' => 1,
-                'updated_by' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-                ],
                 [
-                'name' => 'Teknik Mesin',
-                'created_by' => 1,
-                'updated_by' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
-                ],
-                [
-                'name' => 'Teknologi Informasi',
-                'created_by' => 1,
-                'updated_by' => 1,
-                'created_at' => now(),
-                'updated_at' => now(),
+                    'name' => 'Teknologi Informasi',
+                    'created_by' => 1,
+                    'updated_by' => 1,
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ],
             ]
         );

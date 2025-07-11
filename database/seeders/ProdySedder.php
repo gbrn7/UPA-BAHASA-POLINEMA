@@ -16,7 +16,7 @@ class ProdySedder extends Seeder
         DB::table('m_prody')->insert([
             [
                 'name' => 'D4 Teknik Informatika',
-                'departement_id' => '3',
+                'departement_id' => '1',
                 'created_by' => 1,
                 'updated_by' => 1,
                 'created_at' => now(),
@@ -24,12 +24,12 @@ class ProdySedder extends Seeder
             ],
             [
                 'name' => 'D4 Sistem Informasi Bisnis',
-                'departement_id' => '3',
+                'departement_id' => '1',
                 'created_by' => 1,
                 'updated_by' => 1,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
-        ]);    
+        ]);
     }
 }

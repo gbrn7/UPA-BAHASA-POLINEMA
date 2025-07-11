@@ -11,6 +11,7 @@ use App\Http\Controllers\CourseTypeController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\MailSettingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,6 +44,9 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::get('/edit-profile', [AdminController::class, 'editProfile'])->name('admin.editProfile');
     Route::put('/edit-profile', [AdminController::class, 'updateProfile'])->name('admin.updateProfile');
+
+    Route::get('/edit-email-notif-setting', [MailSettingController::class, 'index'])->name('admin.edit.email.notif.setting');
+    Route::put('/edit-email-notif-setting/{id}', [MailSettingController::class, 'update'])->name('admin.update.email.notif');
 
     Route::group(['prefix' => 'data-events'], function () {
       Route::group(['prefix' => 'detail-registers'], function () {

@@ -101,6 +101,21 @@
           </div>
         </div>
       </a>
+      <a href={{route('admin.edit.email.notif.setting')}} class="card-dashboard text-decoration-none">
+        <div class="card h-100">
+          <div class="card-body row justify-content-between align-items-center">
+            <div class="card-body-content col-9">
+              <h3 class="card-title">Email Notif</h3>
+              <p class="card-text text-secondary fw-normal">Fitur ini digunakan untuk mengolah data email untuk
+                notifikasi
+              </p>
+            </div>
+            <div class="col-2 col-sm-3 d-flex justify-content-center img-menu">
+              <i class="ri-mail-line"></i>
+            </div>
+          </div>
+        </div>
+      </a>
     </div>
   </div>
 </div>
