@@ -209,7 +209,7 @@ class EventController extends Controller
             'phone_num' => 'required|string',
             'ktp_img' => 'required|mimes:png,jpg,jpeg|max:1024',
             'ktm_img' => 'required|mimes:png,jpg,jpeg|max:1024',
-            'surat_pernyataan_iisma' => 'required|mimes:pdf|extensions:pdf|max:5120',
+            'surat_pernyataan_iisma' => 'nullable|mimes:pdf|extensions:pdf|max:5120',
             'pasFoto_img' => 'required|mimes:png,jpg,jpeg|max:1024',
         ];
 
@@ -276,10 +276,12 @@ class EventController extends Controller
             $newRegistration['ktm_img'] = $imageName;
 
             //Surat Pernyataan IISMA rename file
-            $srtPrytnis = $request->surat_pernyataan_iisma;
-            $imageName = $event->toeic_test_events_id . '_' . Str::random(5) . '.' . $srtPrytnis->getClientOriginalExtension();
-            $srtPrytnis->storeAs('public/surat_pernyataan_iisma', $imageName);
-            $newRegistration['surat_pernyataan_iisma'] = $imageName;
+            if (isset($request->surat_pernyataan_iisma)) {
+                $srtPrytnis = $request->surat_pernyataan_iisma;
+                $imageName = $event->toeic_test_events_id . '_' . Str::random(5) . '.' . $srtPrytnis->getClientOriginalExtension();
+                $srtPrytnis->storeAs('public/surat_pernyataan_iisma', $imageName);
+                $newRegistration['surat_pernyataan_iisma'] = $imageName;
+            }
 
             //Pas Foto IISMA rename file
             $pasFoto = $request->pasFoto_img;

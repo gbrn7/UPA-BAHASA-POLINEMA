@@ -55,7 +55,6 @@
         <th><strong>Tanggal Daftar</strong></th>
         <th><strong>Foto KTP</strong></th>
         <th><strong>Foto KTM</strong></th>
-        <th><strong>Surat Pernyataan Nominasi IISMA</strong></th>
         <th><strong>Pas Foto</strong></th>
       </tr>
     </thead>
@@ -80,12 +79,6 @@
         <td>
           <a target="blank" href="{{url('storage/ktm/'.$data->ktm_img)}}">
             <p class="">{{$data->ktm_img}}</p>
-          </a>
-        </td>
-        <td>
-          <a class="text-decoration-none" target="blank"
-            href="{{url('storage/surat_pernyataan_iisma/'.$data->surat_pernyataan_iisma)}}">
-            <p class="">{{$data->surat_pernyataan_iisma}}</p>
           </a>
         </td>
         <td>

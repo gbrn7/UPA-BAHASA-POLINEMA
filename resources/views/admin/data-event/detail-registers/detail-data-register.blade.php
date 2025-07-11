@@ -84,7 +84,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    {{-- <tr>
       <th>Surat Pernyataan Nominasi IISMA :</th>
       <td>
         <a class="text-decoration-none" target="blank"
@@ -92,7 +92,7 @@
           <p class=" btn btn-danger ms-2">PDF</p>
         </a>
       </td>
-    </tr>
+    </tr> --}}
     <tr>
       <th>Pas Foto :</th>
       <td>

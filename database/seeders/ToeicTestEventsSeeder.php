@@ -20,7 +20,7 @@ class ToeicTestEventsSeeder extends Seeder
             'quota' => 120,
             'remaining_quota' => 119,
             'wa_group_link' => 'https://chat.whatsapp.com/LcO3slKxMsmC62XdXPMm5n',
-            'status' => 1,
+            'status' => 0,
             'created_at' => now(),
             'updated_at' => now(),
             'created_by' => 1,

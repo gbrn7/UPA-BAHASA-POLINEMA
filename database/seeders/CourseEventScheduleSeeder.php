@@ -21,11 +21,11 @@ class CourseEventScheduleSeeder extends Seeder
             'day_name' => 'Senin',
             'time_start' => '15:30:00',
             'time_end' => '16:30:00',
-            'status' => 1,
+            'status' => 0,
             'created_at' => now(),
             'updated_at' => now(),
             'created_by' => 1,
-            'updated_by' => 1,        
+            'updated_by' => 1,
         ]);
     }
 }
