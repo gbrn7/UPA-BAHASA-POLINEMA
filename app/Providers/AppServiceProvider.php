@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (Schema::hasTable('nama_tabel')) {
+        if (Schema::hasTable('mail_setting')) {
             $mailsetting = MailSetting::first();
             if ($mailsetting) {
                 $data = [
