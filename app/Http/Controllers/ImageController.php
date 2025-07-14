@@ -47,7 +47,7 @@ class ImageController extends Controller
 
         try {
             $image = $request->file('image');
-            $imageName = Str::random(5) . $image->getClientOriginalName();
+            $imageName = Str::random(12) . $image->getClientOriginalName();
             $image->storeAs('public/images', $imageName);
 
 
@@ -92,7 +92,7 @@ class ImageController extends Controller
         try {
             if ($request->file('image')) {
                 $image = $request->file('image');
-                $imageName = Str::random(5) . $image->getClientOriginalName();
+                $imageName = Str::random(12) . $image->getClientOriginalName();
                 $image->storeAs('public/images', $imageName);
 
                 $oldData->update([

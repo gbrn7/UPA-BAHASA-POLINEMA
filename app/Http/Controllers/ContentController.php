@@ -57,7 +57,7 @@ class ContentController extends Controller
 
             if ($request->image_name) {
                 $image = $request->file('image_name');
-                $imageName = Str::random(5) . $image->getClientOriginalName();
+                $imageName = Str::random(12) . $image->getClientOriginalName();
                 $image->storeAs('public/images/', $imageName);
                 $newData['image_name'] = $imageName;
             }
@@ -102,7 +102,7 @@ class ContentController extends Controller
         try {
             if ($request->image_name) {
                 $image = $request->file('image_name');
-                $imageName = Str::random(5) . $image->getClientOriginalName();
+                $imageName = Str::random(12) . $image->getClientOriginalName();
                 $image->storeAs('public/images/', $imageName);
                 $newData['image_name'] = $imageName;
             }

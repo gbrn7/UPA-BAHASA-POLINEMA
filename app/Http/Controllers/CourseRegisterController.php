@@ -96,7 +96,7 @@ class CourseRegisterController extends Controller
 
             //Ktp rename file
             $ktpOrPassport = $request->ktp_or_passport_img;
-            $imageName = $schedule->course_event_schedule_id . '_cer_' . Str::random(5) . '.' . $ktpOrPassport->getClientOriginalExtension();
+            $imageName = $schedule->course_event_schedule_id . '_cer_' . Str::random(12) . '.' . $ktpOrPassport->getClientOriginalExtension();
             $ktpOrPassport->storeAs('public/ktp', $imageName);
             $newRegistration['ktp_or_passport_img'] = $imageName;
 
@@ -196,7 +196,7 @@ class CourseRegisterController extends Controller
             if ($request->ktp_or_passport_img) {
                 //Ktp rename file
                 $ktpOrPassport = $request->ktp_or_passport_img;
-                $imageName = $schedule->course_event_schedule_id . '_cer_' . Str::random(5) . '.' . $ktpOrPassport->getClientOriginalExtension();
+                $imageName = $schedule->course_event_schedule_id . '_cer_' . Str::random(12) . '.' . $ktpOrPassport->getClientOriginalExtension();
                 $ktpOrPassport->storeAs('public/ktp', $imageName);
                 $newData['ktp_or_passport_img'] = $imageName;
 

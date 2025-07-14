@@ -350,27 +350,27 @@ class ClientController extends Controller
             DB::beginTransaction();
             //Ktp rename file
             $ktp = $request->ktp_img;
-            $imageName = $activeEvent->toeic_test_events_id . '_' . Str::random(5) . '.' . $ktp->getClientOriginalExtension();
+            $imageName = $activeEvent->toeic_test_events_id . '_' . Str::random(12) . '.' . $ktp->getClientOriginalExtension();
             $ktp->storeAs('public/ktp', $imageName);
             $newRegistration['ktp_img'] = $imageName;
 
             //Ktm rename file
             $ktm = $request->ktm_img;
-            $imageName = $activeEvent->toeic_test_events_id . '_' . Str::random(5) . '.' . $ktm->getClientOriginalExtension();
+            $imageName = $activeEvent->toeic_test_events_id . '_' . Str::random(12) . '.' . $ktm->getClientOriginalExtension();
             $ktm->storeAs('public/ktm', $imageName);
             $newRegistration['ktm_img'] = $imageName;
 
             //Surat Pernyataan IISMA rename file
             if (isset($request->surat_pernyataan_iisma)) {
                 $srtPrytnis = $request->surat_pernyataan_iisma;
-                $imageName = $activeEvent->toeic_test_events_id . '_' . Str::random(5) . '.' . $srtPrytnis->getClientOriginalExtension();
+                $imageName = $activeEvent->toeic_test_events_id . '_' . Str::random(12) . '.' . $srtPrytnis->getClientOriginalExtension();
                 $srtPrytnis->storeAs('public/surat_pernyataan_iisma', $imageName);
                 $newRegistration['surat_pernyataan_iisma'] = $imageName;
             }
 
             //Pas Foto rename file
             $pasFoto = $request->pasFoto_img;
-            $imageName = $activeEvent->toeic_test_events_id . '_' . Str::random(5) . '.' . $pasFoto->getClientOriginalExtension();
+            $imageName = $activeEvent->toeic_test_events_id . '_' . Str::random(12) . '.' . $pasFoto->getClientOriginalExtension();
             $pasFoto->storeAs('public/pasFoto', $imageName);
             $newRegistration['pasFoto_img'] = $imageName;
 
@@ -458,7 +458,7 @@ class ClientController extends Controller
 
             //Ktp rename file
             $ktpOrPassport = $request->ktp_or_passport_img;
-            $imageName = $schedule->course_event_schedule_id . '_cer_' . Str::random(5) . '.' . $ktpOrPassport->getClientOriginalExtension();
+            $imageName = $schedule->course_event_schedule_id . '_cer_' . Str::random(12) . '.' . $ktpOrPassport->getClientOriginalExtension();
             $ktpOrPassport->storeAs('public/ktp', $imageName);
             $newRegistration['ktp_or_passport_img'] = $imageName;
 
