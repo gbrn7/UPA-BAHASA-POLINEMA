@@ -114,7 +114,7 @@
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">@lang('form.student_id.label')</label>
               <input required name="nim" type="Text" class="form-control"
-                placeholder=@lang('form.student_id.placeholder') value="{{old('nik')}}" />
+                placeholder=@lang('form.student_id.placeholder') value="{{old('nim')}}" />
             </div>
             <div class="mb-3">
               <label for="exampleFormControlInput1" class="form-label">@lang('form.identity_id.label')</label>
