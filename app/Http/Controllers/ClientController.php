@@ -348,10 +348,6 @@ class ClientController extends Controller
 
         try {
             DB::beginTransaction();
-
-            $activeEvent->update([
-                'remaining_quota' => ($activeEvent->remaining_quota - 1),
-            ]);
             //Ktp rename file
             $ktp = $request->ktp_img;
             $imageName = $activeEvent->toeic_test_events_id . '_' . Str::random(5) . '.' . $ktp->getClientOriginalExtension();
@@ -379,6 +375,10 @@ class ClientController extends Controller
             $newRegistration['pasFoto_img'] = $imageName;
 
             $newRegistration = ToeicTestRegistrationsModel::create($newRegistration);
+
+            $activeEvent->update([
+                'remaining_quota' => ($activeEvent->remaining_quota - 1),
+            ]);
 
             DB::commit();
 
