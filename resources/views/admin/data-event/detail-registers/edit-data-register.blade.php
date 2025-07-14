@@ -115,11 +115,6 @@
         <input class="form-control" type="file" id="formFile" name="ktm_img" value={{$register->ktm_img}}>
       </div>
       <div class="mb-3">
-        <label for="formFile" class="form-label">Surat Pernyataan Nominasi IISMA (dari KPS) Baru</label>
-        <input class="form-control" type="file" id="formFile" name="surat_pernyataan_iisma"
-          value={{$register->surat_pernyataan_iisma}}>
-      </div>
-      <div class="mb-3">
         <label for="formFile" class="form-label">Pas Foto Baru</label>
         <input class="form-control" type="file" id="formFile" name="pasFoto_img" value={{$register->pasFoto_img}}>
       </div>

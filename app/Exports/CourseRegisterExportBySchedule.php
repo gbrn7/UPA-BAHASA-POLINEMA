@@ -5,8 +5,10 @@ namespace App\Exports;
 use App\Models\CourseEventRegistrationModel;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
+use PhpOffice\PhpSpreadsheet\Cell\StringValueBinder;
 
-class CourseRegisterExportBySchedule implements FromView
+class CourseRegisterExportBySchedule extends StringValueBinder implements FromView, WithCustomValueBinder
 {
 
     public $courseEventId;

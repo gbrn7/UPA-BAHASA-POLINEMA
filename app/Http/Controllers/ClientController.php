@@ -328,7 +328,7 @@ class ClientController extends Controller
                 ->withErrors($validator->messages()->all());
         }
 
-        $activeEvent = ToeicTestEventModel::where('status', true)->where('toeic_test_events_id', $request->toeic_test_events_id)->first();
+        $activeEvent = ToeicTestEventModel::where('status', true)->where('toeic_test_events_id', $request->toeic_test_events_id)->lockForUpdate()->first();
 
         if (!isset($activeEvent)) return redirect()->route('client')->with('toast_warning', 'Event tidak ditemukan');
 

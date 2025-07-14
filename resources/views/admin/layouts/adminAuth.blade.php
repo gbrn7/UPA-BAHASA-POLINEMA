@@ -47,7 +47,7 @@
           </div>
           @yield('content')
           <div class="auth-footer text-center text-secondary mt-2">
-            <span>Copyright ©{{date('Y')}}, UPA POLINEMA</span>
+            <span>Copyright ©{{date('Y')}} UPA POLINEMA</span>
           </div>
         </div>
       </div>
