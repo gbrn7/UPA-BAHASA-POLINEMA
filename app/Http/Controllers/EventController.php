@@ -111,7 +111,8 @@ class EventController extends Controller
             'wa_group_link' => 'nullable',
         ]);
 
-        $oldEvent = ToeicTestEventModel::where('toeic_test_events_id', $toeic_test_events_id)->first();
+        DB::beginTransaction();
+        $oldEvent = ToeicTestEventModel::where('toeic_test_events_id', $toeic_test_events_id)->lockForUpdate()->withCount('registers')->first();
 
         try {
             $registerStart = Carbon::parse(explode(' - ', $request->registration_range)[0])->startOfDay();
@@ -131,15 +132,17 @@ class EventController extends Controller
                 'register_end' => $registerEnd,
                 'execution' => $execution,
                 'quota' => $request->quota,
-                'remaining_quota' => ($request->quota) - (($oldEvent->quota) - ($oldEvent->remaining_quota)),
+                'remaining_quota' => ($request->quota - $oldEvent->registers_count),
                 'wa_group_link' => isset($request->wa_group_link) ? $request->wa_group_link : null,
                 'status' => $request->status,
                 'created_by' => auth()->user()->user_id,
                 'updated_by' => auth()->user()->user_id
             ]);
+            DB::commit();
 
             return redirect()->route('admin.data.event')->with('toast_success', 'Event Berhasil Diedit');
         } catch (\Throwable $th) {
+            DB::rollBack();
             return redirect()->route('admin.data.event')->with('toast_warning', 'Internal Server Error');
         }
     }
@@ -236,7 +239,7 @@ class EventController extends Controller
                 ->withErrors($validator->messages()->all());
         }
 
-        $event = ToeicTestEventModel::find($toeic_test_events_id);
+        $event = ToeicTestEventModel::lockForUpdate()->find($toeic_test_events_id);
 
         if (!isset($event)) return back()->with('toast_warning', 'Event tidak ditemukan')->withInput();
 
@@ -260,9 +263,6 @@ class EventController extends Controller
 
         try {
             DB::beginTransaction();
-            $event->update([
-                'remaining_quota' => ($event->remaining_quota - 1),
-            ]);
             //Ktp rename file
             $ktp = $request->ktp_img;
             $imageName = $event->toeic_test_events_id . '_' . Str::random(12) . '.' . $ktp->getClientOriginalExtension();
@@ -291,6 +291,10 @@ class EventController extends Controller
 
             $newRegistration = ToeicTestRegistrationsModel::create($newRegistration);
 
+            $event->update([
+                'remaining_quota' => ($event->remaining_quota - 1),
+            ]);
+
             DB::commit();
 
             if ($event->status == 1) {
@@ -309,6 +313,8 @@ class EventController extends Controller
 
             return redirect()->route('admin.data.detail.registers', $toeic_test_events_id)->with('toast_success', 'Pendaftaran test bahasa inggris TOEIC ' . $newRegistration->name . ' berhasil');
         } catch (\Throwable $th) {
+            DB::rollback();
+
             return back()->withInput()->with('toast_error', 'Internal Server Error');
         }
     }
@@ -445,6 +451,7 @@ class EventController extends Controller
 
             return redirect()->route('admin.data.detail.registers', $toeic_test_events_id)->with('toast_success', 'Pengeditan pendaftaran test bahasa inggris TOEIC ' . $request->name . ' berhasil');
         } catch (\Throwable $th) {
+            DB::rollBack();
             return back()->withInput()->with('toast_error', 'Internal Server Error');
         }
     }

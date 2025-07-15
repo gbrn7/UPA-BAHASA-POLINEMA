@@ -64,7 +64,7 @@ class CourseRegisterController extends Controller
                 ->withErrors($validator->messages()->all());
         }
 
-        $schedule = CourseEventScheduleModel::find($CourseEventScheduleId);
+        $schedule = CourseEventScheduleModel::lockForUpdate()->find($CourseEventScheduleId);
 
         if (!isset($schedule)) return back()->with('toast_warning', 'Jadwal tidak ditemukan')->withInput();
 
@@ -90,9 +90,6 @@ class CourseRegisterController extends Controller
 
         try {
             DB::beginTransaction();
-            $schedule->update([
-                'remaining_quota' => ($schedule->remaining_quota - 1),
-            ]);
 
             //Ktp rename file
             $ktpOrPassport = $request->ktp_or_passport_img;
@@ -102,6 +99,10 @@ class CourseRegisterController extends Controller
 
 
             $newRegistration = CourseEventRegistrationModel::create($newRegistration);
+
+            $schedule->update([
+                'remaining_quota' => ($schedule->remaining_quota - 1),
+            ]);
 
             DB::commit();
 
@@ -122,6 +123,8 @@ class CourseRegisterController extends Controller
 
             return redirect()->route('admin.data-course.data-schedule.data-registers.index', [$schedule->course_events_id, $schedule->course_event_schedule_id])->with('toast_success', 'Pendaftaran Kursus berhasil');
         } catch (\Throwable $th) {
+            DB::rollBack();
+
             return back()->withInput()->with('toast_error', 'Internal Server Error');
         }
     }
@@ -172,7 +175,7 @@ class CourseRegisterController extends Controller
                 ->withErrors($validator->messages()->all());
         }
 
-        $registration = CourseEventRegistrationModel::find($CourseEventRegistrationsId);
+        $registration = CourseEventRegistrationModel::lockForUpdate()->find($CourseEventRegistrationsId);
         if (!isset($registration)) return back()->with('toast_warning', 'Register tidak ditemukan')->withInput();
 
         $schedule = CourseEventScheduleModel::find($CourseEventScheduleId);
@@ -211,6 +214,8 @@ class CourseRegisterController extends Controller
 
             return redirect()->route('admin.data-course.data-schedule.data-registers.index', [$schedule->course_events_id, $schedule->course_event_schedule_id])->with('toast_success', 'Pendaftaran Kursus berhasil');
         } catch (\Throwable $th) {
+            DB::rollBack();
+
             return back()->withInput()->with('toast_error', 'Internal Server Error');
         }
     }

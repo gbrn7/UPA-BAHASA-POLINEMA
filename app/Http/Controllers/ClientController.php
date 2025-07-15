@@ -395,6 +395,8 @@ class ClientController extends Controller
                 return back()->withSuccess('Pendaftaran test bahasa inggris TOEIC ' . $newRegistration->name . ' berhasil');
             }
         } catch (\Throwable $th) {
+            DB::rollback();
+
             return back()->withInput()->withErrors('Internal Server Error');
         }
     }
@@ -429,7 +431,7 @@ class ClientController extends Controller
                 ->withErrors($validator->messages()->all());
         }
 
-        $schedule = CourseEventScheduleModel::where('status', true)->where('course_event_schedule_id', $request->course)->first();
+        $schedule = CourseEventScheduleModel::where('status', true)->where('course_event_schedule_id', $request->course)->lockForUpdate()->first();
 
         if (!isset($schedule)) return back()->with('toast_warning', 'Jadwal tidak ditemukan')->withInput();
 
@@ -483,6 +485,8 @@ class ClientController extends Controller
                 }
             }
         } catch (\Throwable $th) {
+            DB::rollback();
+
             return back()->withInput()->withErrors('Internal Server Error');
         }
     }

@@ -8,6 +8,7 @@ use App\Models\CourseEventModel;
 use App\Models\CourseEventScheduleModel;
 use App\Models\CourseTypeModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 
 class CourseEventScheduleController extends Controller
@@ -92,12 +93,13 @@ class CourseEventScheduleController extends Controller
 
 
         try {
-            $oldSchedule = CourseEventScheduleModel::where('course_event_schedule_id', $courseEventScheduleId)->first();
+            DB::beginTransaction();
+            $oldSchedule = CourseEventScheduleModel::where('course_event_schedule_id', $courseEventScheduleId)->withCount('courseEventsRegisters')->lockForUpdate()->first();
 
             $oldSchedule->update([
                 'course_type_id' => $request->course_type_id,
                 'quota' => $request->quota,
-                'remaining_quota' => ($request->quota) - (($oldSchedule->quota) - ($oldSchedule->remaining_quota)),
+                'remaining_quota' => ($request->quota - $oldSchedule->course_events_registers_count),
                 'time_start' => $request->time_start,
                 'time_end' => $request->time_end,
                 'status' => $request->status,
@@ -105,9 +107,12 @@ class CourseEventScheduleController extends Controller
                 'created_by' => auth()->user()->user_id,
                 'updated_by' => auth()->user()->user_id
             ]);
+            DB::commit();
 
             return redirect()->route('admin.data-course.data-schedule.index', $oldSchedule->course_events_id)->with('toast_success', 'Data jadwal berhasil di perbarui');
         } catch (\Throwable $th) {
+            DB::rollBack();
+
             return redirect()->route('admin.data-course.data-schedule.index', $courseEventId)->with('toast_warning', 'Internal server error');
         }
     }

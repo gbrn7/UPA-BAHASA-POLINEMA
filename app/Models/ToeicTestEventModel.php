@@ -16,7 +16,7 @@ class ToeicTestEventModel extends Model
     protected $fillable = ([
         'register_start',
         'register_end',
-        'execution', 
+        'execution',
         'quota',
         'remaining_quota',
         'status',
@@ -25,4 +25,9 @@ class ToeicTestEventModel extends Model
         'updated_by',
         'deleted_by',
     ]);
+
+    public function registers()
+    {
+        return $this->hasMany(ToeicTestRegistrationsModel::class, 'toeic_test_events_id', 'toeic_test_events_id');
+    }
 }
