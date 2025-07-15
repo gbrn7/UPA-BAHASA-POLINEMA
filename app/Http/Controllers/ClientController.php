@@ -84,10 +84,8 @@ class ClientController extends Controller
             if ($dateNow->greaterThan($registerEnd)) {
                 $courseEvent->update(['status' => false]);
             } else {
-                if ($dateNow->between($registerStart, $registerEnd)) {
-                    $activeEvents['activeCourseEvent'] = $courseEvent->course_event_schedules_count ? $courseEvent : null;
-                } else {
-                    $activeEvents['activeCourseEvent'] = null;
+                if ($dateNow->between($registerStart, $registerEnd) && $courseEvent->course_event_schedules_count > 0) {
+                    $activeEvents['activeCourseEvent'] =  $courseEvent;
                 }
             }
         }

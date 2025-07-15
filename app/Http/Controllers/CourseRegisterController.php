@@ -233,12 +233,13 @@ class CourseRegisterController extends Controller
             $register = CourseEventRegistrationModel::find($request->course_event_registrations_id);
             if (!isset($register)) return back()->with('toast_warning', 'Pendaftar tidak ditemukan')->withInput();
 
+            $schedule = CourseEventScheduleModel::lockForUpdate()->find($register->course_event_schedule_id);
+            if (!isset($schedule)) return back()->with('toast_warning', 'Jadwal tidak ditemukan')->withInput();
+
             $register->delete([
                 'deleted_by' => auth()->user()->user_id
             ]);
 
-            $schedule = CourseEventScheduleModel::find($register->course_event_schedule_id);
-            if (!isset($schedule)) return back()->with('toast_warning', 'Jadwal tidak ditemukan')->withInput();
 
             $schedule->update([
                 'remaining_quota' => ($schedule->remaining_quota + 1),
@@ -248,6 +249,8 @@ class CourseRegisterController extends Controller
 
             return redirect()->route('admin.data-course.data-schedule.data-registers.index', [$schedule->course_events_id, $schedule->course_event_schedule_id, $register->course_event_registrations_id])->with('toast_success', 'Data pendaftaran berhasil dihapus');
         } catch (\Throwable $th) {
+            DB::rollBack();
+
             return redirect()->route('admin.data.detail.registers', $request->toeic_test_events_id)->with('toast_error', 'Gagal menghapus data pendaftaran');
         }
     }

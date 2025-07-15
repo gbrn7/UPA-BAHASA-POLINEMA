@@ -468,11 +468,15 @@ class EventController extends Controller
             DB::beginTransaction();
 
             $register = ToeicTestRegistrationsModel::find($request->toeic_test_registrations_id);
+            if (!isset($register)) return back()->with('toast_warning', 'Pendaftar tidak ditemukan')->withInput();
+
+            $event = ToeicTestEventModel::lockForUpdate()->find($register->toeic_test_events_id);
+            if (!isset($event)) return back()->with('toast_warning', 'Batch tidak ditemukan')->withInput();
+
             $register->delete([
                 'deleted_by' => auth()->user()->user_id
             ]);
 
-            $event = ToeicTestEventModel::find($register->toeic_test_events_id);
             $event->update([
                 'remaining_quota' => ($event->remaining_quota + 1),
             ]);
@@ -481,6 +485,7 @@ class EventController extends Controller
 
             return redirect()->route('admin.data.detail.registers', $request->toeic_test_events_id)->with('toast_success', 'Pendaftar Berhasil Dihapus');
         } catch (\Throwable $th) {
+            DB::rollBack();
 
             return redirect()->route('admin.data.detail.registers', $request->toeic_test_events_id)->with('toast_error', 'Gagal menghapus data pendaftaran');
         }
