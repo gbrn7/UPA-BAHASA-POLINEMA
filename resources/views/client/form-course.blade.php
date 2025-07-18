@@ -63,8 +63,6 @@
             <table id="example" class="table mt-3 table-hover" style="width: 100%">
               <thead>
                 <tr>
-                  <th class="text-secondary batch">
-                    @lang('client.announcement_section.language_course.detail_course_table_content.num')</th>
                   <th class="text-secondary registration-date">
                     @lang('client.announcement_section.language_course.detail_course_table_content.course_type')</th>
                   </th>
@@ -88,8 +86,8 @@
               </thead>
               <tbody id="tableBody">
                 @foreach ($activeEvent->courseEventSchedules as $activeSchedule)
+                @if ($activeSchedule->status == true)
                 <tr>
-                  <td>{{$loop->iteration}}</td>
                   <td>{{$activeSchedule->courseType->name}}</td>
                   <td>{{$activeSchedule->quota}}</td>
                   <td>{{$activeSchedule->remaining_quota}}</td>
@@ -97,8 +95,8 @@
                   <td>{{date("H:i", strtotime($activeSchedule->time_start))}} - {{date("H:i",
                     strtotime($activeSchedule->time_end))}}</td>
                   <td>{{$activeSchedule->information}}</td>
-
                 </tr>
+                @endif
                 @endforeach
               </tbody>
             </table>
@@ -134,11 +132,14 @@
               <select required name="course" class="form-select">
                 <option value="">@lang('form.course.placeholder')</option>
                 @foreach ($activeEvent->courseEventSchedules as $activeSchedule)
+                @if ($activeSchedule->status == true)
                 <option value="{{$activeSchedule->course_event_schedule_id}}"
                   @selected(old('course')===$activeSchedule->
                   course_event_schedule_id)>{{$activeSchedule->courseType->name}} - {{$activeSchedule->day_name}}
                   - ({{date("H:i", strtotime($activeSchedule->time_start))}} - {{date("H:i",
-                  strtotime($activeSchedule->time_end))}}) </option>
+                  strtotime($activeSchedule->time_end))}})
+                </option>
+                @endif
                 @endforeach
               </select>
             </div>

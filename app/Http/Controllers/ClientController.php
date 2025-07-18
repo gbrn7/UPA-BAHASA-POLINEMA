@@ -396,6 +396,8 @@ class ClientController extends Controller
             DB::rollback();
 
             return back()->withInput()->withErrors('Internal Server Error');
+        } finally {
+            DB::disconnect(); // cegah koneksi tetap terbuka
         }
     }
 
@@ -486,6 +488,8 @@ class ClientController extends Controller
             DB::rollback();
 
             return back()->withInput()->withErrors('Internal Server Error');
+        } finally {
+            DB::disconnect(); // cegah koneksi tetap terbuka
         }
     }
 
