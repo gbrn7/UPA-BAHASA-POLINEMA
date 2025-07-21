@@ -255,11 +255,11 @@ class EventController extends Controller
         $newRegistration['created_by'] = auth()->user()->user_id;
         $newRegistration['updated_by'] = auth()->user()->user_id;
 
-        $checkEmail = ToeicTestRegistrationsModel::where('toeic_test_events_id', $event->toeic_test_events_id)
-            ->where('email', $newRegistration['email'])
+        $checkNim = ToeicTestRegistrationsModel::where('toeic_test_events_id', $event->toeic_test_events_id)
+            ->where('nim', $newRegistration['nim'])
             ->first();
 
-        if (isset($checkEmail)) return back()->with('toast_warning', 'Email sudah didaftarkan')->withInput();
+        if (isset($checkNim)) return back()->with('toast_warning', 'Nim sudah didaftarkan')->withInput();
 
         try {
             DB::beginTransaction();
@@ -396,12 +396,12 @@ class EventController extends Controller
 
         $newRegistration['updated_by'] = auth()->user()->user_id;
 
-        $checkEmail = ToeicTestRegistrationsModel::where('toeic_test_events_id', $event->toeic_test_events_id)
+        $checkNim = ToeicTestRegistrationsModel::where('toeic_test_events_id', $event->toeic_test_events_id)
             ->where('toeic_test_registrations_id', '<>', $toeic_test_registrations_id)
-            ->where('email', $newRegistration['email'])
+            ->where('nim', $newRegistration['nim'])
             ->first();
 
-        if (isset($checkEmail)) return back()->with('toast_warning', 'Email sudah didaftarkan')->withInput();
+        if (isset($checkNim)) return back()->with('toast_warning', 'Nim sudah didaftarkan')->withInput();
 
         try {
             DB::beginTransaction();

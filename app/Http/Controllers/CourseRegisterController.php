@@ -82,11 +82,11 @@ class CourseRegisterController extends Controller
         $newRegistration['created_by'] = auth()->user()->user_id;
         $newRegistration['updated_by'] = auth()->user()->user_id;
 
-        $checkEmail = CourseEventRegistrationModel::where('course_event_schedule_id', $schedule->course_event_schedule_id)
-            ->where('email', $newRegistration['email'])
+        $checkPhoneNum = CourseEventRegistrationModel::where('course_event_schedule_id', $schedule->course_event_schedule_id)
+            ->where('phone_num', $newRegistration['phone_num'])
             ->first();
 
-        if (isset($checkEmail)) return back()->with('toast_warning', 'Email sudah didaftarkan')->withInput();
+        if (isset($checkPhoneNum)) return back()->with('toast_warning', 'Pengguna dengan no HP ' . $newRegistration['phone_num'] . ' sudah didaftarkan')->withInput();
 
         try {
             DB::beginTransaction();
@@ -121,7 +121,7 @@ class CourseRegisterController extends Controller
                 }
             }
 
-            return redirect()->route('admin.data-course.data-schedule.data-registers.index', [$schedule->course_events_id, $schedule->course_event_schedule_id])->with('toast_success', 'Pendaftaran Kursus berhasil');
+            return redirect()->route('admin.data-course.data-schedule.data-registers.index', [$schedule->course_events_id, $schedule->course_event_schedule_id])->with('toast_success', 'Pendaftaran kursus berhasil');
         } catch (\Throwable $th) {
             DB::rollBack();
 
@@ -150,12 +150,12 @@ class CourseRegisterController extends Controller
     public function update(Request $request, string $CourseEventId, string $CourseEventScheduleId, string $CourseEventRegistrationsId)
     {
         $validation = [
-            'name' => 'nullable|string|max:255',
-            'email' => 'nullable|email',
-            'phone_num' => 'nullable|string',
-            'goal' => 'nullable|string',
-            'experience' => 'nullable|string',
-            'address' => 'nullable',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'phone_num' => 'required|string',
+            'goal' => 'required|string',
+            'experience' => 'required|string',
+            'address' => 'required',
             'ktp_or_passport_img' => 'nullable|mimes:png,jpg,jpeg|max:1024',
         ];
 
@@ -186,12 +186,12 @@ class CourseRegisterController extends Controller
 
         $newData['updated_by'] = auth()->user()->user_id;
 
-        $checkEmail = CourseEventRegistrationModel::where('course_event_schedule_id', $schedule->course_event_schedule_id)
+        $checkPhoneNum = CourseEventRegistrationModel::where('course_event_schedule_id', $schedule->course_event_schedule_id)
             ->where('course_event_registrations_id', '<>', $CourseEventRegistrationsId)
-            ->where('email', $newData['email'])
+            ->where('phone_num', $newData['phone_num'])
             ->first();
 
-        if (isset($checkEmail)) return back()->with('toast_warning', 'Email sudah didaftarkan')->withInput();
+        if (isset($checkPhoneNum)) return back()->with('toast_warning', 'No HP ' . $newData['phone_num'] . ' sudah didaftarkan')->withInput();
 
         try {
             DB::beginTransaction();
@@ -212,7 +212,7 @@ class CourseRegisterController extends Controller
 
             DB::commit();
 
-            return redirect()->route('admin.data-course.data-schedule.data-registers.index', [$schedule->course_events_id, $schedule->course_event_schedule_id])->with('toast_success', 'Pendaftaran Kursus berhasil');
+            return redirect()->route('admin.data-course.data-schedule.data-registers.index', [$schedule->course_events_id, $schedule->course_event_schedule_id])->with('toast_success', 'Edit data pendaftar berhasil');
         } catch (\Throwable $th) {
             DB::rollBack();
 

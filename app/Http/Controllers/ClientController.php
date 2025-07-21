@@ -338,11 +338,11 @@ class ClientController extends Controller
         if (!isset($departement)) return back()->withInput()->withErrors('Jurusan tidak ditemukan');
         $newRegistration['departement'] = $departement->name;
 
-        $checkEmail = ToeicTestRegistrationsModel::where('toeic_test_events_id', $activeEvent->toeic_test_events_id)
-            ->where('email', $newRegistration['email'])
+        $checkNim = ToeicTestRegistrationsModel::where('toeic_test_events_id', $activeEvent->toeic_test_events_id)
+            ->where('nim', $newRegistration['nim'])
             ->first();
 
-        if (isset($checkEmail)) return back()->withInput()->withErrors('Pendaftaran anda sudah terdaftar pada test TOEIC batch ini');
+        if (isset($checkNim)) return back()->withInput()->withErrors('Pendaftaran anda sudah terdaftar pada test TOEIC batch ini');
 
         try {
             DB::beginTransaction();
@@ -446,11 +446,11 @@ class ClientController extends Controller
         $newRegistration = $request->except('_token');
         $newRegistration['course_event_schedule_id'] = $schedule->course_event_schedule_id;
 
-        $checkEmail = CourseEventRegistrationModel::where('course_event_schedule_id', $schedule->course_event_schedule_id)
-            ->where('email', $newRegistration['email'])
+        $checkPhoneNum = CourseEventRegistrationModel::where('course_event_schedule_id', $schedule->course_event_schedule_id)
+            ->where('phone_num', $newRegistration['phone_num'])
             ->first();
 
-        if (isset($checkEmail)) return back()->with('toast_warning', 'Email sudah didaftarkan')->withInput();
+        if (isset($checkPhoneNum)) return back()->withInput()->withErrors('Pendaftaran anda sudah terdaftar pada kursus ini');
 
         try {
             DB::beginTransaction();
