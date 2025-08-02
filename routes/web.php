@@ -12,7 +12,9 @@ use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MailSettingController;
+use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +36,18 @@ Route::get('/language-course-form-register', [ClientController::class, 'language
 Route::get('/get-program-study', [ClientController::class, 'getProgramStudy'])->name('client.getProgramStudy');
 Route::post('/english-test-form-register', [ClientController::class, 'saveToeicTestRegistration'])->name('client.form.saveToeicTestRegistration');
 Route::post('/language-course-form-register', [ClientController::class, 'saveCourseEventRegistration'])->name('client.form.saveCourseEventRegistration');
+
+Route::post('/attachments', function () {
+  request()->validate([
+    'attachment' => ['required', 'file'],
+  ]);
+
+  $path = request()->file('attachment')->store('trix-attachments', 'public');
+
+  return [
+    'file_url' => Storage::disk('public')->url($path),
+  ];
+})->middleware(['auth'])->name('attachments.store');
 
 Route::group(['prefix' => 'admin'], function () {
   Route::get('/sign-in', [AuthController::class, 'index'])->name('admin.signIn');
@@ -116,6 +130,8 @@ Route::group(['prefix' => 'admin'], function () {
       Route::delete('/', [ContentController::class, 'deleteContent'])->name('admin.data.content.destroy');
     });
 
+
+
     Route::group(['prefix' => 'data-course-type'], function () {
       Route::get('/', [CourseTypeController::class, 'index'])->name('admin.data.courseType');
       Route::post('/create-courseType', [CourseTypeController::class, 'storeCourseType'])->name('admin.data.courseType.storeCourseType');
@@ -149,6 +165,9 @@ Route::group(['prefix' => 'admin'], function () {
 
       Route::get('data-schedule/{courseEventScheduleId}/data-registers/exportExcel', [CourseRegisterController::class, 'exportCourseRegister'])->name('admin.data.detail.registers.exportCourseRegister');
     });
+
+    Route::resource('data-news', NewsController::class)->except('destroy');
+    Route::delete('/data-news/delete', [NewsController::class, 'destroy'])->name('data-news.destroy');
   });
 
 

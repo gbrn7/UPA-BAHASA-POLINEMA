@@ -44,9 +44,12 @@
   {{-- Date Picker js --}}
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
+  <!-- Scripts -->
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="@if(session()->get('mode') === 'darkMode') dark @endif">
+  <x-rich-text::styles />
   {{-- Sweet alert --}}
   @include('sweetalert::alert')
 

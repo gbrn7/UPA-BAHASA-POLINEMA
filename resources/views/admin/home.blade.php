@@ -101,6 +101,21 @@
           </div>
         </div>
       </a>
+      <a href={{route('data-news.index')}} class="card-dashboard text-decoration-none">
+        <div class="card h-100">
+          <div class="card-body row justify-content-between align-items-center">
+            <div class="card-body-content col-9">
+              <h3 class="card-title">Data Berita</h3>
+              <p class="card-text text-secondary fw-normal">Fitur ini digunakan untuk mengolah data berita seperti
+                menambah, memperbarui, atau menghapus data berita
+              </p>
+            </div>
+            <div class="col-2 col-sm-3 d-flex justify-content-center img-menu">
+              <i class="ri-news-line"></i>
+            </div>
+          </div>
+        </div>
+      </a>
       <a href={{route('admin.edit.email.notif.setting')}} class="card-dashboard text-decoration-none">
         <div class="card h-100">
           <div class="card-body row justify-content-between align-items-center">

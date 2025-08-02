@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\MailSetting;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -40,5 +41,9 @@ class AppServiceProvider extends ServiceProvider
                 Config::set('mail', $data);
             }
         }
+
+        Relation::enforceMorphMap([
+            'post' => \App\Models\News::class,
+        ]);
     }
 }

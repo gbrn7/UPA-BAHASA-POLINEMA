@@ -45,6 +45,11 @@
           class="text-decoration-none p-3 rounded rounded-2 d-flex align-items-baseline"><i
             class="ri-earth-line me-2"></i>Data Tipe Kursus</a>
       </li>
+      <li class="rounded {{Request::segment(2) === 'data-news' ? 'active' : ''}} rounded-2">
+        <a href={{route('data-news.index')}}
+          class="text-decoration-none p-3 rounded rounded-2 d-flex align-items-baseline"><i
+            class="ri-news-line me-2"></i>Data Berita</a>
+      </li>
     </ul>
   </div>
 </div>
