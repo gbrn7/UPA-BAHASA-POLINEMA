@@ -19,9 +19,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css"
     integrity="sha512-OQDNdI5rpnZ0BRhhJc+btbbtnxaj+LdQFeh0V9/igiEPDiWE2fG+ZsXl0JEH+bjXKPJ3zcXqNyP4/F/NegVdZg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <!-- Scripts -->
-  @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
