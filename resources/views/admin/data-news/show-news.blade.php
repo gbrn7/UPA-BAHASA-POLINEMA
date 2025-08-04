@@ -15,43 +15,34 @@
     </ol>
   </nav>
 </div>
-<div class="content-box mt-3 rounded rounded-2 bg-white">
-  <div class="content rounded rounded-2 border border-1 p-3">
-    <div class="btn-wrapper mt-2">
-      {{-- Error Alert --}}
-      @if ($errors->any())
-      <div class="alert alert-danger">
-        <ul>
-          @foreach ($errors->all() as $error)
-          <li>{{$error}}</li>
-          @endforeach
-        </ul>
-      </div>
-      @endif
-    </div>
 
-    <form action={{route('data-news.update', $news->news_id)}} class="form" method="POST" enctype="multipart/form-data">
-      @method('PUT')
-      @csrf
-      <div class="mb-3">
-        <label class="form-label">Judul</label>
-        <input disabled type="text" name="title" value="{{$news->title}}" class="form-control"
-          placeholder="Masukkan judul" />
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Thumbnail</label>
-        <div class="img-wrapper" style="max-width: 500px;">
-          <img class="img-fluid" src="{{asset('storage/news_thumbnail/'.$news->thumbnail)}}">
-        </div>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">Konten</label>
-        <div class="p-2 border rounded">
-          {!! $news->content !!}
-        </div>
-      </div>
-    </form>
+<div class="content-box mt-3 rounded rounded-2 bg-white">
+  @empty($news)
+  <div class="alert alert-danger alert-dismissible">
+    <h5><i class="icon fas fa-ban"></i> Kesalahan!</h5>
+    Data yang Anda cari tidak ditemukan.
   </div>
+  @else
+  <table class="table table-bordered table-striped table-hover table-sm">
+    <tr>
+      <th>Judul</th>
+      <td>{{ $news->title }}</td>
+    </tr>
+    <tr>
+      <th>Thumbnail </th>
+      <td>
+        <div class="img-wrapper">
+          <img src="{{asset('storage/news_thumbnail/'.$news->thumbnail)}}" alt="thumbnail"
+            class="img-fluid register-data-img">
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <th>Konten</th>
+      <td> {!! $news->content !!}</td>
+    </tr>
+  </table>
+  @endempty
 </div>
 
 <script>

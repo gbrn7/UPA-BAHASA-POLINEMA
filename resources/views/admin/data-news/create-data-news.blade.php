@@ -45,7 +45,7 @@
         <label class="form-label">Konten</label>
         <x-trix-input id="content" name="content" :value="old('content')" autocomplete="off" />
       </div>
-      <div class=" mb-3">
+      <div class="mb-5">
         <button type="submit" class="btn btn-success submit-btn fw-medium">
           Simpan
         </button>

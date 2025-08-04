@@ -11,6 +11,7 @@ use App\Models\CourseEventScheduleModel;
 use App\Models\DepartementModel;
 use App\Models\ToeicTestEventModel;
 use App\Models\ImageModel;
+use App\Models\News;
 use App\Models\ProdyModel;
 use App\Models\ToeicTestRegistrationsModel;
 use App\Models\User;
@@ -29,6 +30,8 @@ class ClientController extends Controller
         if ($request->lang) App::setlocale($request->lang);
 
         $admin = User::first();
+
+        $news = News::latest()->limit(3)->get();
 
         $gallery = ImageModel::where('type', 'gallery')->orderBy('image_id', 'desc')->get();
 
@@ -97,7 +100,8 @@ class ClientController extends Controller
                 'adminPhoneNum' => $admin->phone_num,
                 'gallery' => count($gallery) > 0 ? $gallery : null,
                 'programs' => count($programs) > 0 ? $programs : null,
-                'profile' => isset($profile) ? $profile : null
+                'profile' => isset($profile) ? $profile : null,
+                'news' => count($news) > 0 ? $news : null
             ]
         );
     }
@@ -510,5 +514,25 @@ class ClientController extends Controller
         $prody  = ProdyModel::where('departement_id', $departementId)->get();
 
         return response()->json(['data' => $prody]);
+    }
+
+    public function news(Request $request)
+    {
+        if ($request->lang) App::setlocale($request->lang);
+
+        $news = News::Latest()->paginate(6);
+
+        return view('client.news', ['news' => $news]);
+    }
+
+    public function newsDetail(Request $request, string $ID)
+    {
+        if ($request->lang) App::setlocale($request->lang);
+
+        $news = News::find($ID);
+
+        if (!$news) return back()->with('toast_error', 'Internal Server Error');
+
+        return view('client.news-detail', ['news' => $news]);
     }
 }

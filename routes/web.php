@@ -30,6 +30,8 @@ use Illuminate\Support\Facades\Storage;
 
 Route::get('/', [ClientController::class, 'index'])->name('client');
 Route::get('/sop', [ClientController::class, 'sop'])->name('client.sop');
+Route::get('/news', [ClientController::class, 'news'])->name('client.news');
+Route::get('/news-detail/{id}', [ClientController::class, 'newsDetail'])->name('client.news.detail');
 Route::get('/structure-organization', [ClientController::class, 'structureOrganization'])->name('client.structureOrganization');
 Route::get('/english-test-form-register', [ClientController::class, 'englishTestFormView'])->name('client.english.test.form');
 Route::get('/language-course-form-register', [ClientController::class, 'languageCourseFormView'])->name('client.language.course.form');

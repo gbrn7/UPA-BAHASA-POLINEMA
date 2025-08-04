@@ -6,6 +6,7 @@ return [
     "announcement" => "Pengumuman",
     "program" => "Program Kami",
     "gallery" => "Galeri kami",
+    "news" => "Berita",
     "structure" => "Struktur Organisasi",
     "sop" => "SOP",
   ],
@@ -46,6 +47,10 @@ return [
       ],
     ],
     "register_btn" => "Daftar Sekarang"
+  ],
+  "news_section" => [
+    "head_title" => "Informasi",
+    "title_content" => "Berita",
   ],
   "program_section" => [
     "head_title" => "Program",

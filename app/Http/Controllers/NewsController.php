@@ -165,7 +165,7 @@ class NewsController extends Controller
 
             if (!$news) return back()->with('toast_error', 'Data Tidak Ditemukan!');
 
-            $news->delete();
+            $news->delete(['deleted_by' => auth()->user()->user_id]);
 
             return redirect()
                 ->route('data-news.index')

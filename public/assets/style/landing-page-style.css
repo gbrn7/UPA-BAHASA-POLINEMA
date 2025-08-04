@@ -26,8 +26,25 @@ body{
   height: 100%;
 }
 
+img {
+  width: 100%;
+  height: auto;
+}
+
+.one-page {
+  min-height: 70dvh;
+}
+
 .navbar{
   background-color: #F8F8F8;
+}
+
+.news-wrapper .news-wrap .text-wrapper .title{
+font-size: 18px;
+}
+
+.news-wrapper .news-wrap .text-wrapper .date{
+font-size: 14px;
 }
 
 .home .head-title{
@@ -61,6 +78,14 @@ body{
 
   .sop .title {
     font-size: 12px;
+  }
+
+  .news-wrapper .news-wrap .text-wrapper .title{
+  font-size: 16px;
+  }
+
+  .news-wrapper .news-wrap .text-wrapper .date{
+  font-size: 12px;
   }
 }
 
@@ -105,6 +130,7 @@ body{
 .content-desc{
   font-size: 12px;
 }
+
 
 footer {
   padding-bottom: 40px;

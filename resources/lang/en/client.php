@@ -6,6 +6,7 @@ return [
     "announcement" => "Announcement",
     "program" => "Our Program",
     "gallery" => "Our Gallery",
+    "news" => "News",
     "structure" => "Organization Structure",
     "sop" => "SOP",
   ],
@@ -46,6 +47,10 @@ return [
       ],
     ],
     "register_btn" => "Register Now"
+  ],
+  "news_section" => [
+    "head_title" => "Information",
+    "title_content" => "News",
   ],
   "program_section" => [
     "head_title" => "Program",
