@@ -1,12 +1,6 @@
 @extends('client.base')
 
 @section('content')
-<style>
-  img {
-    width: 100%;
-    height: auto;
-  }
-</style>
 <section class="information-detail one-page" id="information-detail">
   <div class="container information-detail-wrapper">
     <div class="row">
