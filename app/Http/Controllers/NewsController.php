@@ -103,24 +103,31 @@ class NewsController extends Controller
                     ->withErrors($validator->messages()->all());
             }
 
-            $request->merge(
-                [
-                    'updated_by' => auth()->user()->user_id
-                ]
-            );
+            $newData = [];
+
+            if ($request->title) {
+                $newData['title'] = $request->title;
+            }
+
+            if ($request->content) {
+                $newData['content'] = $request->content;
+            }
+
+            $newData['updated_by'] = auth()->user()->user_id;
 
             if ($request->file('thumbnail')) {
                 $thumbnail = $request->file('thumbnail');
                 $thumbnailName = Str::random(12) . $thumbnail->getClientOriginalName();
-                $thumbnail->storeAs('public/images', $thumbnailName);
-            }
+                $thumbnail->storeAs('public/news_thumbnail', $thumbnailName);
 
+                $newData['thumbnail'] = $thumbnailName;
+            }
 
             $news = News::find($ID);
 
             if (!$news) return back()->with('toast_error', 'Data Tidak Ditemukan!');
 
-            $news->update($request->all());
+            $news->update($newData);
 
             return redirect()
                 ->route('data-news.index')
