@@ -15,14 +15,14 @@ class ToeicTestRegistrationSeeder extends Seeder
     {
         DB::table('t_toeic_test_registrations')->insert([
             'toeic_test_events_id' => 1,
-            'name' => 'Muhammad Rayhan Gibran',
+            'name' => 'Fajar',
             'nik' => '35071333',
-            'nim' => '2141762099',
+            'nim' => '21417323234',
             'departement' => 'Teknologi Informasi',
             'program_study' => 'D4 Sistem Informasi Bisnis',
             'semester' => '4',
-            'email' => '2141762099@gmail.com',
-            'phone_num' => '082132679938',
+            'email' => '21417323234@gmail.com',
+            'phone_num' => '21417323234',
             'ktp_img' => 'default.png',
             'ktm_img' => 'default.png',
             'surat_pernyataan_iisma' => 'default.pdf',

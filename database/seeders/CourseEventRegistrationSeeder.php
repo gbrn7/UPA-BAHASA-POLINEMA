@@ -15,10 +15,10 @@ class CourseEventRegistrationSeeder extends Seeder
     {
         DB::table('t_course_event_registrations')->insert([
             'course_event_schedule_id' => 1,
-            'name' => 'Muhammad Rayhan Gibran',
-            'email' => 'rayhan.gibran10@gmail.com',
-            'phone_num' => '082132689898',
-            'address' => 'Jl. Teuku Umar Sembujo',
+            'name' => 'rizky',
+            'email' => 'rizky@gmail.com',
+            'phone_num' => '0821323234532',
+            'address' => 'Jl. Teuku Umar',
             'ktp_or_passport_img' => 'test.png',
             'created_by' => 1,
             'updated_by' => 1,

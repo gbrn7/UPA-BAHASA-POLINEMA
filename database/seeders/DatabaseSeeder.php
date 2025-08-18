@@ -16,13 +16,13 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             ToeicTestEventsSeeder::class,
-            ToeicTestRegistrationSeeder::class,
+            // ToeicTestRegistrationSeeder::class,
             DepartementSedder::class,
             ProdySedder::class,
             CourseTypeSeeder::class,
             CourseEventSeeder::class,
             CourseEventScheduleSeeder::class,
-            CourseEventRegistrationSeeder::class,
+            // CourseEventRegistrationSeeder::class,
             ImageSeeder::class,
             ContentSeeder::class,
         ]);

@@ -18,7 +18,7 @@ class ToeicTestEventsSeeder extends Seeder
             'register_end' => now()->addMonth(1)->endOfDay(),
             'execution' => now()->addDay(40),
             'quota' => 120,
-            'remaining_quota' => 119,
+            'remaining_quota' => 120,
             'wa_group_link' => 'https://chat.whatsapp.com/LcO3slKxMsmC62XdXPMm5n',
             'status' => 0,
             'created_at' => now(),
