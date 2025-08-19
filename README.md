@@ -57,6 +57,20 @@ Pastikan environment sudah memenuhi spesifikasi berikut:
     ```
 
 8. Build asset frontend (sekali jalan untuk production atau jika ada perubahan asset):
+
     ```bash
     npm run build
+    ```
+
+9. Jalankan server lokal Laravel:
+
+    ```bash
+    php artisan serve
+    ```
+
+10. (Opsional / dapat dijalankan atau tidak) Jalankan Vite untuk asset bundling (development mode):
+
+    ```bash
+    npm run dev
+
     ```
