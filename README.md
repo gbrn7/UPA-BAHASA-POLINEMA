@@ -22,7 +22,7 @@ Pastikan environment sudah memenuhi spesifikasi berikut:
 1. Clone repository:
     ```bash
     git clone https://github.com/gbrn7/UPA-BAHASA-POLINEMA.git
-    cd nama-project
+    cd UPA-BAHASA-POLINEMA
     ```
 2. Install dependency:
     ```bash
