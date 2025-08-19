@@ -51,14 +51,12 @@ Pastikan environment sudah memenuhi spesifikasi berikut:
     ```
 
 7. Buat symbolic link untuk storage:
+
     ```bash
     php artisan storage:link
     ```
-8. Buat symbolic link untuk storage:
-    ```bash
-    php artisan storage:link
-    ```
-9. Build asset frontend (sekali jalan untuk production atau jika ada perubahan asset):
+
+8. Build asset frontend (sekali jalan untuk production atau jika ada perubahan asset):
     ```bash
     npm run build
     ```
