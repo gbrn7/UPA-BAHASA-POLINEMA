@@ -38,37 +38,39 @@ Pastikan environment sudah memenuhi spesifikasi berikut:
     cp .env.example .env
     ```
 
-5. Generate application key:
+5. Buat database mysql dengan nama 'upa_bahasa_polinema':
+
+6. Generate application key:
 
     ```bash
     php artisan key:generate
     ```
 
-6. Konfigurasi database di file .env, lalu jalankan migrasi dan seeder:
+7. Konfigurasi database di file .env, lalu jalankan migrasi dan seeder:
 
     ```bash
     php artisan migrate --seed
     ```
 
-7. Buat symbolic link untuk storage:
+8. Buat symbolic link untuk storage:
 
     ```bash
     php artisan storage:link
     ```
 
-8. Build asset frontend (sekali jalan untuk production atau jika ada perubahan asset):
+9. Build asset frontend (sekali jalan untuk production atau jika ada perubahan asset):
 
     ```bash
     npm run build
     ```
 
-9. Jalankan server lokal Laravel:
+10. Jalankan server lokal Laravel:
 
     ```bash
     php artisan serve
     ```
 
-10. (Opsional / dapat dijalankan atau tidak) Jalankan Vite untuk asset bundling (development mode):
+11. (Opsional / dapat dijalankan atau tidak) Jalankan Vite untuk asset bundling (development mode):
 
     ```bash
     npm run dev
