@@ -38,7 +38,7 @@ Pastikan environment sudah memenuhi spesifikasi berikut:
     cp .env.example .env
     ```
 
-5. Buat database mysql dengan nama 'upa_bahasa_polinema':
+5. Buat database mysql dengan nama 'upa_bahasa_polinema'
 
 6. Generate application key:
 
